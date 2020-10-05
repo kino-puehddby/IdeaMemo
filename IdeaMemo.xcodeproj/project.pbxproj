@@ -173,7 +173,6 @@
 				6E72729845E6BA441D7222C3 /* Pods-IdeaMemoTests.debug.xcconfig */,
 				225C4DC4E2845FFE22BE3BE3 /* Pods-IdeaMemoTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -188,6 +187,7 @@
 				4EA5F1FA252B3C8800DD4CB8 /* Sources */,
 				4EA5F1FB252B3C8800DD4CB8 /* Frameworks */,
 				4EA5F1FC252B3C8800DD4CB8 /* Resources */,
+				4EA5F231252B49A200DD4CB8 /* Run Script for Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -307,6 +307,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4EA5F231252B49A200DD4CB8 /* Run Script for Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script for Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		73AC837BC047CF46FB79ED31 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
