@@ -3,191 +3,260 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EA5F202252B3C8800DD4CB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F201252B3C8800DD4CB8 /* AppDelegate.swift */; };
-		4EA5F204252B3C8800DD4CB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F203252B3C8800DD4CB8 /* SceneDelegate.swift */; };
-		4EA5F206252B3C8800DD4CB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F205252B3C8800DD4CB8 /* ContentView.swift */; };
-		4EA5F208252B3C8A00DD4CB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA5F207252B3C8A00DD4CB8 /* Assets.xcassets */; };
-		4EA5F20B252B3C8A00DD4CB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA5F20A252B3C8A00DD4CB8 /* Preview Assets.xcassets */; };
-		4EA5F20E252B3C8A00DD4CB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA5F20C252B3C8A00DD4CB8 /* LaunchScreen.storyboard */; };
-		4EA5F219252B3C8A00DD4CB8 /* IdeaMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F218252B3C8A00DD4CB8 /* IdeaMemoTests.swift */; };
-		4EA5F224252B3C8A00DD4CB8 /* IdeaMemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F223252B3C8A00DD4CB8 /* IdeaMemoUITests.swift */; };
-		8533C66482DCBFC9B1DBB664 /* Pods_IdeaMemo_IdeaMemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF2F145512A3344C2456B9A /* Pods_IdeaMemo_IdeaMemoUITests.framework */; };
-		9302499DD72755DD4BDB74B9 /* Pods_IdeaMemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD152BC22ED517AD62BD4E1A /* Pods_IdeaMemoTests.framework */; };
-		BB763EE77BC78527C14E9A60 /* Pods_IdeaMemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0CC7E83A6B56B1FF99E71F /* Pods_IdeaMemo.framework */; };
+		03E444E701CA28F8D93E8E37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFF06EDE609D69C5433FE8F /* AppDelegate.swift */; };
+		1E6B2356693270B8D16B5E0F /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ED1FE5374664288D852480C6 /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		27D1D31062BD58F32EE70B2C /* IdeaMemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F1B95831695FAA57DCF05 /* IdeaMemoUITests.swift */; };
+		30994003D39C5D703DB7F2B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61BD77187C1426433F977003 /* LaunchScreen.storyboard */; };
+		326EF20E1A6C21F45AF8C925 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED1FE5374664288D852480C6 /* KeychainAccess.framework */; };
+		3CEFFD72B5F48D5995F56A91 /* IdeaMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095585C3D22A30DFF91963D6 /* IdeaMemoTests.swift */; };
+		53B215F39632783628D1A4E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE70493FBDECFCB3DF2095D /* SceneDelegate.swift */; };
+		5B1549D125A56BBE748F06A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12A647F14F324483BE4970E3 /* Assets.xcassets */; };
+		7D2CD5960C1E4948377E91F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BC8F712878C11B5D19F8E9 /* ContentView.swift */; };
+		9D7AEA595B11F9718655B4CD /* Pods_IdeaMemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74DC3E22F8D7F85E95DAC1E /* Pods_IdeaMemoTests.framework */; };
+		A45849FF25F399C3DF5BF0AA /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ED1FE5374664288D852480C6 /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0B7F7D82AD0EAA1CD80D1A6 /* Pods_IdeaMemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FE906D876FE50BED29B9BD /* Pods_IdeaMemo.framework */; };
+		D2C17F16BB368604F4F8DD3D /* Pods_IdeaMemo_IdeaMemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9308956FE75DF99B9666126D /* Pods_IdeaMemo_IdeaMemoUITests.framework */; };
+		F05D310798E9E442241C8563 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC5B48305149999B7823AD87 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4EA5F215252B3C8A00DD4CB8 /* PBXContainerItemProxy */ = {
+		3A747A128742BDF4442CD844 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4EA5F1F6252B3C8800DD4CB8 /* Project object */;
+			containerPortal = 3A5791CD6FA96286ABC9001B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4EA5F1FD252B3C8800DD4CB8;
+			remoteGlobalIDString = 63A199A3BDB8D02B08C67B00;
 			remoteInfo = IdeaMemo;
 		};
-		4EA5F220252B3C8A00DD4CB8 /* PBXContainerItemProxy */ = {
+		79B26C8B3315037D0F517C2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4EA5F1F6252B3C8800DD4CB8 /* Project object */;
+			containerPortal = 3A5791CD6FA96286ABC9001B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4EA5F1FD252B3C8800DD4CB8;
+			remoteGlobalIDString = 63A199A3BDB8D02B08C67B00;
 			remoteInfo = IdeaMemo;
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2434344312C9B3B7AC9C18C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A45849FF25F399C3DF5BF0AA /* KeychainAccess.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C973D0452D7DB2D0A42505F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1E6B2356693270B8D16B5E0F /* KeychainAccess.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		225C4DC4E2845FFE22BE3BE3 /* Pods-IdeaMemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemoTests.release.xcconfig"; path = "Target Support Files/Pods-IdeaMemoTests/Pods-IdeaMemoTests.release.xcconfig"; sourceTree = "<group>"; };
-		26317706A3821C68DB16DD4C /* Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-IdeaMemo-IdeaMemoUITests/Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		4EA5F1FE252B3C8800DD4CB8 /* IdeaMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IdeaMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EA5F201252B3C8800DD4CB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4EA5F203252B3C8800DD4CB8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4EA5F205252B3C8800DD4CB8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		4EA5F207252B3C8A00DD4CB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4EA5F20A252B3C8A00DD4CB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4EA5F20D252B3C8A00DD4CB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4EA5F20F252B3C8A00DD4CB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EA5F214252B3C8A00DD4CB8 /* IdeaMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IdeaMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EA5F218252B3C8A00DD4CB8 /* IdeaMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaMemoTests.swift; sourceTree = "<group>"; };
-		4EA5F21A252B3C8A00DD4CB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EA5F21F252B3C8A00DD4CB8 /* IdeaMemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IdeaMemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EA5F223252B3C8A00DD4CB8 /* IdeaMemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaMemoUITests.swift; sourceTree = "<group>"; };
-		4EA5F225252B3C8A00DD4CB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E72729845E6BA441D7222C3 /* Pods-IdeaMemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemoTests.debug.xcconfig"; path = "Target Support Files/Pods-IdeaMemoTests/Pods-IdeaMemoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6FF2F145512A3344C2456B9A /* Pods_IdeaMemo_IdeaMemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IdeaMemo_IdeaMemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B53B028AAA92D3671DCF6B21 /* Pods-IdeaMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo.release.xcconfig"; path = "Target Support Files/Pods-IdeaMemo/Pods-IdeaMemo.release.xcconfig"; sourceTree = "<group>"; };
-		BD152BC22ED517AD62BD4E1A /* Pods_IdeaMemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IdeaMemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD733D23E1070B39C341FD63 /* Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig"; path = "Target Support Files/Pods-IdeaMemo-IdeaMemoUITests/Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig"; sourceTree = "<group>"; };
-		ED0CC7E83A6B56B1FF99E71F /* Pods_IdeaMemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IdeaMemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9FDEB33674F97566D2C78D8 /* Pods-IdeaMemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo.debug.xcconfig"; path = "Target Support Files/Pods-IdeaMemo/Pods-IdeaMemo.debug.xcconfig"; sourceTree = "<group>"; };
+		095585C3D22A30DFF91963D6 /* IdeaMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaMemoTests.swift; sourceTree = "<group>"; };
+		12A647F14F324483BE4970E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		214ACC9A1FD50F4B49C79C8D /* Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig"; path = "Target Support Files/Pods-IdeaMemo-IdeaMemoUITests/Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		36BC8F712878C11B5D19F8E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3790CC9D18D4DF19AE709EDB /* IdeaMemoUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = IdeaMemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D560B8E9AB6A8477695DF4 /* IdeaMemoTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = IdeaMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		48EFEF1AA7A1CE8858F45884 /* Pods-IdeaMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo.release.xcconfig"; path = "Target Support Files/Pods-IdeaMemo/Pods-IdeaMemo.release.xcconfig"; sourceTree = "<group>"; };
+		6EF18DDC94E97742C537FDB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7BE70493FBDECFCB3DF2095D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7E1A9A8917F853C8840B3649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		80717D604760152E2522B2DB /* Pods-IdeaMemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemoTests.release.xcconfig"; path = "Target Support Files/Pods-IdeaMemoTests/Pods-IdeaMemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		90FE906D876FE50BED29B9BD /* Pods_IdeaMemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IdeaMemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9308956FE75DF99B9666126D /* Pods_IdeaMemo_IdeaMemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IdeaMemo_IdeaMemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94DBAC870C17D1A1D8417D0C /* Pods-IdeaMemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo.debug.xcconfig"; path = "Target Support Files/Pods-IdeaMemo/Pods-IdeaMemo.debug.xcconfig"; sourceTree = "<group>"; };
+		AB5B6402A08D0689246211B8 /* Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-IdeaMemo-IdeaMemoUITests/Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C15F1B95831695FAA57DCF05 /* IdeaMemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaMemoUITests.swift; sourceTree = "<group>"; };
+		C2FB4AB50BC5308039478880 /* IdeaMemo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = IdeaMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C45AD48F886803ABF5B62224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CC5B48305149999B7823AD87 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D64D7C0FD52C22885F111BE6 /* Pods-IdeaMemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdeaMemoTests.debug.xcconfig"; path = "Target Support Files/Pods-IdeaMemoTests/Pods-IdeaMemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D74DC3E22F8D7F85E95DAC1E /* Pods_IdeaMemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IdeaMemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCFF06EDE609D69C5433FE8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ED1FE5374664288D852480C6 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KeychainAccess.framework; sourceTree = "<group>"; };
+		FC65A938B14F2D923BBADC74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4EA5F1FB252B3C8800DD4CB8 /* Frameworks */ = {
+		80FFE843D0A4BB510B912676 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB763EE77BC78527C14E9A60 /* Pods_IdeaMemo.framework in Frameworks */,
+				326EF20E1A6C21F45AF8C925 /* KeychainAccess.framework in Frameworks */,
+				C0B7F7D82AD0EAA1CD80D1A6 /* Pods_IdeaMemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EA5F211252B3C8A00DD4CB8 /* Frameworks */ = {
+		CDE2C12239128F26B0EF1055 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9302499DD72755DD4BDB74B9 /* Pods_IdeaMemoTests.framework in Frameworks */,
+				9D7AEA595B11F9718655B4CD /* Pods_IdeaMemoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EA5F21C252B3C8A00DD4CB8 /* Frameworks */ = {
+		F2CFE4188ABEE560C99B0918 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8533C66482DCBFC9B1DBB664 /* Pods_IdeaMemo_IdeaMemoUITests.framework in Frameworks */,
+				D2C17F16BB368604F4F8DD3D /* Pods_IdeaMemo_IdeaMemoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4EA5F1F5252B3C8800DD4CB8 = {
+		15A750A39009E5300CB90392 /* IdeaMemo */ = {
 			isa = PBXGroup;
 			children = (
-				4EA5F200252B3C8800DD4CB8 /* IdeaMemo */,
-				4EA5F217252B3C8A00DD4CB8 /* IdeaMemoTests */,
-				4EA5F222252B3C8A00DD4CB8 /* IdeaMemoUITests */,
-				4EA5F1FF252B3C8800DD4CB8 /* Products */,
-				D5E35051BC789943CDFD6FD0 /* Pods */,
-				7C7B185B842C6BFCF9C62085 /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		4EA5F1FF252B3C8800DD4CB8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4EA5F1FE252B3C8800DD4CB8 /* IdeaMemo.app */,
-				4EA5F214252B3C8A00DD4CB8 /* IdeaMemoTests.xctest */,
-				4EA5F21F252B3C8A00DD4CB8 /* IdeaMemoUITests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4EA5F200252B3C8800DD4CB8 /* IdeaMemo */ = {
-			isa = PBXGroup;
-			children = (
-				4EA5F201252B3C8800DD4CB8 /* AppDelegate.swift */,
-				4EA5F203252B3C8800DD4CB8 /* SceneDelegate.swift */,
-				4EA5F205252B3C8800DD4CB8 /* ContentView.swift */,
-				4EA5F207252B3C8A00DD4CB8 /* Assets.xcassets */,
-				4EA5F20C252B3C8A00DD4CB8 /* LaunchScreen.storyboard */,
-				4EA5F20F252B3C8A00DD4CB8 /* Info.plist */,
-				4EA5F209252B3C8A00DD4CB8 /* Preview Content */,
+				DCFF06EDE609D69C5433FE8F /* AppDelegate.swift */,
+				12A647F14F324483BE4970E3 /* Assets.xcassets */,
+				36BC8F712878C11B5D19F8E9 /* ContentView.swift */,
+				C45AD48F886803ABF5B62224 /* Info.plist */,
+				61BD77187C1426433F977003 /* LaunchScreen.storyboard */,
+				7BE70493FBDECFCB3DF2095D /* SceneDelegate.swift */,
+				40CFA42B319F047AB2D1304E /* Preview Content */,
 			);
 			path = IdeaMemo;
 			sourceTree = "<group>";
 		};
-		4EA5F209252B3C8A00DD4CB8 /* Preview Content */ = {
+		2C9AE24A1CD0B41883B311C5 /* IdeaMemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				4EA5F20A252B3C8A00DD4CB8 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		4EA5F217252B3C8A00DD4CB8 /* IdeaMemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				4EA5F218252B3C8A00DD4CB8 /* IdeaMemoTests.swift */,
-				4EA5F21A252B3C8A00DD4CB8 /* Info.plist */,
+				095585C3D22A30DFF91963D6 /* IdeaMemoTests.swift */,
+				FC65A938B14F2D923BBADC74 /* Info.plist */,
 			);
 			path = IdeaMemoTests;
 			sourceTree = "<group>";
 		};
-		4EA5F222252B3C8A00DD4CB8 /* IdeaMemoUITests */ = {
+		40CFA42B319F047AB2D1304E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				4EA5F223252B3C8A00DD4CB8 /* IdeaMemoUITests.swift */,
-				4EA5F225252B3C8A00DD4CB8 /* Info.plist */,
+				CC5B48305149999B7823AD87 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6149F6745AF0A8B23D7251E7 /* IdeaMemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C15F1B95831695FAA57DCF05 /* IdeaMemoUITests.swift */,
+				6EF18DDC94E97742C537FDB2 /* Info.plist */,
 			);
 			path = IdeaMemoUITests;
 			sourceTree = "<group>";
 		};
-		7C7B185B842C6BFCF9C62085 /* Frameworks */ = {
+		61C1A32172FF6C07ADFFB63B = {
 			isa = PBXGroup;
 			children = (
-				ED0CC7E83A6B56B1FF99E71F /* Pods_IdeaMemo.framework */,
-				6FF2F145512A3344C2456B9A /* Pods_IdeaMemo_IdeaMemoUITests.framework */,
-				BD152BC22ED517AD62BD4E1A /* Pods_IdeaMemoTests.framework */,
+				15A750A39009E5300CB90392 /* IdeaMemo */,
+				2C9AE24A1CD0B41883B311C5 /* IdeaMemoTests */,
+				6149F6745AF0A8B23D7251E7 /* IdeaMemoUITests */,
+				A8B082BF310AFE1C7318E52A /* Frameworks */,
+				AC5C2A906D0941FF1177DDB4 /* Products */,
+				C9F1E44B45BBBEA60BFA9B49 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		A8B082BF310AFE1C7318E52A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EFBB505D3987D4ADB830A8F4 /* Carthage */,
+				90FE906D876FE50BED29B9BD /* Pods_IdeaMemo.framework */,
+				9308956FE75DF99B9666126D /* Pods_IdeaMemo_IdeaMemoUITests.framework */,
+				D74DC3E22F8D7F85E95DAC1E /* Pods_IdeaMemoTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D5E35051BC789943CDFD6FD0 /* Pods */ = {
+		AC5C2A906D0941FF1177DDB4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F9FDEB33674F97566D2C78D8 /* Pods-IdeaMemo.debug.xcconfig */,
-				B53B028AAA92D3671DCF6B21 /* Pods-IdeaMemo.release.xcconfig */,
-				26317706A3821C68DB16DD4C /* Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig */,
-				DD733D23E1070B39C341FD63 /* Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig */,
-				6E72729845E6BA441D7222C3 /* Pods-IdeaMemoTests.debug.xcconfig */,
-				225C4DC4E2845FFE22BE3BE3 /* Pods-IdeaMemoTests.release.xcconfig */,
+				C2FB4AB50BC5308039478880 /* IdeaMemo.app */,
+				41D560B8E9AB6A8477695DF4 /* IdeaMemoTests.xctest */,
+				3790CC9D18D4DF19AE709EDB /* IdeaMemoUITests.xctest */,
 			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9F1E44B45BBBEA60BFA9B49 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				94DBAC870C17D1A1D8417D0C /* Pods-IdeaMemo.debug.xcconfig */,
+				48EFEF1AA7A1CE8858F45884 /* Pods-IdeaMemo.release.xcconfig */,
+				AB5B6402A08D0689246211B8 /* Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig */,
+				214ACC9A1FD50F4B49C79C8D /* Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig */,
+				D64D7C0FD52C22885F111BE6 /* Pods-IdeaMemoTests.debug.xcconfig */,
+				80717D604760152E2522B2DB /* Pods-IdeaMemoTests.release.xcconfig */,
+			);
+			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DC4E7D5B53DEC44CB4957697 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				ED1FE5374664288D852480C6 /* KeychainAccess.framework */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		EFBB505D3987D4ADB830A8F4 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				DC4E7D5B53DEC44CB4957697 /* iOS */,
+			);
+			name = Carthage;
+			path = Carthage/Build;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4EA5F1FD252B3C8800DD4CB8 /* IdeaMemo */ = {
+		5350E01788241836C721CD2C /* IdeaMemoUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EA5F228252B3C8A00DD4CB8 /* Build configuration list for PBXNativeTarget "IdeaMemo" */;
+			buildConfigurationList = F7D643A888DAD9A64B708AB4 /* Build configuration list for PBXNativeTarget "IdeaMemoUITests" */;
 			buildPhases = (
-				73AC837BC047CF46FB79ED31 /* [CP] Check Pods Manifest.lock */,
-				4EA5F1FA252B3C8800DD4CB8 /* Sources */,
-				4EA5F1FB252B3C8800DD4CB8 /* Frameworks */,
-				4EA5F1FC252B3C8800DD4CB8 /* Resources */,
-				4EA5F231252B49A200DD4CB8 /* Run Script for Swiftlint */,
+				92D1DC51CC47EB96438B1A5A /* [CP] Check Pods Manifest.lock */,
+				76F2E04D3368DAAA83D943EB /* Sources */,
+				2434344312C9B3B7AC9C18C1 /* Embed Frameworks */,
+				F2CFE4188ABEE560C99B0918 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B10068C7542E3197B185E368 /* PBXTargetDependency */,
+			);
+			name = IdeaMemoUITests;
+			productName = IdeaMemoUITests;
+			productReference = 3790CC9D18D4DF19AE709EDB /* IdeaMemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		63A199A3BDB8D02B08C67B00 /* IdeaMemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF97BA20A4988124EDBE1E8F /* Build configuration list for PBXNativeTarget "IdeaMemo" */;
+			buildPhases = (
+				94DB6D33CAC1106F75B09BE6 /* [CP] Check Pods Manifest.lock */,
+				247D0ABD4DC49A1B6FA3D697 /* Sources */,
+				9A4EBD70D78A3DD09EAFCB15 /* Resources */,
+				31C3A6FD9883B3B8634D2F65 /* Carthage */,
+				80FFE843D0A4BB510B912676 /* Frameworks */,
+				E55799DF12B7A30AC6A83010 /* [CP-User] Run SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -195,181 +264,76 @@
 			);
 			name = IdeaMemo;
 			productName = IdeaMemo;
-			productReference = 4EA5F1FE252B3C8800DD4CB8 /* IdeaMemo.app */;
+			productReference = C2FB4AB50BC5308039478880 /* IdeaMemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4EA5F213252B3C8A00DD4CB8 /* IdeaMemoTests */ = {
+		95BCAC0EE92965E1E10DEF29 /* IdeaMemoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EA5F22B252B3C8A00DD4CB8 /* Build configuration list for PBXNativeTarget "IdeaMemoTests" */;
+			buildConfigurationList = F618ECBC9AF1A9990A94C750 /* Build configuration list for PBXNativeTarget "IdeaMemoTests" */;
 			buildPhases = (
-				90244B6887655B5B8598287B /* [CP] Check Pods Manifest.lock */,
-				4EA5F210252B3C8A00DD4CB8 /* Sources */,
-				4EA5F211252B3C8A00DD4CB8 /* Frameworks */,
-				4EA5F212252B3C8A00DD4CB8 /* Resources */,
+				1FE94B998CFB694DF9D79E9D /* [CP] Check Pods Manifest.lock */,
+				76AE94823AAE2A44F37C5A25 /* Sources */,
+				C973D0452D7DB2D0A42505F2 /* Embed Frameworks */,
+				CDE2C12239128F26B0EF1055 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4EA5F216252B3C8A00DD4CB8 /* PBXTargetDependency */,
+				E0EDB800D6BEB0408B09B443 /* PBXTargetDependency */,
 			);
 			name = IdeaMemoTests;
 			productName = IdeaMemoTests;
-			productReference = 4EA5F214252B3C8A00DD4CB8 /* IdeaMemoTests.xctest */;
+			productReference = 41D560B8E9AB6A8477695DF4 /* IdeaMemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4EA5F21E252B3C8A00DD4CB8 /* IdeaMemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EA5F22E252B3C8A00DD4CB8 /* Build configuration list for PBXNativeTarget "IdeaMemoUITests" */;
-			buildPhases = (
-				86444A7D24613675B01CB9AE /* [CP] Check Pods Manifest.lock */,
-				4EA5F21B252B3C8A00DD4CB8 /* Sources */,
-				4EA5F21C252B3C8A00DD4CB8 /* Frameworks */,
-				4EA5F21D252B3C8A00DD4CB8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4EA5F221252B3C8A00DD4CB8 /* PBXTargetDependency */,
-			);
-			name = IdeaMemoUITests;
-			productName = IdeaMemoUITests;
-			productReference = 4EA5F21F252B3C8A00DD4CB8 /* IdeaMemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		4EA5F1F6252B3C8800DD4CB8 /* Project object */ = {
+		3A5791CD6FA96286ABC9001B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1170;
-				LastUpgradeCheck = 1170;
-				ORGANIZATIONNAME = "Hisaya Sugita";
+				LastUpgradeCheck = 1200;
 				TargetAttributes = {
-					4EA5F1FD252B3C8800DD4CB8 = {
-						CreatedOnToolsVersion = 11.7;
-					};
-					4EA5F213252B3C8A00DD4CB8 = {
-						CreatedOnToolsVersion = 11.7;
-						TestTargetID = 4EA5F1FD252B3C8800DD4CB8;
-					};
-					4EA5F21E252B3C8A00DD4CB8 = {
-						CreatedOnToolsVersion = 11.7;
-						TestTargetID = 4EA5F1FD252B3C8800DD4CB8;
+					5350E01788241836C721CD2C = {
+						TestTargetID = 63A199A3BDB8D02B08C67B00;
 					};
 				};
 			};
-			buildConfigurationList = 4EA5F1F9252B3C8800DD4CB8 /* Build configuration list for PBXProject "IdeaMemo" */;
-			compatibilityVersion = "Xcode 9.3";
+			buildConfigurationList = 265CE146B86BD46A21707D9D /* Build configuration list for PBXProject "IdeaMemo" */;
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
-			mainGroup = 4EA5F1F5252B3C8800DD4CB8;
-			productRefGroup = 4EA5F1FF252B3C8800DD4CB8 /* Products */;
+			mainGroup = 61C1A32172FF6C07ADFFB63B;
+			productRefGroup = AC5C2A906D0941FF1177DDB4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4EA5F1FD252B3C8800DD4CB8 /* IdeaMemo */,
-				4EA5F213252B3C8A00DD4CB8 /* IdeaMemoTests */,
-				4EA5F21E252B3C8A00DD4CB8 /* IdeaMemoUITests */,
+				63A199A3BDB8D02B08C67B00 /* IdeaMemo */,
+				95BCAC0EE92965E1E10DEF29 /* IdeaMemoTests */,
+				5350E01788241836C721CD2C /* IdeaMemoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4EA5F1FC252B3C8800DD4CB8 /* Resources */ = {
+		9A4EBD70D78A3DD09EAFCB15 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EA5F20E252B3C8A00DD4CB8 /* LaunchScreen.storyboard in Resources */,
-				4EA5F20B252B3C8A00DD4CB8 /* Preview Assets.xcassets in Resources */,
-				4EA5F208252B3C8A00DD4CB8 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EA5F212252B3C8A00DD4CB8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EA5F21D252B3C8A00DD4CB8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				5B1549D125A56BBE748F06A1 /* Assets.xcassets in Resources */,
+				30994003D39C5D703DB7F2B8 /* LaunchScreen.storyboard in Resources */,
+				F05D310798E9E442241C8563 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4EA5F231252B49A200DD4CB8 /* Run Script for Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script for Swiftlint";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		73AC837BC047CF46FB79ED31 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IdeaMemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		86444A7D24613675B01CB9AE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IdeaMemo-IdeaMemoUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		90244B6887655B5B8598287B /* [CP] Check Pods Manifest.lock */ = {
+		1FE94B998CFB694DF9D79E9D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -391,55 +355,125 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		31C3A6FD9883B3B8634D2F65 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KeychainAccess.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "carthage copy-frameworks\n";
+		};
+		92D1DC51CC47EB96438B1A5A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IdeaMemo-IdeaMemoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		94DB6D33CAC1106F75B09BE6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IdeaMemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E55799DF12B7A30AC6A83010 /* [CP-User] Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] Run SwiftLint";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4EA5F1FA252B3C8800DD4CB8 /* Sources */ = {
+		247D0ABD4DC49A1B6FA3D697 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EA5F202252B3C8800DD4CB8 /* AppDelegate.swift in Sources */,
-				4EA5F204252B3C8800DD4CB8 /* SceneDelegate.swift in Sources */,
-				4EA5F206252B3C8800DD4CB8 /* ContentView.swift in Sources */,
+				03E444E701CA28F8D93E8E37 /* AppDelegate.swift in Sources */,
+				7D2CD5960C1E4948377E91F2 /* ContentView.swift in Sources */,
+				53B215F39632783628D1A4E4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EA5F210252B3C8A00DD4CB8 /* Sources */ = {
+		76AE94823AAE2A44F37C5A25 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EA5F219252B3C8A00DD4CB8 /* IdeaMemoTests.swift in Sources */,
+				3CEFFD72B5F48D5995F56A91 /* IdeaMemoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EA5F21B252B3C8A00DD4CB8 /* Sources */ = {
+		76F2E04D3368DAAA83D943EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EA5F224252B3C8A00DD4CB8 /* IdeaMemoUITests.swift in Sources */,
+				27D1D31062BD58F32EE70B2C /* IdeaMemoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4EA5F216252B3C8A00DD4CB8 /* PBXTargetDependency */ = {
+		B10068C7542E3197B185E368 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4EA5F1FD252B3C8800DD4CB8 /* IdeaMemo */;
-			targetProxy = 4EA5F215252B3C8A00DD4CB8 /* PBXContainerItemProxy */;
+			target = 63A199A3BDB8D02B08C67B00 /* IdeaMemo */;
+			targetProxy = 79B26C8B3315037D0F517C2A /* PBXContainerItemProxy */;
 		};
-		4EA5F221252B3C8A00DD4CB8 /* PBXTargetDependency */ = {
+		E0EDB800D6BEB0408B09B443 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4EA5F1FD252B3C8800DD4CB8 /* IdeaMemo */;
-			targetProxy = 4EA5F220252B3C8A00DD4CB8 /* PBXContainerItemProxy */;
+			target = 63A199A3BDB8D02B08C67B00 /* IdeaMemo */;
+			targetProxy = 3A747A128742BDF4442CD844 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4EA5F20C252B3C8A00DD4CB8 /* LaunchScreen.storyboard */ = {
+		61BD77187C1426433F977003 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4EA5F20D252B3C8A00DD4CB8 /* Base */,
+				7E1A9A8917F853C8840B3649 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -447,67 +481,29 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4EA5F226252B3C8A00DD4CB8 /* Debug */ = {
+		0E3BD9C80A390D69C1FA53F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80717D604760152E2522B2DB /* Pods-IdeaMemoTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				INFOPLIST_FILE = IdeaMemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemoTests";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IdeaMemo.app/IdeaMemo";
 			};
-			name = Debug;
+			name = Release;
 		};
-		4EA5F227252B3C8A00DD4CB8 /* Release */ = {
+		233797AB5972AB79C6918EC5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -533,6 +529,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -551,111 +548,25 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		4EA5F229252B3C8A00DD4CB8 /* Debug */ = {
+		365FF99CD0BCFFEAD32CBDC1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F9FDEB33674F97566D2C78D8 /* Pods-IdeaMemo.debug.xcconfig */;
+			baseConfigurationReference = 214ACC9A1FD50F4B49C79C8D /* Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"IdeaMemo/Preview Content\"";
-				DEVELOPMENT_TEAM = P55D3D23US;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = IdeaMemo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemo";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4EA5F22A252B3C8A00DD4CB8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B53B028AAA92D3671DCF6B21 /* Pods-IdeaMemo.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"IdeaMemo/Preview Content\"";
-				DEVELOPMENT_TEAM = P55D3D23US;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = IdeaMemo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemo";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		4EA5F22C252B3C8A00DD4CB8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E72729845E6BA441D7222C3 /* Pods-IdeaMemoTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P55D3D23US;
-				INFOPLIST_FILE = IdeaMemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
-				LD_RUNPATH_SEARCH_PATHS = (
+				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemoTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IdeaMemo.app/IdeaMemo";
-			};
-			name = Debug;
-		};
-		4EA5F22D252B3C8A00DD4CB8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 225C4DC4E2845FFE22BE3BE3 /* Pods-IdeaMemoTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P55D3D23US;
-				INFOPLIST_FILE = IdeaMemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemoTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IdeaMemo.app/IdeaMemo";
-			};
-			name = Release;
-		};
-		4EA5F22F252B3C8A00DD4CB8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26317706A3821C68DB16DD4C /* Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P55D3D23US;
 				INFOPLIST_FILE = IdeaMemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -663,20 +574,85 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemoUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = IdeaMemo;
 			};
+			name = Release;
+		};
+		37896133D7FA005468702A41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D64D7C0FD52C22885F111BE6 /* Pods-IdeaMemoTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = IdeaMemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemoTests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IdeaMemo.app/IdeaMemo";
+			};
 			name = Debug;
 		};
-		4EA5F230252B3C8A00DD4CB8 /* Release */ = {
+		4E1E9BD7CC440D0FCFAD9FE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD733D23E1070B39C341FD63 /* Pods-IdeaMemo-IdeaMemoUITests.release.xcconfig */;
+			baseConfigurationReference = 94DBAC870C17D1A1D8417D0C /* Pods-IdeaMemo.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P55D3D23US;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = IdeaMemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemo";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4FC2E99D45E9528B51162A82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48EFEF1AA7A1CE8858F45884 /* Pods-IdeaMemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = IdeaMemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemo";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7788F162115DAE22CA3A3BDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB5B6402A08D0689246211B8 /* Pods-IdeaMemo-IdeaMemoUITests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = IdeaMemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -684,53 +660,114 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kino-puehddby.IdeaMemoUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = IdeaMemo;
 			};
-			name = Release;
+			name = Debug;
+		};
+		8886E7619ECDBEBC5E308441 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4EA5F1F9252B3C8800DD4CB8 /* Build configuration list for PBXProject "IdeaMemo" */ = {
+		265CE146B86BD46A21707D9D /* Build configuration list for PBXProject "IdeaMemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EA5F226252B3C8A00DD4CB8 /* Debug */,
-				4EA5F227252B3C8A00DD4CB8 /* Release */,
+				8886E7619ECDBEBC5E308441 /* Debug */,
+				233797AB5972AB79C6918EC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		4EA5F228252B3C8A00DD4CB8 /* Build configuration list for PBXNativeTarget "IdeaMemo" */ = {
+		DF97BA20A4988124EDBE1E8F /* Build configuration list for PBXNativeTarget "IdeaMemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EA5F229252B3C8A00DD4CB8 /* Debug */,
-				4EA5F22A252B3C8A00DD4CB8 /* Release */,
+				4E1E9BD7CC440D0FCFAD9FE3 /* Debug */,
+				4FC2E99D45E9528B51162A82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		4EA5F22B252B3C8A00DD4CB8 /* Build configuration list for PBXNativeTarget "IdeaMemoTests" */ = {
+		F618ECBC9AF1A9990A94C750 /* Build configuration list for PBXNativeTarget "IdeaMemoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EA5F22C252B3C8A00DD4CB8 /* Debug */,
-				4EA5F22D252B3C8A00DD4CB8 /* Release */,
+				37896133D7FA005468702A41 /* Debug */,
+				0E3BD9C80A390D69C1FA53F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		4EA5F22E252B3C8A00DD4CB8 /* Build configuration list for PBXNativeTarget "IdeaMemoUITests" */ = {
+		F7D643A888DAD9A64B708AB4 /* Build configuration list for PBXNativeTarget "IdeaMemoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EA5F22F252B3C8A00DD4CB8 /* Debug */,
-				4EA5F230252B3C8A00DD4CB8 /* Release */,
+				7788F162115DAE22CA3A3BDB /* Debug */,
+				365FF99CD0BCFFEAD32CBDC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 4EA5F1F6252B3C8800DD4CB8 /* Project object */;
+	rootObject = 3A5791CD6FA96286ABC9001B /* Project object */;
 }

@@ -1,0 +1,24 @@
+name: IdeaMemo
+options:
+  bundleIdPrefix: com.kino-puehddby
+  postGenCommand: pod install
+targets:
+  IdeaMemo:
+    type: application
+    platform: iOS
+    sources:
+      - path: IdeaMemo
+    dependencies:
+      - carthage: KeychainAccess
+  IdeaMemoTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: IdeaMemoTests
+    dependencies:
+      - target: IdeaMemo
+  IdeaMemoUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: IdeaMemoUITests
+    dependencies:
+      - target: IdeaMemo
