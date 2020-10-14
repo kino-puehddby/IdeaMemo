@@ -10,15 +10,22 @@ targets:
       - path: IdeaMemo
     dependencies:
       - carthage: KeychainAccess
+    settings:
+      base: # Projectの全Build Configurationsに反映される設定
+        INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
   IdeaMemoTests:
     type: bundle.unit-test
     platform: iOS
     sources: IdeaMemoTests
     dependencies:
       - target: IdeaMemo
+    settings:
+      INFOPLIST_FILE: IdeaMemoTests/Supporting Files/Info.plist
   IdeaMemoUITests:
     type: bundle.ui-testing
     platform: iOS
     sources: IdeaMemoUITests
     dependencies:
       - target: IdeaMemo
+    settings:
+      INFOPLIST_FILE: IdeaMemoUITests/Supporting Files/Info.plist
