@@ -12,8 +12,7 @@ disabled_rules:
   - force_try
   - type_body_length
   - type_name
-  - valid_docs
-  - variable_name
+  - identifier_name
 
 opt_in_rules:
   - explicit_init
