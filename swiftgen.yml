@@ -1,0 +1,20 @@
+ib:
+  inputs:
+    - IdeaMemo/Storyboard
+  outputs:
+    - templateName: scenes-swift5
+      output: IdeaMemo/Resources/Generated/StoryboardScenes.swift
+    - templateName: segues-swift5
+      output: IdeaMemo/Resources/Generated/StoryboardSegues.swift
+xcassets:
+  inputs:
+    - IdeaMemo/Resources/Assets.xcassets
+  outputs:
+    - templateName: swift5
+      output: IdeaMemo/Resources/Generated/Assets.swift
+strings:
+    inputs:
+      - IdeaMemo/Resources/Strings/Localizable.strings
+    outputs:
+      - templateName: structured-swift5
+        output: IdeaMemo/Resources/Generated/LocalizableStrings.swift
