@@ -124,20 +124,19 @@ targets:
         - IdeaMemoTests
         - IdeaMemoUITests
     preBuildScripts: # target生成前にコマンド実行（Build Phase）
-      - script: |
-            "$PODS_ROOT/SwiftGen/bin/swiftgen"
-        name: Generate Resources from SwiftGen
+      - script: $PODS_ROOT/SwiftGen/bin/swiftgen
+        name: Run SwiftGen
         outputFiles:
-          - $(SRCROOT)/IdeaMemo/Resources/Generated/LocalizableStrings.swift
-          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardScenes.swift
-          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardSegues.swift
-          - $(SRCROOT)/IdeaMemo/Resources/Generated/Assets.swift
+          - $SRCROOT/IdeaMemo/Resources/Generated/LocalizableStrings.swift
+          - $SRCROOT/IdeaMemo/Resources/Generated/StoryboardScenes.swift
+          - $SRCROOT/IdeaMemo/Resources/Generated/StoryboardSegues.swift
+          - $SRCROOT/IdeaMemo/Resources/Generated/Assets.swift
       - script: |
-            if which swiftlint >/dev/null; then
-              swiftlint
-            else
-              echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
-            fi
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
         name: Run SwiftLint
     postGenCommand: # target生成後にコマンド実行
       - script: pod install
