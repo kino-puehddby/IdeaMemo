@@ -1,18 +1,151 @@
 name: IdeaMemo
+
+############
+# Schemes
+############
+
+configs:
+  Debug: debug
+  Develop: develop
+  Staging: staging
+  Release: release
+configFiles: # Build Configurationごとの設定
+  Debug: configs/debug.xcconfig
+  Develop: configs/develop.xcconfig
+  Staging: configs/stg.xcconfig
+  Release: configs/release.xcconfig
+schemes:
+  IdeaMemo:
+    build:
+      targets:
+        IdeaMemo: all
+        IdeaMemoTests: [test]
+        IdeaMemoUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Develop
+    analyze:
+      config: Develop
+    archive:
+      config: Develop
+  IdeaMemo-staging:
+    build:
+      targets:
+        IdeaMemo: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Staging
+    analyze:
+      config: Debug
+    archive:
+      config: Staging
+  IdeaMemo-release:
+    build:
+      targets:
+        IdeaMemo: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+############
+# Options
+############
+
 options:
   bundleIdPrefix: com.kino-puehddby
-  postGenCommand: pod install
+  # preBuildScripts: # project生成前にコマンド実行
+  postGenCommand: # project生成後にコマンド実行
+    - script: pod install
+      name: Install Pods
+  developmentLanguage: ja
+  deploymentTarget:
+    iOS: 13.0
+  xcodeVersion: 12.0.1
+
+############
+# Settings
+############
+
+settings: # Project全体の設定
+  base: # Projectの全Build Configurationsに反映される設定
+    SWIFT_VERSION: 5.0
+
+############
+# Targets
+############
+
 targets:
   IdeaMemo:
     type: application
     platform: iOS
     sources:
-      - path: IdeaMemo
-    dependencies:
-      - carthage: KeychainAccess
+      - IdeaMemo
+
+      ############
+      # SwiftGen
+      ############
+      - path: "IdeaMemo/Storyboard"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/View"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Resources/Generated/StoryboardScenes.swift"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Generated/StoryboardSegues.swift"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Generated/LocalizableStrings.swift"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Assets.xcassets"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Strings/Localizable.strings"
+        optional: true
+        createIntermediateGroups: true
+
+    scheme:
+      testTargets:
+        - IdeaMemoTests
+        - IdeaMemoUITests
+    preBuildScripts: # target生成前にコマンド実行（Build Phase）
+      - script: |
+            "$PODS_ROOT/SwiftGen/bin/swiftgen"
+        name: Generate Resources from SwiftGen
+        outputFiles:
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/LocalizableStrings.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardScenes.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardSegues.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/Assets.swift
+      - script: |
+            if which swiftlint >/dev/null; then
+              swiftlint
+            else
+              echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+            fi
+        name: Run SwiftLint
+    postGenCommand: # target生成後にコマンド実行
+      - script: pod install
     settings:
       base: # Projectの全Build Configurationsに反映される設定
         INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
+    dependencies:
+      - carthage: KeychainAccess
   IdeaMemoTests:
     type: bundle.unit-test
     platform: iOS
