@@ -4,8 +4,8 @@
 .DS_Store
 
 # config files
-configs/*
-!configs/.keep
+Configurations/*
+!Configurations/.keep
 
 # CocoaPod
 Pods/*

@@ -5,60 +5,93 @@ name: IdeaMemo
 ############
 
 configs:
-  Debug: debug
-  Develop: develop
-  Staging: staging
-  Release: release
+  Develop Debug: debug
+  Staging Debug: debug
+  Production Debug: debug
+  Develop Release: release
+  Staging Release: release
+  Production Release: release
 configFiles: # Build Configurationごとの設定
-  Debug: configs/debug.xcconfig
-  Develop: configs/develop.xcconfig
-  Staging: configs/stg.xcconfig
-  Release: configs/release.xcconfig
+  Develop Debug: Configurations/developdebug.xcconfig
+  Staging Debug: Configurations/stagingdebug.xcconfig
+  Production Debug: Configurations/productiondebug.xcconfig
+  Develop Release: Configurations/develop.xcconfig
+  Staging Release: Configurations/staging.xcconfig
+  Production Release: Configurations/production.xcconfig
 schemes:
   IdeaMemo:
     build:
       targets:
         IdeaMemo: all
-        IdeaMemoTests: [test]
-        IdeaMemoUITests: [test]
     run:
-      config: Debug
+      config: Develop Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
     test:
-      config: Debug
+      config: Develop Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
+      gatherCoverageData: true
+      targets:
+        - name: IdeaMemoTests
+        - name: IdeaMemoUITests
     profile:
-      config: Develop
+      config: Develop Release
     analyze:
-      config: Develop
+      config: Develop Debug
     archive:
-      config: Develop
+      config: Develop Release
+      revealArchiveInOrganizer: false
   IdeaMemo-staging:
     build:
       targets:
         IdeaMemo: all
     run:
-      config: Debug
+      config: Staging Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
     test:
-      config: Debug
+      config: Staging Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
+      gatherCoverageData: true
+      targets:
+        - name: IdeaMemoTests
+        - name: IdeaMemoUITests
     profile:
-      config: Staging
+      config: Staging Release
     analyze:
-      config: Debug
+      config: Staging Debug
     archive:
-      config: Staging
+      config: Staging Release
+      revealArchiveInOrganizer: true
   IdeaMemo-release:
     build:
       targets:
         IdeaMemo: all
     run:
-      config: Debug
+      config: Production Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: NO
     test:
-      config: Debug
+      config: Production Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+      gatherCoverageData: true
+      targets:
+        - name: IdeaMemoTests
+        - name: IdeaMemoUITests
     profile:
-      config: Release
+      config: Production Release
     analyze:
-      config: Debug
+      config: Production Debug
     archive:
-      config: Release
+      config: Production Release
+      revealArchiveInOrganizer: true
 
 ############
 # Options
@@ -70,18 +103,30 @@ options:
   postGenCommand: # project生成後にコマンド実行
     - script: pod install
       name: Install Pods
+    - script: echo Hello!
+      name: echo
   developmentLanguage: ja
   deploymentTarget:
     iOS: 13.0
   xcodeVersion: 12.0.1
+  generateEmptyDirectories: true
+  groupOrdering:
+    - order: [IdeaMemo, Configurations]
+    - pattern: "IdeaMemo"
+      order: [Storyboard, ViewController, View, Redux, Resources, Supporting Files, Preview Content]
+    - pattern: "Redux"
+      order: [Store, State, Action, Reducer, Middleware]
 
 ############
 # Settings
 ############
 
 settings: # Project全体の設定
-  base: # Projectの全Build Configurationsに反映される設定
+  base:
+    IPHONEOS_DEPLOYMENT_TARGET: 13.0
+    TARGETED_DEVICE_FAMILY: 1,2
     SWIFT_VERSION: 5.0
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
 
 ############
 # Targets
@@ -91,6 +136,7 @@ targets:
   IdeaMemo:
     type: application
     platform: iOS
+    deploymentTarget: 13.0
     sources:
       - IdeaMemo
 
@@ -101,6 +147,24 @@ targets:
         createIntermediateGroups: true
         type: group
       - path: "IdeaMemo/View"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/ViewController"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Action"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Middleware"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Reducer"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/State"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Store"
         createIntermediateGroups: true
         type: group
       - path: "IdeaMemo/Resources/Generated/StoryboardScenes.swift"
@@ -124,13 +188,14 @@ targets:
         - IdeaMemoTests
         - IdeaMemoUITests
     preBuildScripts: # target生成前にコマンド実行（Build Phase）
-      - script: $PODS_ROOT/SwiftGen/bin/swiftgen
+      - script: ${PODS_ROOT}/SwiftGen/bin/swiftgen
         name: Run SwiftGen
         outputFiles:
-          - $SRCROOT/IdeaMemo/Resources/Generated/LocalizableStrings.swift
-          - $SRCROOT/IdeaMemo/Resources/Generated/StoryboardScenes.swift
-          - $SRCROOT/IdeaMemo/Resources/Generated/StoryboardSegues.swift
-          - $SRCROOT/IdeaMemo/Resources/Generated/Assets.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/LocalizableStrings.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardScenes.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardSegues.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/Assets.swift
+    postCompileScripts:
       - script: |
           if which swiftlint >/dev/null; then
             swiftlint
@@ -138,11 +203,10 @@ targets:
             echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
           fi
         name: Run SwiftLint
-    postGenCommand: # target生成後にコマンド実行
-      - script: pod install
     settings:
       base: # Projectの全Build Configurationsに反映される設定
         INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
+        MARKETING_VERSION: 1.0
     dependencies:
       - carthage: KeychainAccess
   IdeaMemoTests:
