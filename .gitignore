@@ -3,10 +3,6 @@
 ### OSX ###
 .DS_Store
 
-# config files
-Configurations/*
-!Configurations/.keep
-
 # CocoaPod
 Pods/*
 
