@@ -1,0 +1,227 @@
+name: IdeaMemo
+
+############
+# Schemes
+############
+
+configs:
+  Develop Debug: debug
+  Staging Debug: debug
+  Production Debug: debug
+  Develop Release: release
+  Staging Release: release
+  Production Release: release
+configFiles: # Build Configurationごとの設定
+  Develop Debug: Configurations/developdebug.xcconfig
+  Staging Debug: Configurations/stagingdebug.xcconfig
+  Production Debug: Configurations/productiondebug.xcconfig
+  Develop Release: Configurations/develop.xcconfig
+  Staging Release: Configurations/staging.xcconfig
+  Production Release: Configurations/production.xcconfig
+schemes:
+  IdeaMemo:
+    build:
+      targets:
+        IdeaMemo: all
+    run:
+      config: Develop Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
+    test:
+      config: Develop Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
+      gatherCoverageData: true
+      targets:
+        - name: IdeaMemoTests
+        - name: IdeaMemoUITests
+    profile:
+      config: Develop Release
+    analyze:
+      config: Develop Debug
+    archive:
+      config: Develop Release
+      revealArchiveInOrganizer: false
+  IdeaMemo-staging:
+    build:
+      targets:
+        IdeaMemo: all
+    run:
+      config: Staging Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
+    test:
+      config: Staging Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+        -FIRDebugDisabled: YES
+      gatherCoverageData: true
+      targets:
+        - name: IdeaMemoTests
+        - name: IdeaMemoUITests
+    profile:
+      config: Staging Release
+    analyze:
+      config: Staging Debug
+    archive:
+      config: Staging Release
+      revealArchiveInOrganizer: true
+  IdeaMemo-release:
+    build:
+      targets:
+        IdeaMemo: all
+    run:
+      config: Production Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: NO
+    test:
+      config: Production Debug
+      commandLineArguments:
+        -FIRAnalyticsDebugEnabled: YES
+      gatherCoverageData: true
+      targets:
+        - name: IdeaMemoTests
+        - name: IdeaMemoUITests
+    profile:
+      config: Production Release
+    analyze:
+      config: Production Debug
+    archive:
+      config: Production Release
+      revealArchiveInOrganizer: true
+
+############
+# Options
+############
+
+options:
+  bundleIdPrefix: com.kino-puehddby
+  # preBuildScripts: # project生成前にコマンド実行
+  postGenCommand: # project生成後にコマンド実行
+    - script: pod install
+      name: Install Pods
+    - script: echo Hello!
+      name: echo
+  developmentLanguage: ja
+  deploymentTarget:
+    iOS: 13.0
+  xcodeVersion: 12.0.1
+  generateEmptyDirectories: true
+  groupOrdering:
+    - order: [IdeaMemo, Configurations]
+    - pattern: "IdeaMemo"
+      order: [Storyboard, ViewController, View, Redux, Resources, Supporting Files, Preview Content]
+    - pattern: "Redux"
+      order: [Store, State, Action, Reducer, Middleware]
+
+############
+# Settings
+############
+
+settings: # Project全体の設定
+  base:
+    IPHONEOS_DEPLOYMENT_TARGET: 13.0
+    TARGETED_DEVICE_FAMILY: 1,2
+    SWIFT_VERSION: 5.0
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+
+############
+# Targets
+############
+
+targets:
+  IdeaMemo:
+    type: application
+    platform: iOS
+    deploymentTarget: 13.0
+    sources:
+      - IdeaMemo
+
+      ############
+      # SwiftGen
+      ############
+      - path: "IdeaMemo/Storyboard"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/View"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/ViewController"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Action"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Middleware"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Reducer"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/State"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Redux/Store"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Resources/Generated/StoryboardScenes.swift"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Generated/StoryboardSegues.swift"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Generated/LocalizableStrings.swift"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Assets.xcassets"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Strings/Localizable.strings"
+        optional: true
+        createIntermediateGroups: true
+
+    scheme:
+      testTargets:
+        - IdeaMemoTests
+        - IdeaMemoUITests
+    preBuildScripts: # target生成前にコマンド実行（Build Phase）
+      - script: ${PODS_ROOT}/SwiftGen/bin/swiftgen
+        name: Run SwiftGen
+        outputFiles:
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/LocalizableStrings.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardScenes.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardSegues.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/Assets.swift
+    postCompileScripts:
+      - script: |
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+        name: Run SwiftLint
+    settings:
+      base: # Projectの全Build Configurationsに反映される設定
+        INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
+        MARKETING_VERSION: 1.0
+    dependencies:
+      - carthage: KeychainAccess
+  IdeaMemoTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: IdeaMemoTests
+    dependencies:
+      - target: IdeaMemo
+    settings:
+      INFOPLIST_FILE: IdeaMemoTests/Supporting Files/Info.plist
+  IdeaMemoUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: IdeaMemoUITests
+    dependencies:
+      - target: IdeaMemo
+    settings:
+      INFOPLIST_FILE: IdeaMemoUITests/Supporting Files/Info.plist
