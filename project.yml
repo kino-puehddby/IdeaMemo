@@ -36,7 +36,11 @@ schemes:
       gatherCoverageData: true
       targets:
         - name: IdeaMemoTests
+          parallelizable: true
+          randomExecutionOrder: true
         - name: IdeaMemoUITests
+          parallelizable: true
+          randomExecutionOrder: true
     profile:
       config: Develop Release
     analyze:
@@ -61,7 +65,11 @@ schemes:
       gatherCoverageData: true
       targets:
         - name: IdeaMemoTests
+          parallelizable: true
+          randomExecutionOrder: true
         - name: IdeaMemoUITests
+          parallelizable: true
+          randomExecutionOrder: true
     profile:
       config: Staging Release
     analyze:
@@ -84,7 +92,11 @@ schemes:
       gatherCoverageData: true
       targets:
         - name: IdeaMemoTests
+          parallelizable: true
+          randomExecutionOrder: true
         - name: IdeaMemoUITests
+          parallelizable: true
+          randomExecutionOrder: true
     profile:
       config: Production Release
     analyze:
