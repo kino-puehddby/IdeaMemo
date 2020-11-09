@@ -1,0 +1,127 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+fastlane_version "2.131.0"
+
+default_platform :ios
+
+before_all do |lane|
+  ensure_git_branch(branch: '(feature/*|develop|release|\d{0,4}\.\d{0,4}\.\d{0,4})')
+  ensure_git_status_clean
+  git_pull
+  if lane == :release
+    ENV["ENV"] = 'production'
+  elsif lane == :beta
+    ENV["ENV"] = 'staging'
+  else
+    ENV["ENV"] = 'development'
+  end
+end
+
+platform :ios do
+  lane :install_lib do
+    cocoapods(try_repo_update_on_error: true)
+    carthage(
+      command: "bootstrap",
+      use_binaries: true,
+      platform: "iOS",
+      cache_builds: true
+    )
+  end
+
+  desc "Runs all tests"
+  lane :test do
+    install_lib
+    scan
+  end
+
+  desc "Generate ipa for develop"
+  lane :build_for_develop do
+
+    gym(
+        scheme: "IdeaMemo",
+        configuration: "Develop Release",
+        workspace: "IdeaMemo.xcworkspace",
+        export_method: "development",
+        output_directory: "./build/ipa/develop/" + Time.new.strftime("%Y/%m/%d/%H%M"),
+        output_name: "IdeaMemo.ipa",
+        clean: true,
+        include_bitcode: false,
+        export_options: {
+            uploadBitcode: false,
+            uploadSymbols: true,
+            compileBitcode: false
+        }
+    )
+
+    slack(
+      message: "IdeaMemoのipaファイルをビルドしました（develop）。",
+      success: true,
+      slack_url: ENV['SLACK_WEBHOOK']
+    )
+  end
+
+  desc "Generate ipa for staging"
+  lane :build_for_staging do
+
+    gym(
+        scheme: "IdeaMemo-staging",
+        configuration: "Staging Release",
+        workspace: "IdeaMemo.xcworkspace",
+        export_method: "ad-hoc",
+        output_directory: "./build/ipa/staging/" + Time.new.strftime("%Y/%m/%d/%H%M"),
+        output_name: "IdeaMemo.ipa",
+        clean: true,
+        include_bitcode: false,
+        export_options: {
+            uploadBitcode: false,
+            uploadSymbols: true,
+            compileBitcode: false
+        }
+    )
+
+    slack(
+      message: "IdeaMemoのipaファイルをビルドしました（staging）。",
+      success: true,
+      slack_url: ENV['SLACK_WEBHOOK']
+    )
+  end
+
+  desc "Generate ipa for production"
+  lane :build_for_production do
+
+    gym(
+        scheme: "IdeaMemo-release",
+        configuration: "Production Release",
+        workspace: "IdeaMemo.xcworkspace",
+        export_method: "app-store",
+        output_directory: "./build/ipa/production/" + Time.new.strftime("%Y/%m/%d/%H%M"),
+        output_name: "IdeaMemo.ipa",
+        clean: true,
+        include_bitcode: false,
+        export_options: {
+            uploadBitcode: false,
+            uploadSymbols: true,
+            compileBitcode: false
+        }
+    )
+
+    slack(
+      message: "IdeaMemoのipaファイルをビルドしました（production）。",
+      success: true,
+      slack_url: ENV['SLACK_WEBHOOK_URL']
+    )
+  end
+end

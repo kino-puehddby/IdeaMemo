@@ -1,12 +1,15 @@
 # Created by http://www.gitignore.io
 
-### OSX ###
+# OSX
 .DS_Store
+
+# env files
+.env
 
 # CocoaPod
 Pods/*
 
-### Xcode ###
+# Xcode
 build
 *.xcodeproj
 *.xcodeproj/*

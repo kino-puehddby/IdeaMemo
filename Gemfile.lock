@@ -288,6 +288,7 @@ DEPENDENCIES
   danger
   danger-lgtm
   danger-swiftlint
+  dotenv
   fastlane
 
 RUBY VERSION
