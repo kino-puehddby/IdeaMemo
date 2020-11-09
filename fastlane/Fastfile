@@ -35,7 +35,7 @@ platform :ios do
     cocoapods(try_repo_update_on_error: true)
     carthage(
       command: "bootstrap",
-      use_binaries: true,
+      use_binaries: false,
       platform: "iOS",
       cache_builds: true
     )
