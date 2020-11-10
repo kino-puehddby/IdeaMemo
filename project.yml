@@ -139,7 +139,6 @@ settings: # Project全体の設定
     TARGETED_DEVICE_FAMILY: 1,2
     SWIFT_VERSION: 5.0
     CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
-    DEVELOPMENT_TEAM: P55D3D23US
 
 ############
 # Targets
@@ -150,6 +149,8 @@ targets:
     type: application
     platform: iOS
     deploymentTarget: 13.0
+    attributes:
+      DevelopmentTeam: P55D3D23US
     sources:
       - IdeaMemo
 
