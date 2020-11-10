@@ -161,7 +161,7 @@ after_all do |lane|
 end
 
 error do |lane, exception, options|
-  error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.to_s}\n\n#{exception.backtrace}"
+  error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.message}"
 
   if options[:debug]
     puts error_message
