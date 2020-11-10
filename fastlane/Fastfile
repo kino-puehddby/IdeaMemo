@@ -18,8 +18,6 @@ fastlane_version '2.131.0'
 default_platform :ios
 
 before_all do |lane|
-  ensure_git_status_clean
-  git_pull
   if lane == :release
     ENV['ENV'] = 'production'
   elsif lane == :beta
@@ -27,6 +25,9 @@ before_all do |lane|
   else
     ENV['ENV'] = 'development'
   end
+
+  ensure_git_status_clean
+  git_pull
 end
 
 platform :ios do
@@ -150,21 +151,17 @@ platform :ios do
   end
 end
 
-after_all do |lane, options|
+after_all do |lane|
   slack(
     success: true,
-    message: "scheme: #{options[:scheme]}, environment: #{ENV['ENV']}",
-    slack_url: ENV['SLACK_WEBHOOK_URL'],
-    attachment_properties: {
-      fields: [{
-        title: "#{lane} has suceeded."
-      }]
-    }
+    message: "`#{lane}` has suceeded.\nenvironment: `#{ENV['ENV']}`",
+    icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
+    slack_url: ENV['SLACK_WEBHOOK_URL']
   )
 end
 
 error do |lane, exception, options|
-  error_message = "#{lane}:#{exception.to_s} :\n#{exception.backtrace}"
+  error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.to_s}\n\n#{exception.backtrace}"
 
   if options[:debug]
     puts error_message
@@ -172,6 +169,7 @@ error do |lane, exception, options|
     slack(
       success: false,
       message: error_message,
+      icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
       slack_url: ENV['SLACK_WEBHOOK_URL']
     )
   end
