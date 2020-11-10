@@ -18,8 +18,8 @@ fastlane_version '2.131.0'
 default_platform :ios
 
 before_all do |lane|
-  # ensure_git_status_clean
-  # git_pull
+  ensure_git_status_clean
+  git_pull
   if lane == :release
     ENV['ENV'] = 'production'
   elsif lane == :beta
@@ -45,26 +45,30 @@ platform :ios do
     install_lib
 
     if ENV['ENV'] == 'production'
-      scan(scheme: "IdeaMemo-release")
+      scan(scheme: 'IdeaMemo-release')
     elsif ENV['ENV'] == 'staging'
-      scan(scheme: "IdeaMemo-staging")
+      scan(scheme: 'IdeaMemo-staging')
     else
-      scan(scheme: "IdeaMemo")
+      scan(scheme: 'IdeaMemo')
     end
   end
 
   desc 'Build for Scheme'
-  lane :build do
+  lane :build do |options|
+    xcode_workspace_path = './IdeaMemo.xcworkspace'
+    output_directory = "./build/ipa/#{ENV['ENV']}/" + Time.new.strftime("%Y/%m/%d/%H%M")
+    output_name = 'IdeaMemo.ipa'
+
     install_lib
 
     if ENV['ENV'] == 'production'
       gym(
         scheme: 'IdeaMemo-release',
         configuration: 'Production Release',
-        workspace: 'IdeaMemo.xcworkspace',
+        workspace: xcode_workspace_path,
         export_method: 'app-store',
-        output_directory: "./build/ipa/#{ENV['ENV']}/" + Time.new.strftime("%Y/%m/%d/%H%M"),
-        output_name: 'IdeaMemo.ipa',
+        output_directory: output_directory,
+        output_name: output_name,
         clean: true,
         include_bitcode: false,
         export_options: {
@@ -77,10 +81,10 @@ platform :ios do
       gym(
         scheme: 'IdeaMemo-staging',
         configuration: 'Staging Release',
-        workspace: 'IdeaMemo.xcworkspace',
+        workspace: xcode_workspace_path,
         export_method: 'ad-hoc',
-        output_directory: "./build/ipa/#{ENV['ENV']}/" + Time.new.strftime("%Y/%m/%d/%H%M"),
-        output_name: 'IdeaMemo.ipa',
+        output_directory: output_directory,
+        output_name: output_name,
         clean: true,
         include_bitcode: false,
         export_options: {
@@ -93,10 +97,10 @@ platform :ios do
       gym(
         scheme: 'IdeaMemo',
         configuration: 'Develop Release',
-        workspace: 'IdeaMemo.xcworkspace',
+        workspace: xcode_workspace_path,
         export_method: 'development',
-        output_directory: "./build/ipa/#{ENV['ENV']}/" + Time.new.strftime("%Y/%m/%d/%H%M"),
-        output_name: 'IdeaMemo.ipa',
+        output_directory: output_directory,
+        output_name: output_name,
         clean: true,
         include_bitcode: false,
         export_options: {
@@ -116,49 +120,58 @@ platform :ios do
 
   desc 'deploy to TestFlight'
   lane :beta do
-    build
+    build # Build for Scheme
     commit_version_bump(
       message: 'success test flight commit',
-      xcodeproj: './ios/sample.xcodeproj'
+      xcodeproj: './IdeaMemo.xcodeproj'
     )
-    pilot
+    upload_to_testflight
     push_to_git_remote
   end
 
   desc 'deploy to app store connect'
   lane :release do |options|
-    build
+    xcode_proj_path = './IdeaMemo.xcodeproj'
+
+    build # Build for Scheme
     unless options[:no_version_up]
       if options[:version]
         increment_version_number(
           version_number: options[:version],
-          xcodeproj: './ios/sample.xcodeproj'
+          xcodeproj: xcode_proj_path
         )
       else
-        bump_type =  options[:bump_type] || 'minor'
-        increment_version_number(bump_type: bump_type, xcodeproj: './ios/sample.xcodeproj')
+        bump_type = options[:bump_type] || 'minor'
+        increment_version_number(bump_type: bump_type, xcodeproj: xcode_proj_path)
       end
-      commit_version_bump(message: 'release commit', xcodeproj: './ios/sample.xcodeproj')
+      commit_version_bump(message: 'release commit', xcodeproj: xcode_proj_path)
     end
-    deliver
+    upload_to_app_store
   end
 end
 
-after_all do |lane|
+after_all do |lane, options|
   slack(
     success: true,
-    message: "#{lane} has suceeded.",
-    slack_url: ENV['SLACK_WEBHOOK_URL']
+    message: "scheme: #{options[:scheme]}, environment: #{ENV['ENV']}",
+    slack_url: ENV['SLACK_WEBHOOK_URL'],
+    attachment_properties: {
+      fields: [{
+        title: "#{lane} has suceeded."
+      }]
+    }
   )
 end
 
 error do |lane, exception, options|
+  error_message = "#{lane}:#{exception.to_s} :\n#{exception.backtrace}"
+
   if options[:debug]
-    puts 'some output'
+    puts error_message
   else
     slack(
       success: false,
-      message: "#{lane}:#{exception.to_s} :\n#{exception.backtrace}",
+      message: error_message,
       slack_url: ENV['SLACK_WEBHOOK_URL']
     )
   end
