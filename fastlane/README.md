@@ -26,21 +26,21 @@ fastlane ios install_lib
 fastlane ios test
 ```
 Runs all tests
-### ios build_for_develop
+### ios build
 ```
-fastlane ios build_for_develop
+fastlane ios build
 ```
-Generate ipa for develop
-### ios build_for_staging
+Build for Scheme
+### ios beta
 ```
-fastlane ios build_for_staging
+fastlane ios beta
 ```
-Generate ipa for staging
-### ios build_for_production
+deploy to TestFlight
+### ios release
 ```
-fastlane ios build_for_production
+fastlane ios release
 ```
-Generate ipa for production
+deploy to app store connect
 
 ----
 
