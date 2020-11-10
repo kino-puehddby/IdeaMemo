@@ -26,8 +26,8 @@ before_all do |lane|
     ENV['ENV'] = 'development'
   end
 
-  ensure_git_status_clean
-  git_pull
+  # ensure_git_status_clean
+  # git_pull
 end
 
 platform :ios do
