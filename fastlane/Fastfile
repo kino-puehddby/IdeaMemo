@@ -70,7 +70,6 @@ platform :ios do
   lane :beta do
     build # Build for Scheme
     increment_build_and_version_number
-    get_provisioning_profile
     upload_to_testflight
   end
 
@@ -78,7 +77,6 @@ platform :ios do
   lane :release do
     build # Build for Scheme
     increment_build_and_version_number
-    get_provisioning_profile
     upload_to_app_store
   end
 

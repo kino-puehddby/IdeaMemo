@@ -36,16 +36,11 @@ deploy to TestFlight
 fastlane ios release
 ```
 deploy to app store connect
-### ios increment_build_number_push
+### ios increment_build_and_version_number
 ```
-fastlane ios increment_build_number_push
+fastlane ios increment_build_and_version_number
 ```
-increment build number
-### ios increment_version_number_push
-```
-fastlane ios increment_version_number_push
-```
-increment version number
+increment build & version number
 
 ----
 
