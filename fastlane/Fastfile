@@ -134,7 +134,7 @@ platform :ios do
   desc 'increment version number & push'
   lane :increment_version_number_push do
     ensure_git_status_clean
-    bump_type = UI.select('どのバージョンを上げますか？: ', ['major', 'minor', 'patch'])
+    bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
     increment_version_number(bump_type: bump_type)
     commit_push(message: "version number updated: #{get_version_number}")
   end
