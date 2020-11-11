@@ -222,7 +222,6 @@ targets:
     settings:
       base: # Projectの全Build Configurationsに反映される設定
         INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
-        MARKETING_VERSION: 1.0
     dependencies:
       - carthage: RxSwift
       - carthage: ReSwift
