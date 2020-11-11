@@ -40,12 +40,12 @@ deploy to app store connect
 ```
 fastlane ios increment_build_number_push
 ```
-increment build number & push
+increment build number
 ### ios increment_version_number_push
 ```
 fastlane ios increment_version_number_push
 ```
-increment version number & push
+increment version number
 
 ----
 
