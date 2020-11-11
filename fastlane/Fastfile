@@ -75,7 +75,7 @@ platform :ios do
   desc 'deploy to app store connect'
   lane :release do
     build # Build for Scheme
-    increment_build_and_version_number
+    # increment_build_and_version_number
     upload_to_app_store
   end
 
