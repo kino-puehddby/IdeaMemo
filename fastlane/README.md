@@ -16,11 +16,6 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios install_lib
-```
-fastlane ios install_lib
-```
-
 ### ios test
 ```
 fastlane ios test
@@ -41,6 +36,16 @@ deploy to TestFlight
 fastlane ios release
 ```
 deploy to app store connect
+### ios increment_build_number_push
+```
+fastlane ios increment_build_number_push
+```
+increment build number & push
+### ios increment_version_number_push
+```
+fastlane ios increment_version_number_push
+```
+increment version number & push
 
 ----
 

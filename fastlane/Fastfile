@@ -91,9 +91,9 @@ platform :ios do
 
     gym(
       scheme: options[:scheme],
-      configuration: options[:scheme],
+      configuration: options[:configuration],
       workspace: xcode_workspace_path,
-      export_method: options[:scheme],
+      export_method: options[:export_method],
       export_xcargs: '-allowProvisioningUpdates',
       output_directory: output_directory,
       output_name: output_name,
