@@ -127,18 +127,16 @@ platform :ios do
   desc 'increment build number & push'
   lane :increment_build_number_push do
     ensure_git_status_clean
-    old_build_number = get_build_number
     increment_build_number
-    commit_push(message: "ビルド番号更新：#{old_build_number} -> #{get_build_number}")
+    commit_push(message: "build number updated: #{get_build_number}")
   end
 
   desc 'increment version number & push'
   lane :increment_version_number_push do
     ensure_git_status_clean
-    old_version_number = get_version_number
     bump_type = UI.select('どのバージョンを上げますか？: ', ['major', 'minor', 'patch'])
     increment_version_number(bump_type: bump_type)
-    commit_push(message: "バージョン更新：#{old_version_number} -> #{get_version_number}")
+    commit_push(message: "version number updated: #{get_version_number}")
   end
 end
 
