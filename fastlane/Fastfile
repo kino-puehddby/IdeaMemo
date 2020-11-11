@@ -69,7 +69,6 @@ platform :ios do
   desc 'deploy to TestFlight'
   lane :beta do
     build # Build for Scheme
-    increment_build_and_version_number
     upload_to_testflight
   end
 
