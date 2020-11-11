@@ -28,16 +28,6 @@ before_all do |lane|
 end
 
 platform :ios do
-  lane :install_lib do
-    cocoapods(try_repo_update_on_error: true)
-    carthage(
-      command: 'bootstrap',
-      use_binaries: false,
-      platform: 'iOS',
-      cache_builds: true
-    )
-  end
-
   desc 'Runs all tests'
   lane :test do
     install_lib
@@ -52,90 +42,103 @@ platform :ios do
   end
 
   desc 'Build for Scheme'
-  lane :build do |options|
-    xcode_workspace_path = './IdeaMemo.xcworkspace'
-    output_directory = "./build/ipa/#{ENV['ENV']}/"
-    output_name = 'IdeaMemo.ipa'
-
+  lane :build do
     install_lib
 
     if ENV['ENV'] == 'production'
-      gym(
+      gym_for_scheme(
         scheme: 'IdeaMemo-release',
         configuration: 'Production Release',
-        workspace: xcode_workspace_path,
         export_method: 'app-store',
-        output_directory: output_directory,
-        output_name: output_name,
-        export_xcargs: '-allowProvisioningUpdates',
-        clean: true,
-        include_bitcode: false,
-        export_options: {
-          uploadBitcode: false,
-          uploadSymbols: true,
-          compileBitcode: false
-        }
       )
     elsif ENV['ENV'] == 'staging'
-      gym(
+      gym_for_scheme(
         scheme: 'IdeaMemo-staging',
         configuration: 'Staging Release',
-        workspace: xcode_workspace_path,
-        export_method: 'ad-hoc',
-        output_directory: output_directory,
-        output_name: output_name,
-        export_xcargs: '-allowProvisioningUpdates',
-        clean: true,
-        include_bitcode: false,
-        export_options: {
-          uploadBitcode: false,
-          uploadSymbols: true,
-          compileBitcode: false
-        }
+        export_method: 'ad-hoc'
       )
     else
-      gym(
+      gym_for_scheme(
         scheme: 'IdeaMemo',
         configuration: 'Develop Release',
-        workspace: xcode_workspace_path,
-        export_method: 'development',
-        output_directory: output_directory,
-        output_name: output_name,
-        export_xcargs: '-allowProvisioningUpdates',
-        clean: true,
-        include_bitcode: false,
-        export_options: {
-          uploadBitcode: false,
-          uploadSymbols: true,
-          compileBitcode: false
-        }
+        export_method: 'development'
       )
     end
   end
 
   desc 'deploy to TestFlight'
   lane :beta do
-    ensure_git_status_clean
-    git_pull
-
     build # Build for Scheme
-    push_to_git_remote
+    increment_build_number_push
+    increment_version_number_push
     upload_to_testflight
   end
 
   desc 'deploy to app store connect'
   lane :release do
-    ensure_git_status_clean
-    git_pull
-
     build # Build for Scheme
-    # increment_build_number
-    # commit_version_bump(
-    #   message: "Bump bundle version to #{Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]}",
-    #   force: true
-    # )
-    push_to_git_remote
+    increment_build_number_push
+    increment_version_number_push
+    get_provisioning_profile
     upload_to_app_store
+  end
+
+  desc 'gym for scheme'
+  private_lane :gym_for_scheme do |options|
+    xcode_workspace_path = './IdeaMemo.xcworkspace'
+    output_directory = "./build/ipa/#{ENV['ENV']}/"
+    output_name = 'IdeaMemo.ipa'
+
+    gym(
+      scheme: options[:scheme],
+      configuration: options[:scheme],
+      workspace: xcode_workspace_path,
+      export_method: options[:scheme],
+      export_xcargs: '-allowProvisioningUpdates',
+      output_directory: output_directory,
+      output_name: output_name,
+      clean: true,
+      include_bitcode: false,
+      export_options: {
+        uploadBitcode: false,
+        uploadSymbols: true,
+        compileBitcode: false
+      }
+    )
+  end
+
+  desc 'install libraries'
+  private_lane :install_lib do
+    cocoapods(try_repo_update_on_error: true)
+    carthage(
+      command: 'bootstrap',
+      use_binaries: false,
+      platform: 'iOS',
+      cache_builds: true
+    )
+  end
+
+  desc 'git commit & push'
+  private_lane :commit_push do |options|
+    git_commit(path: './*', message: options[:message])
+    push_to_git_remote
+  end
+
+  desc 'increment build number & push'
+  lane :increment_build_number_push do
+    ensure_git_status_clean
+    old_build_number = get_build_number
+    increment_build_number
+    commit_push(message: "ビルド番号更新：#{old_build_number} -> #{get_build_number}")
+  end
+
+  desc 'increment version number & push'
+  lane :increment_version_number_push do
+    ensure_git_status_clean
+    old_version_number = get_version_number
+    bump_type = UI.select('どのバージョンを上げますか？: ', ['major', 'minor', 'patch'])
+    increment_version_number(bump_type: bump_type)
+    commit_push(message: "バージョン更新：#{old_version_number} -> #{get_version_number}")
   end
 end
 
