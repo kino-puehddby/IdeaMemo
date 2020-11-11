@@ -69,16 +69,16 @@ platform :ios do
   desc 'deploy to TestFlight'
   lane :beta do
     build # Build for Scheme
-    increment_build_number_push
     increment_version_number_push
+    increment_build_number_push
     upload_to_testflight
   end
 
   desc 'deploy to app store connect'
   lane :release do
     build # Build for Scheme
-    increment_build_number_push
     increment_version_number_push
+    increment_build_number_push
     get_provisioning_profile
     upload_to_app_store
   end
