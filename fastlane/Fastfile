@@ -26,8 +26,8 @@ before_all do |lane|
     ENV['ENV'] = 'development'
   end
 
-  # ensure_git_status_clean
-  # git_pull
+  ensure_git_status_clean
+  git_pull
 end
 
 platform :ios do
@@ -57,7 +57,7 @@ platform :ios do
   desc 'Build for Scheme'
   lane :build do |options|
     xcode_workspace_path = './IdeaMemo.xcworkspace'
-    output_directory = "./build/ipa/#{ENV['ENV']}/" + Time.new.strftime("%Y/%m/%d/%H%M")
+    output_directory = "./build/ipa/#{ENV['ENV']}/"
     output_name = 'IdeaMemo.ipa'
 
     install_lib
@@ -111,21 +111,12 @@ platform :ios do
         }
       )
     end
-
-    slack(
-      success: true,
-      message: "IdeaMemoのipaファイルをビルドしました（#{ENV['ENV']}）。",
-      slack_url: ENV['SLACK_WEBHOOK_URL']
-    )
   end
 
   desc 'deploy to TestFlight'
   lane :beta do
     build # Build for Scheme
-    commit_version_bump(
-      message: 'release commit for Test Flight',
-      xcodeproj: './IdeaMemo.xcodeproj'
-    )
+    commit_version_bump(message: 'release commit for Test Flight')
     upload_to_testflight
     push_to_git_remote
   end
@@ -137,18 +128,12 @@ platform :ios do
     build # Build for Scheme
     unless options[:no_version_up]
       if options[:version]
-        increment_version_number(
-          version_number: options[:version],
-          xcodeproj: xcode_proj_path
-        )
+        increment_version_number(version_number: options[:version])
       else
         bump_type = options[:bump_type] || 'minor'
-        increment_version_number(
-          bump_type: bump_type,
-          xcodeproj: xcode_proj_path
-        )
+        increment_version_number(bump_type: bump_type)
       end
-      commit_version_bump(message: 'release commit', xcodeproj: xcode_proj_path)
+      commit_version_bump(message: 'release commit')
     end
     upload_to_app_store
   end
