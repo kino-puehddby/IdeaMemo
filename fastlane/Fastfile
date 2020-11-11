@@ -123,8 +123,6 @@ platform :ios do
 
   desc 'deploy to app store connect'
   lane :release do |options|
-    xcode_proj_path = './IdeaMemo.xcodeproj'
-
     build # Build for Scheme
     unless options[:no_version_up]
       if options[:version]
