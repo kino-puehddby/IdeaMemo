@@ -125,7 +125,7 @@ options:
   groupOrdering:
     - order: [IdeaMemo, Configurations]
     - pattern: "IdeaMemo"
-      order: [Storyboard, ViewController, View, Redux, Resources, Supporting Files, Preview Content]
+      order: [Storyboard, ViewController, View, Redux, Model, Resources, Supporting Files, Preview Content]
     - pattern: "Redux"
       order: [Store, State, Action, Reducer, Middleware]
 
@@ -165,6 +165,9 @@ targets:
         createIntermediateGroups: true
         type: group
       - path: "IdeaMemo/ViewController"
+        createIntermediateGroups: true
+        type: group
+      - path: "IdeaMemo/Model"
         createIntermediateGroups: true
         type: group
       - path: "IdeaMemo/Redux/Action"
