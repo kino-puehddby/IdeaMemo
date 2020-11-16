@@ -111,12 +111,6 @@ schemes:
 
 options:
   bundleIdPrefix: com.kino-puehddby
-  # preBuildScripts: # project生成前にコマンド実行
-  postGenCommand:
-    - script: pod install
-      name: Install Pods
-    - script: echo Hello!
-      name: echo
   developmentLanguage: ja
   deploymentTarget:
     iOS: 13.0
