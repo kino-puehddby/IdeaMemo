@@ -127,7 +127,7 @@ options:
 # Settings
 ############
 
-settings: # Project全体の設定
+settings:
   base:
     IPHONEOS_DEPLOYMENT_TARGET: 13.0
     TARGETED_DEVICE_FAMILY: 1
