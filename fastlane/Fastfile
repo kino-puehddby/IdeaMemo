@@ -1,0 +1,154 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+fastlane_version '2.166.0'
+
+default_platform :ios
+
+before_all do |lane|
+  if lane == :release
+    ENV['ENV'] = 'production'
+  elsif lane == :beta
+    ENV['ENV'] = 'staging'
+  else
+    ENV['ENV'] = 'development'
+  end
+end
+
+platform :ios do
+  desc 'Runs all tests'
+  lane :test do
+    # install_lib
+
+    if ENV['ENV'] == 'production'
+      scan(scheme: 'IdeaMemo-release')
+    elsif ENV['ENV'] == 'staging'
+      scan(scheme: 'IdeaMemo-staging')
+    else
+      scan(scheme: 'IdeaMemo')
+    end
+  end
+
+  desc 'Build for Scheme'
+  lane :build do
+    # install_lib
+
+    if ENV['ENV'] == 'production'
+      gym_for_scheme(
+        scheme: 'IdeaMemo-release',
+        configuration: 'Production Release',
+        export_method: 'app-store',
+      )
+    elsif ENV['ENV'] == 'staging'
+      gym_for_scheme(
+        scheme: 'IdeaMemo-staging',
+        configuration: 'Staging Release',
+        export_method: 'ad-hoc'
+      )
+    else
+      gym_for_scheme(
+        scheme: 'IdeaMemo',
+        configuration: 'Develop Release',
+        export_method: 'development'
+      )
+    end
+  end
+
+  desc 'deploy to TestFlight'
+  lane :beta do
+    build
+    upload_to_testflight
+  end
+
+  desc 'deploy to app store connect'
+  lane :release do
+    build
+    increment_build_and_version_number
+    upload_to_app_store
+  end
+
+  desc 'gym for scheme'
+  private_lane :gym_for_scheme do |options|
+    xcode_workspace_path = './IdeaMemo.xcworkspace'
+    output_directory = "./build/ipa/#{ENV['ENV']}/"
+    output_name = 'IdeaMemo.ipa'
+
+    gym(
+      scheme: options[:scheme],
+      configuration: options[:configuration],
+      workspace: xcode_workspace_path,
+      export_method: options[:export_method],
+      export_xcargs: '-allowProvisioningUpdates',
+      output_directory: output_directory,
+      output_name: output_name,
+      clean: true,
+      include_bitcode: false,
+      export_options: {
+        uploadBitcode: false,
+        uploadSymbols: true,
+        compileBitcode: false
+      }
+    )
+  end
+
+  desc 'install libraries'
+  private_lane :install_lib do
+    cocoapods(try_repo_update_on_error: true)
+    carthage(
+      command: 'bootstrap',
+      use_binaries: false,
+      platform: 'iOS',
+      cache_builds: true
+    )
+  end
+
+  desc 'git commit & push'
+  private_lane :commit_push do |options|
+    git_commit(path: './*', message: options[:message])
+    push_to_git_remote
+  end
+
+  desc 'increment build & version number'
+  lane :increment_build_and_version_number do
+    ensure_git_status_clean
+    increment_build_number
+    bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
+    increment_version_number(bump_type: bump_type)
+    commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
+  end
+end
+
+after_all do |lane|
+  slack(
+    success: true,
+    message: "`#{lane}` has suceeded.\nenvironment: `#{ENV['ENV']}`",
+    icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
+    slack_url: ENV['SLACK_WEBHOOK_URL']
+  )
+end
+
+error do |lane, exception, options|
+  error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.message}"
+
+  if options[:debug]
+    puts error_message
+  else
+    slack(
+      success: false,
+      message: error_message,
+      icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
+      slack_url: ENV['SLACK_WEBHOOK_URL']
+    )
+  end
+end

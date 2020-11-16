@@ -1,2 +1,5 @@
-# KeyChain
-github "kishikawakatsumi/KeychainAccess"
+# Rx
+github "ReactiveX/RxSwift"
+
+# Redux
+github "ReSwift/ReSwift"
