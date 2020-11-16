@@ -11,7 +11,7 @@ configs:
   Develop Release: release
   Staging Release: release
   Production Release: release
-configFiles: # Build Configurationごとの設定
+configFiles:
   Develop Debug: Configurations/developdebug.xcconfig
   Staging Debug: Configurations/stagingdebug.xcconfig
   Production Debug: Configurations/productiondebug.xcconfig
