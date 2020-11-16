@@ -216,7 +216,7 @@ targets:
           fi
         name: Run SwiftLint
     settings:
-      base: # Projectの全Build Configurationsに反映される設定
+      base:
         INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
     dependencies:
       - carthage: RxSwift
