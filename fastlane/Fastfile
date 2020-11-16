@@ -134,7 +134,7 @@ after_all do |lane|
     success: true,
     message: "`#{lane}` has suceeded.\nenvironment: `#{ENV['ENV']}`",
     icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
-    slack_url: ENV['SLACK_WEBHOOK_URL']
+    slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
   )
 end
 
@@ -148,7 +148,7 @@ error do |lane, exception, options|
       success: false,
       message: error_message,
       icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
-      slack_url: ENV['SLACK_WEBHOOK_URL']
+      slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
     )
   end
 end
