@@ -2,13 +2,9 @@
 # You can find the documentation at https://docs.fastlane.tools
 #
 # For a list of all available actions, check out
-#
 #     https://docs.fastlane.tools/actions
-#
 # For a list of all available plugins, check out
-#
 #     https://docs.fastlane.tools/plugins/available-plugins
-#
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
@@ -48,7 +44,7 @@ platform :ios do
       gym_for_scheme(
         scheme: 'IdeaMemo-release',
         configuration: 'Production Release',
-        export_method: 'app-store',
+        export_method: 'app-store'
       )
     elsif ENV['ENV'] == 'staging'
       gym_for_scheme(
@@ -129,14 +125,14 @@ platform :ios do
   end
 end
 
-after_all do |lane|
-  slack(
-    success: true,
-    message: "`#{lane}` has suceeded.\nenvironment: `#{ENV['ENV']}`",
-    icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
-    slack_url: ENV['SLACK_WEBHOOK_URL']
-  )
-end
+# after_all do |lane|
+#   slack(
+#     success: true,
+#     message: "`#{lane}` has suceeded.\nenvironment: `#{ENV['ENV']}`",
+#     icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
+#     slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
+#   )
+# end
 
 error do |lane, exception, options|
   error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.message}"
@@ -148,7 +144,7 @@ error do |lane, exception, options|
       success: false,
       message: error_message,
       icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
-      slack_url: ENV['SLACK_WEBHOOK_URL']
+      slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
     )
   end
 end
