@@ -48,7 +48,7 @@ platform :ios do
       gym_for_scheme(
         scheme: 'IdeaMemo-release',
         configuration: 'Production Release',
-        export_method: 'app-store',
+        export_method: 'app-store'
       )
     elsif ENV['ENV'] == 'staging'
       gym_for_scheme(
