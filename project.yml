@@ -120,7 +120,7 @@ options:
   developmentLanguage: ja
   deploymentTarget:
     iOS: 13.0
-  xcodeVersion: 12.0.1
+  xcodeVersion: 12.2
   generateEmptyDirectories: true
   groupOrdering:
     - order: [IdeaMemo, Configurations]
