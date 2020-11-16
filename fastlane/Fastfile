@@ -67,13 +67,13 @@ platform :ios do
 
   desc 'deploy to TestFlight'
   lane :beta do
-    build # Build for Scheme
+    build
     upload_to_testflight
   end
 
   desc 'deploy to app store connect'
   lane :release do
-    build # Build for Scheme
+    build
     increment_build_and_version_number
     upload_to_app_store
   end
