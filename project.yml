@@ -199,7 +199,7 @@ targets:
       testTargets:
         - IdeaMemoTests
         - IdeaMemoUITests
-    preBuildScripts: # target生成前にコマンド実行（Build Phase）
+    preBuildScripts: # Build Phase（before Compile Sources）
       - script: ${PODS_ROOT}/SwiftGen/bin/swiftgen
         name: Run SwiftGen
         outputFiles:
