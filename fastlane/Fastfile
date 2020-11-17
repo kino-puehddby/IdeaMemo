@@ -72,43 +72,13 @@ platform :ios do
       )
     end
 
-    case [ENV['ENV'], is_ci]
-    when ['production', true]
-      match(
-        type: 'appstore',
-        readonly: is_ci,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
-      )
-    when ['staging', true]
-      match(
-        type: 'adhoc',
-        readonly: is_ci,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
-      )
-    when ['development', true]
-      match(
-        type: 'development',
-        readonly: is_ci,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
-      )
-    when ['production', false]
-      match(
-        type: 'appstore',
-        readonly: is_ci
-      )
-    when ['staging', false]
-      match(
-        type: 'adhoc',
-        readonly: is_ci
-      )
+    case ENV['ENV']
+    when 'production'
+      match(type: 'appstore', readonly: is_ci)
+    when 'staging'
+      match(type: 'adhoc', readonly: is_ci)
     else
-      match(
-        type: 'development',
-        readonly: is_ci
-      )
+      match(type: 'development', readonly: is_ci)
     end
   end
 
