@@ -41,21 +41,30 @@ platform :ios do
     # install_lib
 
     if ENV['ENV'] == 'production'
-      match(type: 'appstore')
+      match(
+        type: 'appstore',
+        readonly: true
+      )
       gym_for_scheme(
         scheme: 'IdeaMemo-release',
         configuration: 'Production Release',
         export_method: 'app-store'
       )
     elsif ENV['ENV'] == 'staging'
-      match(type: 'adhoc')
+      match(
+        type: 'adhoc',
+        readonly: true
+      )
       gym_for_scheme(
         scheme: 'IdeaMemo-staging',
         configuration: 'Staging Release',
         export_method: 'ad-hoc'
       )
     else
-      match(type: 'development')
+      match(
+        type: 'development',
+        readonly: true
+      )
       gym_for_scheme(
         scheme: 'IdeaMemo',
         configuration: 'Develop Release',
