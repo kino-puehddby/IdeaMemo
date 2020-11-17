@@ -1,4 +1,4 @@
-git_url('git@github.com:kino-puehddby/Certificates.git')
+git_url(ENV['MATCH_GITHUB_REPO'])
 
 storage_mode('git')
 
