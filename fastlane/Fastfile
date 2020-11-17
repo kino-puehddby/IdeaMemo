@@ -43,7 +43,7 @@ platform :ios do
     if ENV['ENV'] == 'production'
       match(
         type: 'appstore',
-        readonly: true
+        readonly: is_ci
       )
       gym_for_scheme(
         scheme: 'IdeaMemo-release',
@@ -53,7 +53,7 @@ platform :ios do
     elsif ENV['ENV'] == 'staging'
       match(
         type: 'adhoc',
-        readonly: true
+        readonly: is_ci
       )
       gym_for_scheme(
         scheme: 'IdeaMemo-staging',
@@ -63,7 +63,7 @@ platform :ios do
     else
       match(
         type: 'development',
-        readonly: true
+        readonly: is_ci
       )
       gym_for_scheme(
         scheme: 'IdeaMemo',
