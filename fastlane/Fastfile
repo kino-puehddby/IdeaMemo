@@ -39,7 +39,31 @@ platform :ios do
   desc 'Build for Scheme'
   lane :build do
     # install_lib
+    setup_cirtificates
 
+    if ENV['ENV'] == 'production'
+      gym_for_scheme(
+        scheme: 'IdeaMemo-release',
+        configuration: 'Production Release',
+        export_method: 'app-store'
+      )
+    elsif ENV['ENV'] == 'staging'
+      gym_for_scheme(
+        scheme: 'IdeaMemo-staging',
+        configuration: 'Staging Release',
+        export_method: 'ad-hoc'
+      )
+    else
+      gym_for_scheme(
+        scheme: 'IdeaMemo',
+        configuration: 'Develop Release',
+        export_method: 'development'
+      )
+    end
+  end
+
+  desc 'setup cirtificates'
+  lane :setup_cirtificates do
     if is_ci?
       create_keychain(
         name: ENV['MATCH_KEYCHAIN_NAME'],
@@ -48,35 +72,42 @@ platform :ios do
       )
     end
 
-    if ENV['ENV'] == 'production'
+    case [ENV['ENV'], is_ci]
+    when ['production', true]
+      match(
+        type: 'appstore',
+        readonly: is_ci,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+    when ['staging', true]
+      match(
+        type: 'adhoc',
+        readonly: is_ci,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+    when ['development', true]
+      match(
+        type: 'development',
+        readonly: is_ci,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+    when ['production', false]
       match(
         type: 'appstore',
         readonly: is_ci
       )
-      gym_for_scheme(
-        scheme: 'IdeaMemo-release',
-        configuration: 'Production Release',
-        export_method: 'app-store'
-      )
-    elsif ENV['ENV'] == 'staging'
+    when ['staging', false]
       match(
         type: 'adhoc',
         readonly: is_ci
-      )
-      gym_for_scheme(
-        scheme: 'IdeaMemo-staging',
-        configuration: 'Staging Release',
-        export_method: 'ad-hoc'
       )
     else
       match(
         type: 'development',
         readonly: is_ci
-      )
-      gym_for_scheme(
-        scheme: 'IdeaMemo',
-        configuration: 'Develop Release',
-        export_method: 'development'
       )
     end
   end
