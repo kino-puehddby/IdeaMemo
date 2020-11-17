@@ -145,7 +145,7 @@ targets:
     platform: iOS
     deploymentTarget: 13.0
     attributes:
-      DevelopmentTeam: P55D3D23US
+      ProvisioningStyle: Manual
     sources:
       - IdeaMemo
 
@@ -226,6 +226,9 @@ targets:
   IdeaMemoTests:
     type: bundle.unit-test
     platform: iOS
+    attributes:
+      ProvisioningStyle: Automatic
+      DevelopmentTeam: P55D3D23US
     sources: IdeaMemoTests
     dependencies:
       - target: IdeaMemo
@@ -234,6 +237,9 @@ targets:
   IdeaMemoUITests:
     type: bundle.ui-testing
     platform: iOS
+    attributes:
+      ProvisioningStyle: Automatic
+      DevelopmentTeam: P55D3D23US
     sources: IdeaMemoUITests
     dependencies:
       - target: IdeaMemo
