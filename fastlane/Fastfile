@@ -74,7 +74,7 @@ platform :ios do
     end
 
     unlock_keychain(
-      path: "/Library/Keychains/#{ENV['MATCH_KEYCHAIN_NAME']}.keychain",
+      path: "~/Library/Keychains/#{ENV['MATCH_KEYCHAIN_NAME']}.keychain",
       password: ENV['MATCH_KEYCHAIN_PASSWORD']
     )
 
