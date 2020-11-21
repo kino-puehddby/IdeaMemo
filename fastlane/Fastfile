@@ -81,13 +81,22 @@ platform :ios do
 
   desc 'sync code signing'
   lane :sync_certificates do
+    # case ENV['ENV']
+    # when 'production'
+    #   match(type: 'appstore', force: true)
+    # when 'staging'
+    #   match(type: 'adhoc', force: true)
+    # else
+    #   match(type: 'development', force: true)
+    # end
+
     case ENV['ENV']
     when 'production'
-      match(type: 'appstore', force: true)
+      match(type: 'appstore', readonly: is_ci)
     when 'staging'
-      match(type: 'adhoc', force: true)
+      match(type: 'adhoc', readonly: is_ci)
     else
-      match(type: 'development', force: true)
+      match(type: 'development', readonly: is_ci)
     end
   end
 
