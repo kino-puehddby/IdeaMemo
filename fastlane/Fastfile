@@ -62,22 +62,21 @@ platform :ios do
     end
   end
 
-  # desc 'setup cirtificates'
-  # lane :setup_cirtificates do
-  #   if is_ci?
-  #     create_keychain(
-  #       name: "#{ENV['MATCH_KEYCHAIN_NAME']}.keychain",
-  #       password: ENV['MATCH_KEYCHAIN_PASSWORD'],
-  #       default_keychain: true,
-  #       timeout: 3600
-  #     )
-  #   end
+  desc 'setup cirtificates'
+  lane :setup_cirtificates do
+    if is_ci?
+      create_keychain(
+        name: 'login.keychain',
+        password: ENV['MATCH_PASSWORD'],
+        timeout: 3600
+      )
+    end
 
-  #   unlock_keychain(
-  #     path: "~/Library/Keychains/#{ENV['MATCH_KEYCHAIN_NAME']}.keychain",
-  #     password: ENV['MATCH_KEYCHAIN_PASSWORD']
-  #   )
-  # end
+    unlock_keychain(
+      path: "~/Library/Keychains/login.keychain",
+      password: ENV['MATCH_PASSWORD']
+    )
+  end
 
   desc 'sync code signing'
   lane :sync_certificates do
