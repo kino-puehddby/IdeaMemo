@@ -90,39 +90,41 @@ platform :ios do
 
   desc 'sync xcode signing'
   lane :sync_xcode_signing do
-    build_configurations =
-      if ENV['ENV'] == 'production'
-        ['Production Debug', 'Production Release']
-      elsif ENV['ENV'] == 'staging'
-        ['Staging Debug', 'Staging Release']
-      else
-        ['Develop Debug', 'Develop Release']
-      end
+    configuration_patterns = [
+      ['Production Debug', 'Production Release'],
+      ['Staging Debug', 'Staging Release'],
+      ['Develop Debug', 'Develop Release']
+    ]
 
-    profile_name =
-      case build_configurations
-      when ['Production Debug', 'Production Release']
-        "match AppStore #{ENV['APP_IDENTIFIER']}"
-      when ['Staging Debug', 'Staging Release']
-        "match AdHoc #{ENV['APP_IDENTIFIER']}"
-      when ['Develop Debug', 'Develop Release']
-        "match Development #{ENV['APP_IDENTIFIER']}"
-      end
+    configuration_patterns.each do |configurations|
+      profile_name =
+        case configurations
+        when ['Production Debug', 'Production Release']
+          "match AppStore #{ENV['APP_IDENTIFIER']}"
+        when ['Staging Debug', 'Staging Release']
+          "match AdHoc #{ENV['APP_IDENTIFIER']}"
+        when ['Develop Debug', 'Develop Release']
+          "match Development #{ENV['APP_IDENTIFIER']}"
+        end
 
-    update_code_signing_settings(
-      use_automatic_signing: false,
-      path: './IdeaMemo.xcodeproj',
-      team_id: ENV['TEAM_ID'],
-      bundle_identifier: ENV['APP_IDENTIFIER'],
-      build_configurations: build_configurations,
-      profile_name: profile_name
-    )
+      code_sign_identity =
+        case configurations
+        when ['Production Debug', 'Production Release'], ['Staging Debug', 'Staging Release']
+          'Apple Distribution'
+        when ['Develop Debug', 'Develop Release']
+          'Apple Development'
+        end
 
-    # update_code_signing_settings(
-    #   use_automatic_signing: true,
-    #   team_id: ENV['TEAM_ID'],
-    #   path: './IdeaMemo.xcodeproj'
-    # )
+      update_code_signing_settings(
+        use_automatic_signing: false,
+        path: './IdeaMemo.xcodeproj',
+        team_id: ENV['TEAM_ID'],
+        bundle_identifier: ENV['APP_IDENTIFIER'],
+        build_configurations: configurations,
+        profile_name: profile_name,
+        code_sign_identity: code_sign_identity
+      )
+    end
   end
 
   desc 'deploy to TestFlight'
