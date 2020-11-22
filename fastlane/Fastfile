@@ -116,13 +116,14 @@ platform :ios do
         end
 
       update_code_signing_settings(
-        use_automatic_signing: false,
         path: './IdeaMemo.xcodeproj',
+        use_automatic_signing: false,
         team_id: ENV['TEAM_ID'],
-        bundle_identifier: ENV['APP_IDENTIFIER'],
+        targets: ['IdeaMemo'],
         build_configurations: configurations,
+        code_sign_identity: code_sign_identity,
         profile_name: profile_name,
-        code_sign_identity: code_sign_identity
+        bundle_identifier: ENV['APP_IDENTIFIER']
       )
     end
   end
