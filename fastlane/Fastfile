@@ -13,9 +13,10 @@ fastlane_version '2.168.0'
 default_platform :ios
 
 before_all do |lane|
-  if lane == :release
+  case lane
+  when :release
     ENV['ENV'] = 'production'
-  elsif lane == :beta
+  when :beta
     ENV['ENV'] = 'staging'
   else
     ENV['ENV'] = 'development'
@@ -23,38 +24,43 @@ before_all do |lane|
 end
 
 platform :ios do
+  #################
+  # Public Lane
+  #################
   desc 'Runs all tests'
   lane :test do
     # install_lib
 
-    if ENV['ENV'] == 'production'
+    case ENV['ENV']
+    when 'production'
       scan(scheme: 'IdeaMemo-release')
-    elsif ENV['ENV'] == 'staging'
+    when 'staging'
       scan(scheme: 'IdeaMemo-staging')
-    else
+    when 'development'
       scan(scheme: 'IdeaMemo')
     end
   end
 
   desc 'Build for Scheme'
   lane :build do
-    # install_lib
+    install_lib
     setup_cirtificates
     sync_xcode_signing
 
-    if ENV['ENV'] == 'production'
+    case ENV['ENV']
+    when 'production'
       gym_for_scheme(
         scheme: 'IdeaMemo-release',
         configuration: 'Production Release',
         export_method: 'app-store'
       )
-    elsif ENV['ENV'] == 'staging'
+    when 'staging'
       gym_for_scheme(
         scheme: 'IdeaMemo-staging',
         configuration: 'Staging Release',
         export_method: 'ad-hoc'
       )
-    else
+    when 'development'
       gym_for_scheme(
         scheme: 'IdeaMemo',
         configuration: 'Develop Release',
@@ -131,37 +137,40 @@ platform :ios do
   desc 'deploy to TestFlight'
   lane :beta do
     build
-    upload_to_testflight
+    pilot
   end
 
   desc 'deploy to app store connect'
   lane :release do
     build
     increment_build_and_version_number
-    upload_to_app_store
+    deliver
   end
+
+  #################
+  # Private Lane
+  #################
 
   desc 'gym for scheme'
   private_lane :gym_for_scheme do |options|
+    scheme = options[:scheme] || 'IdeaMemo'
+    configuration = options[:configuration] || 'Develop Release'
     xcode_workspace_path = './IdeaMemo.xcworkspace'
+    export_method = options[:export_method] || 'development'
     output_directory = "./build/ipa/#{ENV['ENV']}/"
     output_name = 'IdeaMemo.ipa'
+    include_bitcode = ENV['ENV'] != 'development'
 
     gym(
-      scheme: options[:scheme],
-      configuration: options[:configuration],
+      scheme: scheme,
+      configuration: configuration,
       workspace: xcode_workspace_path,
-      export_method: options[:export_method],
+      export_method: export_method,
       export_xcargs: '-allowProvisioningUpdates',
       output_directory: output_directory,
       output_name: output_name,
       clean: true,
-      include_bitcode: false,
-      export_options: {
-        uploadBitcode: false,
-        uploadSymbols: true,
-        compileBitcode: false
-      }
+      include_bitcode: include_bitcode
     )
   end
 
@@ -183,11 +192,12 @@ platform :ios do
   end
 
   desc 'increment build & version number'
-  lane :increment_build_and_version_number do
+  private_lane :increment_build_and_version_number do
     ensure_git_status_clean
-    increment_build_number
+    increment_build_number(build_number: app_store_build_number + 1)
     bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
     increment_version_number(bump_type: bump_type)
+    add_git_tag(prefix: 'v', tag: get_version_number)
     commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
   end
 end
