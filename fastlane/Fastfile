@@ -24,9 +24,11 @@ before_all do |lane|
 end
 
 platform :ios do
+
   #################
   # Public Lane
   #################
+
   desc 'Runs all tests'
   lane :test do
     # install_lib
