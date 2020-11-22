@@ -53,3 +53,4 @@ update-carthage:
 xcodegen:
 	xcodegen
 	$(MAKE) install-pods
+	bundle exec fastlane ios sync_xcode_signing
