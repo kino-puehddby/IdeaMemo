@@ -42,7 +42,7 @@ platform :ios do
 
   desc 'Build for Scheme'
   lane :build do
-    install_lib
+    # install_lib
     setup_cirtificates
     sync_xcode_signing
 
