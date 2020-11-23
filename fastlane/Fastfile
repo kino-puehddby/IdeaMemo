@@ -30,8 +30,6 @@ platform :ios do
 
   desc 'Runs all tests'
   lane :test do
-    # install_lib
-
     case ENV['ENV']
     when 'production'
       scan(scheme: 'IdeaMemo-release')
