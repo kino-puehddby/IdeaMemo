@@ -136,7 +136,10 @@ platform :ios do
   desc 'deploy to TestFlight'
   lane :beta do
     build
-    pilot
+    pilot(
+      skip_submission: true,
+      skip_waiting_for_build_processing: true
+    )
   end
 
   desc 'deploy to app store connect'
@@ -160,7 +163,7 @@ platform :ios do
     output_name = 'IdeaMemo.ipa'
     include_bitcode = ENV['ENV'] != 'development'
 
-    gym(
+    build_ios_app(
       scheme: scheme,
       configuration: configuration,
       workspace: xcode_workspace_path,
