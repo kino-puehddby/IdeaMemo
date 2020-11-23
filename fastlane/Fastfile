@@ -171,7 +171,6 @@ platform :ios do
       export_xcargs: '-allowProvisioningUpdates',
       output_directory: output_directory,
       output_name: output_name,
-      clean: true,
       include_bitcode: include_bitcode
     )
   end
