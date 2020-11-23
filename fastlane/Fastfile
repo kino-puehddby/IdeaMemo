@@ -136,6 +136,7 @@ platform :ios do
   desc 'deploy to TestFlight'
   lane :beta do
     build
+    increment_build_and_version_number
     pilot(
       skip_submission: true,
       skip_waiting_for_build_processing: true
@@ -195,10 +196,17 @@ platform :ios do
   desc 'increment build & version number'
   private_lane :increment_build_and_version_number do
     ensure_git_status_clean
-    increment_build_number(build_number: app_store_build_number + 1)
-    bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
-    increment_version_number(bump_type: bump_type)
-    add_git_tag(prefix: 'v', tag: get_version_number)
+
+    case ENV['ENV']
+    when 'production'
+      increment_build_number(build_number: app_store_build_number + 1)
+      bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
+      increment_version_number(bump_type: bump_type)
+      add_git_tag(prefix: 'v', tag: get_version_number)
+    when 'staging'
+      increment_build_number(build_number: latest_testflight_build_number + 1)
+    end
+
     commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
   end
 end
