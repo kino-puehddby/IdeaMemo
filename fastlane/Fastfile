@@ -202,15 +202,6 @@ platform :ios do
   end
 end
 
-# after_all do |lane|
-#   slack(
-#     success: true,
-#     message: "`#{lane}` has suceeded.\nenvironment: `#{ENV['ENV']}`",
-#     icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
-#     slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
-#   )
-# end
-
 error do |lane, exception, options|
   error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.message}"
 
