@@ -11,9 +11,9 @@ Pods/*
 
 # Xcode
 build
-# *.xcodeproj
+*.xcodeproj
 *.xcodeproj/*
-!*.xcodeproj/project.pbxproj
+*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata
 !*.xcworkspace/contents.xcworkspacedata
 
