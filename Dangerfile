@@ -4,7 +4,7 @@ warn('a large PR') if git.lines_of_code > 500
 # Ditect Important file changed
 protected_files = ['Podfile.lock', 'Cartfile.resolved', 'Gemfile.lock', 'project.yml', '.ruby-version']
 protected_files.each do |file|
-  message "#{file} is changed" if git.modified_files.grep(/#{file}/).present?
+  message "#{file} is changed" if git.modified_files.include? file
 end
 
 # Ditect View file changed
