@@ -2,7 +2,7 @@ warn('PR is classed as Work in Progress') if github.pr_title.include? '[WIP]'
 warn('a large PR') if git.lines_of_code > 500
 
 # Ditect Important file changed
-protected_files = ['Podfile.lock', 'Cartfile.resolved', 'Gemfile.lock', 'project.yml', '.ruby-version']
+protected_files = ['Podfile.lock', 'Cartfile.resolved', 'Gemfile.lock', 'project.yml', '.ruby-version', 'Fastfile']
 protected_files.each do |file|
   message "#{file} is changed" if git.modified_files.include? file
 end
