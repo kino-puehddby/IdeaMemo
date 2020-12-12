@@ -1,8 +1,9 @@
-warn('PR is classed as Work in Progress') if github.pr_title.include? '[WIP]'
-# Warn when there is a big PR
-warn('Big PR') if git.lines_of_code > 300
-warn('Large PR') if git.lines_of_code > 500
-warn('Huge PR') if git.lines_of_code > 700
+# Warnings
+warn 'Big PR' if git.lines_of_code > 300
+warn 'Large PR' if git.lines_of_code > 500
+warn 'Huge PR' if git.lines_of_code > 700
+warn 'PR is classed as Work in Progress' if github.pr_title.include? '[WIP]'
+warn 'Please add labels to this PR' if github.pr_labels.empty?
 
 # Ditect Important file changed
 protected_files = ['Podfile.lock', 'Cartfile.resolved', 'Gemfile.lock', 'project.yml', '.ruby-version', 'Fastfile']
