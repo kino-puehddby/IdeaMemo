@@ -6,6 +6,9 @@ def ignore_pods_warnings
 end
 
 def install_pods
+  # Firebase
+  pod 'Firebase/Analytics'
+
   # Code Check
   pod 'SwiftLint'
 
