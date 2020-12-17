@@ -1,11 +1,9 @@
-## 概要
+## やったこと
 
+- done1
+- done2
 
-## 作業内容
-
-
-## 注意事項
-
+## 備考 / 注意事項
 
 ## issue
-Closes #issue_id
+Closes #
