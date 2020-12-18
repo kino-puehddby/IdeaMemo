@@ -113,8 +113,8 @@ options:
   bundleIdPrefix: com.kino-puehddby
   developmentLanguage: ja
   deploymentTarget:
-    iOS: 13.0
-  xcodeVersion: 12.2
+    iOS: 14.0
+  xcodeVersion: 12.3
   generateEmptyDirectories: true
   groupOrdering:
     - order: [IdeaMemo, Configurations]
@@ -129,7 +129,7 @@ options:
 
 settings:
   base:
-    IPHONEOS_DEPLOYMENT_TARGET: 13.0
+    IPHONEOS_DEPLOYMENT_TARGET: 14.0
     TARGETED_DEVICE_FAMILY: 1
     SWIFT_VERSION: 5.0
     CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
@@ -143,7 +143,7 @@ targets:
   IdeaMemo:
     type: application
     platform: iOS
-    deploymentTarget: 13.0
+    deploymentTarget: 14.0
     attributes:
       ProvisioningStyle: Manual
     sources:
