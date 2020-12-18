@@ -7,6 +7,7 @@ open:
 
 .PHONY: setup
 setup:
+	bundle config set path ./bundle
 	$(MAKE) install-bundler
 	$(MAKE) install-pods
 	$(MAKE) install-carthage
@@ -16,12 +17,10 @@ setup:
 ############
 .PHONY: install-bundler
 install-bundler:
-	bundle config path ./bundle
 	bundle install --jobs 4 --retry 3
 
 .PHONY: update-bundler
 update-bundler:
-	bundle config path ./bundle
 	bundle update --jobs 4 --retry 3
 
 ############

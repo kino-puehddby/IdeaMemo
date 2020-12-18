@@ -1,6 +1,6 @@
 ---
 name: Bug
-about: バグ
+about: バグ / 不具合
 title: ''
 labels: bug
 assignees: ''
@@ -11,5 +11,4 @@ assignees: ''
 
 ## やること
 
-- todo1
-- todo2
+- todo
