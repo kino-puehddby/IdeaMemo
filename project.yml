@@ -119,7 +119,7 @@ options:
   groupOrdering:
     - order: [IdeaMemo, Configurations]
     - pattern: "IdeaMemo"
-      order: [Storyboard, ViewController, View, Redux, Model, Resources, Supporting Files, Preview Content]
+      order: [InterfaceBuilder, ViewController, View, Redux, Model, Resources, Supporting Files, Preview Content]
     - pattern: "Redux"
       order: [Store, State, Action, Reducer, Middleware]
 
@@ -152,7 +152,7 @@ targets:
       ############
       # SwiftGen
       ############
-      - path: "IdeaMemo/Storyboard"
+      - path: "IdeaMemo/InterfaceBuilder"
         createIntermediateGroups: true
         type: group
       - path: "IdeaMemo/View"
