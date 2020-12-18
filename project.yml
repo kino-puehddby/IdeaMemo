@@ -191,6 +191,9 @@ targets:
       - path: "IdeaMemo/Resources/Assets.xcassets"
         optional: true
         createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Colors.xcassets"
+        optional: true
+        createIntermediateGroups: true
       - path: "IdeaMemo/Resources/Strings/Localizable.strings"
         optional: true
         createIntermediateGroups: true
@@ -207,6 +210,7 @@ targets:
           - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardScenes.swift
           - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardSegues.swift
           - $(SRCROOT)/IdeaMemo/Resources/Generated/Assets.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/Colors.swift
     postCompileScripts:
       - script: |
           if which swiftlint >/dev/null; then

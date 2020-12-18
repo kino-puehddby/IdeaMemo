@@ -1,6 +1,6 @@
 ib:
   inputs:
-    - IdeaMemo/Storyboard
+    - IdeaMemo/InterfaceBuilder
   outputs:
     - templateName: scenes-swift5
       output: IdeaMemo/Resources/Generated/StoryboardScenes.swift
@@ -9,6 +9,7 @@ ib:
 xcassets:
   inputs:
     - IdeaMemo/Resources/Assets.xcassets
+    - IdeaMemo/Resources/Colors.xcassets
   outputs:
     - templateName: swift5
       output: IdeaMemo/Resources/Generated/Assets.swift
