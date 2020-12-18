@@ -1,6 +1,6 @@
 ---
 name: Bug
-about: バグ
+about: 不具合
 title: ''
 labels: bug
 assignees: ''
