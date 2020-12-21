@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct SplashView: View {
-    @State private var isLogin = true
+    let viewModel = SplashViewModel()
     
     var body: some View {
-        if isLogin {
+        if viewModel.isLogin {
             HomeView()
         } else {
             AuthenticationView()

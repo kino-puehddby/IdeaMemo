@@ -7,10 +7,6 @@
 
 import ReSwift
 
-final class SplashViewModel: ObservableObject, Identifiable {
-    @Published var isLogin: Bool = false
-
-    init() {
-        
-    }
+final class SplashViewModel: ViewModelProtocol {
+    var isLogin: Bool = ApplicationStore.shared.state.authenticationState.isSignIn
 }
