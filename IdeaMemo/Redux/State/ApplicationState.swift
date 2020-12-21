@@ -10,14 +10,17 @@ import ReSwift
 import RxCocoa
 import RxSwift
 
+import Combine
+
 public struct ApplicationState: ReSwift.StateType {
     public internal(set) var favoriteState = FavoriteState()
 }
 
-extension RxStore where AnyStateType == ApplicationState {
-    var favoriteState: Driver<FavoriteState> {
-        return stateDriver
+extension CombineStore where AnyStateType == ApplicationState {
+    var favoriteState: AnyPublisher<FavoriteState, Never> {
+        return statePublisher
             .map { $0.favoriteState }
-            .skip(1)
+            .dropFirst()
+            .eraseToAnyPublisher()
     }
 }

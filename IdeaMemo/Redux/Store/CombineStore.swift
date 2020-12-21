@@ -1,5 +1,5 @@
 //
-//  RxStore.swift
+//  CombineStore.swift
 //  myplace-for-office-nampeidai-ios
 //
 //  Created by Hisaya Sugita on 2020/10/21.
@@ -7,23 +7,23 @@
 //
 
 import Foundation
+import Combine
 import ReSwift
-import RxSwift
-import RxCocoa
 
-public class RxStore<AnyStateType>: ReSwift.StoreSubscriber where AnyStateType: ReSwift.StateType {
+public class CombineStore<AnyStateType>: ReSwift.StoreSubscriber where AnyStateType: ReSwift.StateType {
 
-    public lazy var stateDriver: Driver<AnyStateType> = {
-        stateRelay.asDriver()
+    public lazy var statePublisher: AnyPublisher<AnyStateType, Never> = {
+        return stateSubject.eraseToAnyPublisher()
     }()
-    public var state: AnyStateType { return stateRelay.value }
+    
+    public var state: AnyStateType { return stateSubject.value }
 
-    private let stateRelay: BehaviorRelay<AnyStateType>
+    private let stateSubject: CurrentValueSubject<AnyStateType, Never>
     private let store: ReSwift.Store<AnyStateType>
     
     public init(store: ReSwift.Store<AnyStateType>) {
         self.store = store
-        self.stateRelay = BehaviorRelay(value: store.state)
+        self.stateSubject = CurrentValueSubject(store.state)
         self.store.subscribe(self)
     }
     
@@ -33,7 +33,7 @@ public class RxStore<AnyStateType>: ReSwift.StoreSubscriber where AnyStateType: 
     
     public func newState(state: AnyStateType) {
         // when the state is changed
-        stateRelay.accept(state)
+        stateSubject.value = state
     }
 
     public func dispatch(_ action: ReSwift.Action) {

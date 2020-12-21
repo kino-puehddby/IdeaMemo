@@ -13,14 +13,14 @@ import RxCocoa
 final public class ApplicationStore {
 
     private static let instance = ApplicationStore()
-    private let store: RxStore<ApplicationState>
+    private let store: CombineStore<ApplicationState>
     
-    public static var shared: RxStore<ApplicationState> {
+    public static var shared: CombineStore<ApplicationState> {
         return instance.store
     }
     
     private init() {
-        store = RxStore(store: ReSwift.Store<ApplicationState>(
+        store = CombineStore(store: ReSwift.Store<ApplicationState>(
             reducer: appReducer,
             state: nil,
             middleware: [
