@@ -6,4 +6,4 @@
 ## 備考 / 注意事項
 
 ## issue
-Closes #
+Closes 
