@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FirebaseApp.configure()
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        let contentView = SplashView()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
