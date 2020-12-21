@@ -13,7 +13,7 @@ import ReSwift
 public class CombineStore<AnyStateType>: ReSwift.StoreSubscriber where AnyStateType: ReSwift.StateType {
 
     public lazy var statePublisher: AnyPublisher<AnyStateType, Never> = {
-        return stateSubject.eraseToAnyPublisher()
+        stateSubject.eraseToAnyPublisher()
     }()
     
     public var state: AnyStateType { return stateSubject.value }
@@ -42,7 +42,8 @@ public class CombineStore<AnyStateType>: ReSwift.StoreSubscriber where AnyStateT
             store.dispatch(action)
         } else {
             DispatchQueue.main.async { [weak self] in
-                self?.store.dispatch(action)
+                guard let self = self else { return }
+                self.store.dispatch(action)
             }
         }
     }
