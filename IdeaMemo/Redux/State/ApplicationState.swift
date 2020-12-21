@@ -14,12 +14,20 @@ import Combine
 
 public struct ApplicationState: ReSwift.StateType {
     public internal(set) var favoriteState = FavoriteState()
+    public internal(set) var authenticationState = AuthenticationState()
 }
 
 extension CombineStore where AnyStateType == ApplicationState {
     var favoriteState: AnyPublisher<FavoriteState, Never> {
         return statePublisher
             .map { $0.favoriteState }
+            .dropFirst()
+            .eraseToAnyPublisher()
+    }
+    
+    var authenticationState: AnyPublisher<AuthenticationState, Never> {
+        return statePublisher
+            .map { $0.authenticationState }
             .dropFirst()
             .eraseToAnyPublisher()
     }
