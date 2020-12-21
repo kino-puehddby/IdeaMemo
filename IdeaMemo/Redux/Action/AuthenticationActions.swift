@@ -6,7 +6,6 @@
 //
 //
 
-import RxSwift
 import ReSwift
 
 // Actions
@@ -19,7 +18,7 @@ extension AuthenticationState {
 
 // Action Dispatcher
 public struct AuthenticationActionDispatcher {
-    public static func xxxRequest(disposeBag: DisposeBag) {
+    public static func xxxRequest() {
 //        ApplicationStore.shared.dispatch(AuthenticationState.Action.requestStart)
 //        API.get()
 //            .subscribe(
@@ -27,9 +26,8 @@ public struct AuthenticationActionDispatcher {
 //                    ApplicationStore.shared.dispatch(AuthenticationState.Action.get(parameter: xxx))
 //                },
 //                onError: { error in
-//                    ApplicationStore.shared.dispatch(FavoriteState.Action.requestError(error))
+//                    ApplicationStore.shared.dispatch(AuthenticationState.Action.requestError(error))
 //                }
 //            )
-//            .disposed(by: disposeBag)
     }
 }

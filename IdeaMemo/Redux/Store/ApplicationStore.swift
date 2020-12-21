@@ -7,8 +7,6 @@
 //
 
 import ReSwift
-import RxSwift
-import RxCocoa
 
 final public class ApplicationStore {
 

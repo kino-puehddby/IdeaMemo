@@ -13,14 +13,12 @@ final class HomeViewModel: ViewModelProtocol {
     @Published var username: String = ""
     @Published var status: StatusText = StatusText(content: "NG", color: .red)
     
+    private var cancellables: Set<AnyCancellable> = []
+    
     struct StatusText {
         let content: String
         let color: Color
     }
-    
-    private var cancellables: Set<AnyCancellable> = []
-    
-    init() { }
 
     private var validatedUsername: AnyPublisher<String?, Never> {
         return $username

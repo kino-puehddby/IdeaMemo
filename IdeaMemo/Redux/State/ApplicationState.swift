@@ -6,11 +6,8 @@
 //  Copyright © 2020 mycity. All rights reserved.
 //
 
-import ReSwift
-import RxCocoa
-import RxSwift
-
 import Combine
+import ReSwift
 
 public struct ApplicationState: ReSwift.StateType {
     public internal(set) var favoriteState = FavoriteState()

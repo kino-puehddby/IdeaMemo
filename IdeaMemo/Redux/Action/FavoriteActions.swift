@@ -6,7 +6,7 @@
 //Copyright © 2020 mycity. All rights reserved.
 //
 
-import RxSwift
+import Combine
 import ReSwift
 
 // Actions
@@ -21,7 +21,7 @@ extension FavoriteState {
 // Action Dispatcher
 public struct FavoriteActionDispatcher {
 
-    public static func getFavoriteRequest(disposeBag: DisposeBag) {
+    public static func getFavoriteRequest() {
         ApplicationStore.shared.dispatch(FavoriteState.Action.requestStart)
 //        FavoriteAPI.get()
 //            .subscribe(
@@ -32,10 +32,9 @@ public struct FavoriteActionDispatcher {
 //                    ApplicationStore.shared.dispatch(FavoriteState.Action.requestError(error))
 //                }
 //            )
-//            .disposed(by: disposeBag)
     }
     
-    public static func postFavoriteRequest(userId: Int, disposeBag: DisposeBag) {
+    public static func postFavoriteRequest(userId: Int) {
         ApplicationStore.shared.dispatch(FavoriteState.Action.requestStart)
 //        FavoriteAPI.post(userId: userId)
 //            .subscribe(
@@ -46,10 +45,9 @@ public struct FavoriteActionDispatcher {
 //                    ApplicationStore.shared.dispatch(FavoriteState.Action.requestError(error))
 //                }
 //            )
-//            .disposed(by: disposeBag)
     }
     
-    public static func deleteFavoriteRequest(watchedUserId: Int, disposeBag: DisposeBag) {
+    public static func deleteFavoriteRequest(watchedUserId: Int) {
         ApplicationStore.shared.dispatch(FavoriteState.Action.requestStart)
 //        FavoriteAPI.delete(watchedUserId: watchedUserId)
 //            .subscribe(
@@ -60,6 +58,5 @@ public struct FavoriteActionDispatcher {
 //                    ApplicationStore.shared.dispatch(FavoriteState.Action.requestError(error))
 //                }
 //            )
-//            .disposed(by: disposeBag)
     }
 }
