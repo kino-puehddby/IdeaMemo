@@ -1,109 +1,109 @@
 {
   "images" : [
     {
-      "filename" : "AppIcon_Light-42.png",
+      "filename" : "AppIcon_Dark-40.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "AppIcon_Light-60.png",
+      "filename" : "AppIcon_Dark-60.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "AppIcon_Light-59.png",
+      "filename" : "AppIcon_Dark-58.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "AppIcon_Light-87.png",
+      "filename" : "AppIcon_Dark-87.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "AppIcon_Light-81.png",
+      "filename" : "AppIcon_Dark-80.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "AppIcon_Light-120.png",
+      "filename" : "AppIcon_Dark-120.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "AppIcon_Light-121.png",
+      "filename" : "AppIcon_Dark-121.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "AppIcon_Light-180.png",
+      "filename" : "AppIcon_Dark-180.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "AppIcon_Light-20.png",
+      "filename" : "AppIcon_Dark-20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "AppIcon_Light-40.png",
+      "filename" : "AppIcon_Dark-41.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "AppIcon_Light-29.png",
+      "filename" : "AppIcon_Dark-29.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "AppIcon_Light-58.png",
+      "filename" : "AppIcon_Dark-59.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "AppIcon_Light-41.png",
+      "filename" : "AppIcon_Dark-42.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "AppIcon_Light-80.png",
+      "filename" : "AppIcon_Dark-81.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "AppIcon_Light-76.png",
+      "filename" : "AppIcon_Dark-76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "AppIcon_Light-152.png",
+      "filename" : "AppIcon_Dark-152.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "AppIcon_Light-167.png",
+      "filename" : "AppIcon_Dark-167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "AppIcon_Light_1024.png",
+      "filename" : "AppIcon_Dark-1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
