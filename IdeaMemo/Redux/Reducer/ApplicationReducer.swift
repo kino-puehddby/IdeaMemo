@@ -12,7 +12,7 @@ import ReSwift
 public func appReducer(action: ReSwift.Action, state: ApplicationState?) -> ApplicationState {
     var state = state ?? ApplicationState()
     
-    state.favoriteState = FavoriteState.reducer(action: action, state: state.favoriteState)
+    state.authenticationState = AuthenticationState.reducer(action: action, state: state.authenticationState)
     
     return state
 }

@@ -11,8 +11,8 @@ import ReSwift
 // Actions
 extension AuthenticationState {
     public enum Action: ReSwift.Action {
-        case requestSignIn
         case completeSignIn
+        case completeSignOut
     }
 }
 

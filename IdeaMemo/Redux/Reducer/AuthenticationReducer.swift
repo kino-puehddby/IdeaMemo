@@ -14,10 +14,10 @@ extension AuthenticationState {
         guard let action = action as? AuthenticationState.Action else { return state }
 
         switch action {
-        case .requestSignIn:
-            break
         case .completeSignIn:
             state.isSignIn = true
+        case .completeSignOut:
+            state.isSignIn = false
         }
 
         return state
