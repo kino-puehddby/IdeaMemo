@@ -1,1 +1,11 @@
 "Common.Ok"="OK";
+"FatalError.Generate_Nonce"="Unable to generate nonce. SecRandomCopyBytes failed with OSStatus %d";
+"FatalError.No_Login_Request"="Invalid state: A login callback was received, but no login request was sent.";
+"FatalError.Identity_Token"="Unable to fetch identity token";
+"FatalError.Encoding"="Unable to serialize token string from data: %@";
+"AppError.authorization"="Unauthorized Error";
+"AppError.network"="Network Error";
+"AppError.server"="Internal Server Error( %@ )";
+"AppError.system"="System Error";
+"AppError.business"="Business Error";
+"AppError.unknown"="Unknown Error";
