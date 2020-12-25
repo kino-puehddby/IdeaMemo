@@ -119,7 +119,7 @@ options:
   groupOrdering:
     - order: [IdeaMemo, Configurations]
     - pattern: "IdeaMemo"
-      order: [InterfaceBuilder, ViewController, View, Redux, Model, Resources, Supporting Files, Preview Content]
+      order: [InterfaceBuilder, ViewController, View, ViewModel, Redux, Model, Services, Extensions, Resources, Supporting Files, Preview Content]
     - pattern: "Redux"
       order: [Store, State, Action, Reducer, Middleware]
 
@@ -222,6 +222,7 @@ targets:
     settings:
       base:
         INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
+        CODE_SIGN_ENTITLEMENTS: IdeaMemo/Supporting Files/IdeaMemo.entitlements
     dependencies:
       - carthage: ReSwift
   IdeaMemoTests:
