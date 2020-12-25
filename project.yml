@@ -223,10 +223,7 @@ targets:
       base:
         INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
     dependencies:
-      - carthage: RxSwift
       - carthage: ReSwift
-      - carthage: RxCocoa
-      - carthage: RxRelay
   IdeaMemoTests:
     type: bundle.unit-test
     platform: iOS
