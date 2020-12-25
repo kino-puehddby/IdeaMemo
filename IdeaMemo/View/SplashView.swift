@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct SplashView: View {
-    let viewModel = SplashViewModel()
+    @ObservedObject var viewModel = SplashViewModel()
     
     var body: some View {
-        if viewModel.isLogin {
+        if viewModel.isSignIn {
             HomeView()
         } else {
             AuthenticationView()
@@ -23,5 +23,6 @@ struct SplashView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         SplashView()
+            .environment(\.colorScheme, .dark)
     }
 }

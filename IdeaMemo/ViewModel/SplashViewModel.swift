@@ -5,8 +5,9 @@
 //  Created by Hisaya Sugita on 2020/12/19.
 //
 
-import ReSwift
+import Combine
+import FirebaseAuth
 
-final class SplashViewModel: ViewModelProtocol {
-    var isLogin: Bool = ApplicationStore.shared.state.authenticationState.isSignIn
+final class SplashViewModel: ObservableObject, Identifiable {
+    @Published var isSignIn: Bool = Auth.auth().currentUser != nil
 }
