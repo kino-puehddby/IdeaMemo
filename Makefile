@@ -53,3 +53,12 @@ xcodegen:
 	xcodegen
 	$(MAKE) install-pods
 	bundle exec fastlane ios sync_xcode_signing
+
+############
+# Fastlane Match
+############
+.PHONY: match
+match:
+	bundle exec fastlane match development
+	bundle exec fastlane match adhoc
+	bundle exec fastlane match appstore
