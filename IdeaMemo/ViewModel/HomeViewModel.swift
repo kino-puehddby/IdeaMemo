@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
-import ReSwift
 import Combine
 
-final class HomeViewModel: ViewModelProtocol {
+final class HomeViewModel: ObservableObject, Identifiable {
     @Published var username: String = ""
     @Published var status: StatusText = StatusText(content: "NG", color: .red)
     
@@ -26,7 +25,6 @@ final class HomeViewModel: ViewModelProtocol {
             .removeDuplicates()
             .flatMap { username -> AnyPublisher<String?, Never> in
                 Future<String?, Never> { promise in
-                    // FIXME: API request
                     if 1...10 ~= username.count {
                         promise(.success(username))
                     } else {
