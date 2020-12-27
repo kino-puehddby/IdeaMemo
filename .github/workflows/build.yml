@@ -61,7 +61,7 @@ jobs:
 
       - name: Set Environment for Ruby Cache
         run: |
-          envman add --key RBENV_RUBY_VERSION_HOME --value "$(rbenv root)""/versions/""$(< .ruby-version)"
+          RBENV_RUBY_VERSION_HOME="$(rbenv root)/versions/`cat .ruby-version`"
 
       - name: Cache Ruby
         uses: actions/cache@v2
