@@ -6,9 +6,16 @@ name: build
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
-    branches: [ develop ]
+    branches:
+      - master
+      - develop
+    paths-ignore:
+      - README.md
   pull_request:
-    branches: [ develop ]
+    branches:
+      - develop
+    paths-ignore:
+      - README.md
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,17 +27,76 @@ jobs:
     # The type of runner that the job will run on
     runs-on: macos-latest
 
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Show Xcode list
+        run: ls /Applications | grep 'Xcode'
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen
+
+      - name: Cache Gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install Bundler
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          gem install bundler
+
+      - name: Install Bundled Gems
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Cache Pods
+        uses: actions/cache@v2
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Install Pods
+        run: bundle exec pod install
+
+      - name: Cache Carthage packages
+        uses: actions/cache@v2
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-carthage-
+
+      - name: Install Carthage frameworks
+        run: |
+          mint run carthage carthage bootstrap --platform iOS --cache-builds
+          echo '*** Resolved dependencies:'
+          cat 'Cartfile.resolved'
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Xcode build
+        run: set -o pipefail &&
+          xcodebuild
+          -sdk iphonesimulator
+          -configuration Debug
+          -workspace IdeaMemo.xcworkspace
+          -scheme IdeaMemo
+          build
+          | bundle exec xcpretty
