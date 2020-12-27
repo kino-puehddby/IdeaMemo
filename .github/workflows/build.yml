@@ -77,10 +77,11 @@ jobs:
           if [ -e "$rubyVersionBinaryPath" ]; then
             :
           else
-            brew update && brew upgrade ruby-build || true # すでにインストール済みだったとしても異常終了にしない
             eval "$(rbenv init -)"
             rbenv install -s `cat .ruby-version`
             rbenv global `cat .ruby-version`
+            rbenv rehash
+            rbenv versions
           fi
 
       - name: Cache Gems
