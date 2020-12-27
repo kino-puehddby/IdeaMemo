@@ -10,25 +10,27 @@ import AuthenticationServices
 import FirebaseAuth
 
 final class AuthenticationViewModel: ObservableObject, Identifiable {
-    @Published var firebaseAuthResult: Result<AuthDataResult, AppError>?
-    @Published var isLoginCompleted = false
+    @Published var isSignInCompleted = false
+    @Published var isLoading = false
+    @Published var error: AppError?
     
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        $firebaseAuthResult
-            .sink { [weak self] result in
+        ApplicationStore.shared.authenticationState.map { $0.isSignIn }
+            .removeDuplicates()
+            .sink { [weak self] isSignIn in
                 guard let self = self else { return }
-                switch result {
-                case .success(let authResult):
-                    debugPrint("userIdentifier: \(authResult.user)")
-                    ApplicationStore.shared.dispatch(AuthenticationState.Action.completeSignIn)
-                    self.isLoginCompleted = true
-                case .failure(let error):
-                    debugPrint(error.localizedDescription)
-                case .none:
-                    break
-                }
+                self.isSignInCompleted = isSignIn
+            }
+            .store(in: &self.cancellables)
+        
+        ApplicationStore.shared.authenticationState.map { $0.error }
+            .filterNil()
+            .removeDuplicates()
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                self.error = error
             }
             .store(in: &self.cancellables)
     }

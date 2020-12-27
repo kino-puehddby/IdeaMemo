@@ -1,0 +1,53 @@
+//
+//  SignInWithGoogleDelegate.swift
+//  IdeaMemo
+//
+//  Created by Hisaya Sugita on 2020/12/26.
+//
+
+import FirebaseAuth
+import GoogleSignIn
+
+class SignInWithGoogleDelegate: NSObject, ObservableObject {
+    @Published var isSignIn: Bool = false
+}
+
+extension SignInWithGoogleDelegate: GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            switch (error as NSError).code {
+            case GIDSignInErrorCode.hasNoAuthInKeychain.rawValue:
+                print(L10n.Error.GoogleSignIn.hasNoAuthInKeychain)
+            case GIDSignInErrorCode.canceled.rawValue:
+                print(L10n.Error.GoogleSignIn.canceled)
+            default:
+                print("\(error.localizedDescription)")
+            }
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(
+            withIDToken: authentication.idToken,
+            accessToken: authentication.accessToken
+        )
+        firebaseSigiIn(credential: credential)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+    }
+    
+    private func firebaseSigiIn(credential: AuthCredential) {
+        Auth.auth().signIn(with: credential) { _, error in
+            guard error == nil else {
+                debugPrint(error!.localizedDescription)
+                ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
+                return
+            }
+
+            // User is signed in to Firebase with Google.
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.completeSignIn)
+        }
+    }
+}

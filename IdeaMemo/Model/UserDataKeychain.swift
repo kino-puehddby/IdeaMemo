@@ -12,5 +12,5 @@ struct UserDataKeychain: Keychain {
     var account: String
     var service: String
 
-    typealias DataType = User
+    typealias DataType = AppUser
 }
