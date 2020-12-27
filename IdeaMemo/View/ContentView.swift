@@ -1,5 +1,5 @@
 //
-//  SplashView.swift
+//  ContentView.swift
 //  IdeaMemo
 //
 //  Created by Hisaya Sugita on 2020/10/05.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SplashView: View {
+struct ContentView: View {
     @ObservedObject var viewModel = SplashViewModel()
     
     var body: some View {
@@ -22,7 +22,7 @@ struct SplashView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashView()
+        ContentView()
             .environment(\.colorScheme, .dark)
     }
 }
