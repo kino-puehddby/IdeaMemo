@@ -34,6 +34,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: masa-iwasaki/setup-rbenv@v1
 
       - name: Show Xcode list
         run: ls /Applications | grep 'Xcode'
@@ -48,7 +49,7 @@ jobs:
         run: xcodegen
 
       - name: Install rbenv
-        run: brew install rbenv
+        run: brew install rbenv ruby-build
 
       - name: Cache RBENV_ROOT
         uses: actions/cache@v1
@@ -82,6 +83,7 @@ jobs:
             rbenv global `cat .ruby-version`
             rbenv rehash
             rbenv versions
+            which ruby
           fi
 
       - name: Cache Gems
