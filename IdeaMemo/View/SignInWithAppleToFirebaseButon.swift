@@ -12,7 +12,7 @@ import FirebaseAuth
 
 final class SignInWithApple: UIViewRepresentable {
     func makeUIView(context: Context) -> ASAuthorizationAppleIDButton {
-        return ASAuthorizationAppleIDButton(type: .default, style: .whiteOutline )
+        return ASAuthorizationAppleIDButton(type: .default, style: UITraitCollection.isDarkMode  ? .white : .black )
     }
 
     func updateUIView(_ uiView: ASAuthorizationAppleIDButton, context: Context) {}

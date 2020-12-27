@@ -18,43 +18,57 @@ struct AuthenticationView: View {
             HomeView()
         } else {
             GeometryReader { geometry in
-                VStack {
-                    VStack(alignment: .center, spacing: 30) {
-                        Image(uiImage: Asset.Images.icon.image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 180, height: 180)
-                        Text("アイデアメモ")
-                    }
-                    .padding(.vertical, 82)
-
-                    VStack(alignment: .center, spacing: 20) {
-                        SignInWithAppleToFirebase()
-                            .signInWithAppleButtonStyle(.black)
-                            .frame(width: .none, height: 45, alignment: .center)
-                            .cornerRadius(6.5)
-                            .padding(.horizontal, 30)
-
-                        Button(action: {
-                            GIDSignIn.sharedInstance().signIn()
-                        }) {
-                            Image(uiImage: Asset.Images.googleLogo.image)
+                Color(Asset.Colors.primaryBackgroundColor.color)
+                    .edgesIgnoringSafeArea(.all)
+                VStack(alignment: .center) {
+                    VStack {
+                        VStack {
+                            Image(uiImage: Asset.Images.icon.image)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 15, height: 15, alignment: .center)
-                            Text("Googleでサインイン")
-                                .foregroundColor(Color(Asset.Colors.primaryBackgroundColor.color))
+                                .frame(width: 230, height: 230)
+                            Text("アイデアメモ")
+                                .padding(.top, -15)
+                                .font(.headline)
                         }
-                        .frame(width: geometry.size.width - 60, height: 45, alignment: .center)
-                        .background(Color(Asset.Colors.primaryContentColor.color))
-                        .cornerRadius(6.5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 6.5)
-                                .stroke(Color(Asset.Colors.primaryBackgroundColor.color), lineWidth: 0.8)
-                        )
+                        .padding(.vertical, 82)
+
+                        VStack(spacing: 20) {
+                            let buttonWidth: CGFloat = geometry.size.width - 60
+                            let buttonHeight: CGFloat = 45
+                            let buttonCornerRadius: CGFloat = 6.5
+                            
+                            Text("ログイン / 新規登録")
+                                .font(.headline)
+                                .fontWeight(.regular)
+
+                            SignInWithAppleToFirebase()
+                                .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
+                                .cornerRadius(buttonCornerRadius)
+
+                            Button(action: {
+                                GIDSignIn.sharedInstance().signIn()
+                            }) {
+                                Image(uiImage: Asset.Images.googleLogo.image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 15, height: 15, alignment: .center)
+                                Text("Googleでサインイン")
+                                    .foregroundColor(Color(Asset.Colors.primaryBackgroundColor.color))
+                                    .fontWeight(.medium)
+                            }
+                            .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
+                            .background(Color(Asset.Colors.primaryContentColor.color))
+                            .cornerRadius(buttonCornerRadius)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: buttonCornerRadius)
+                                    .stroke(Color(Asset.Colors.primaryBackgroundColor.color), lineWidth: 0.8)
+                            )
+                        }
+                        .frame(width: geometry.size.width)
                     }
-                    .frame(width: geometry.size.width)
                 }
+                .frame(width: geometry.size.width, height: geometry.size.height)
             }
         }
         LoadingIndicatorView(isLoading: viewModel.isLoading)
@@ -63,8 +77,13 @@ struct AuthenticationView: View {
 
 struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {
-        AuthenticationView()
-            .previewDevice("iPhone 12")
-            .environment(\.colorScheme, .dark)
+        Group {
+            AuthenticationView()
+                .previewDevice("iPhone 12")
+                .environment(\.colorScheme, .dark)
+            AuthenticationView()
+                .previewDevice("iPhone 12")
+                .environment(\.colorScheme, .dark)
+        }
     }
 }

@@ -13,6 +13,8 @@ struct HomeView: View {
 
     var body: some View {
         if viewModel.isSignIn {
+            Color(Asset.Colors.primaryBackgroundColor.color)
+                .edgesIgnoringSafeArea(.all)
             NavigationView {
                 VStack {
                     List {
