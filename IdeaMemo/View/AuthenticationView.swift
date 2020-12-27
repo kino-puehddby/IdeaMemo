@@ -20,7 +20,7 @@ struct AuthenticationView: View {
             GeometryReader { geometry in
                 VStack {
                     VStack(alignment: .center, spacing: 30) {
-                        Image(uiImage: Asset.Assets.icon.image)
+                        Image(uiImage: Asset.Images.icon.image)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 180, height: 180)
@@ -38,7 +38,7 @@ struct AuthenticationView: View {
                         Button(action: {
                             GIDSignIn.sharedInstance().signIn()
                         }) {
-                            Image(uiImage: Asset.Assets.googleLogo.image)
+                            Image(uiImage: Asset.Images.googleLogo.image)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 15, height: 15, alignment: .center)

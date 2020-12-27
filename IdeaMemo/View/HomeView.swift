@@ -35,7 +35,7 @@ struct HomeView: View {
                     debugPrint("ナビゲーションボタンがタップされた")
                     viewModel.signOut()
                 }) {
-                    Image(uiImage: Asset.Assets.setting.image)
+                    Image(uiImage: Asset.Images.setting.image)
                         .frame(width: 30, height: 30, alignment: .center)
                 })
                 .navigationBarTitleDisplayMode(.automatic)

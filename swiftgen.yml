@@ -8,7 +8,7 @@ ib:
       output: IdeaMemo/Resources/Generated/StoryboardSegues.swift
 xcassets:
   inputs:
-    - IdeaMemo/Resources/Assets.xcassets
+    - IdeaMemo/Resources/Images.xcassets
     - IdeaMemo/Resources/Colors.xcassets
   outputs:
     - templateName: swift5

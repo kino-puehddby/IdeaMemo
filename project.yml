@@ -188,7 +188,7 @@ targets:
       - path: "IdeaMemo/Resources/Generated/LocalizableStrings.swift"
         optional: true
         createIntermediateGroups: true
-      - path: "IdeaMemo/Resources/Assets.xcassets"
+      - path: "IdeaMemo/Resources/Images.xcassets"
         optional: true
         createIntermediateGroups: true
       - path: "IdeaMemo/Resources/Colors.xcassets"
@@ -209,7 +209,7 @@ targets:
           - $(SRCROOT)/IdeaMemo/Resources/Generated/LocalizableStrings.swift
           - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardScenes.swift
           - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardSegues.swift
-          - $(SRCROOT)/IdeaMemo/Resources/Generated/Assets.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/Images.swift
           - $(SRCROOT)/IdeaMemo/Resources/Generated/Colors.swift
     postCompileScripts:
       - script: |
