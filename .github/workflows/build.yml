@@ -66,7 +66,7 @@ jobs:
       - name: Cache Ruby
         uses: actions/cache@v2
         with:
-          path: RBENV_RUBY_VERSION_HOME
+          path: $RBENV_RUBY_VERSION_HOME
           key: ${{ runner.os }}-ruby-${{ hashFiles('**/.ruby-version') }}
           restore-keys: |
             ${{ runner.os }}-ruby-
