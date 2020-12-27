@@ -9,6 +9,7 @@ def install_pods
   # Firebase
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
 
   # Code Check
   pod 'SwiftLint'
