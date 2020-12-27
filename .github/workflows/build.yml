@@ -71,6 +71,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-ruby-
 
+      - name: Cache Gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
       - name: Install Ruby
         run: |
           rubyVersionBinaryPath="$(rbenv root)""/versions/""$(< .ruby-version)""/bin/ruby"
@@ -80,27 +88,25 @@ jobs:
             eval "$(rbenv init -)"
             rbenv install -s `cat .ruby-version`
             rbenv global `cat .ruby-version`
+            rbenv local `cat .ruby-version`
             rbenv rehash
             rbenv versions
+            cat ~/.bash_profile
+            source ~/.bash_profile
             which ruby
+            gem install bundler
+            bundle config path vendor/bundle
+            bundle install --jobs 4 --retry 3
           fi
 
-      - name: Cache Gems
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
+#       - name: Install Bundler
+#         run: |
+#           gem install bundler
 
-      - name: Install Bundler
-        run: |
-          gem install bundler
-
-      - name: Install Bundled Gems
-        run: |
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+#       - name: Install Bundled Gems
+#         run: |
+#           bundle config path vendor/bundle
+#           bundle install --jobs 4 --retry 3
 
       - name: Cache Pods
         uses: actions/cache@v2
