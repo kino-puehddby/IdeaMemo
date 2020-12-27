@@ -7,8 +7,10 @@
 
 import SwiftUI
 import Combine
+import FirebaseAuth
 
 final class HomeViewModel: ObservableObject, Identifiable {
+    @Published var isSignIn: Bool = true
     @Published var username: String = ""
     @Published var status: StatusText = StatusText(content: "NG", color: .red)
     
@@ -61,5 +63,16 @@ final class HomeViewModel: ObservableObject, Identifiable {
                 self?.status = value
             }
             .store(in: &self.cancellables)
+    }
+    
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError)")
+        }
+        
+        ApplicationStore.shared.dispatch(AuthenticationState.Action.completeSignOut)
+        isSignIn = false
     }
 }
