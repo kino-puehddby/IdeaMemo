@@ -63,6 +63,7 @@ jobs:
         run: |
           eval "$(rbenv init -)"
           rbenv install -s `cat .ruby-version`
+          rbenv global `cat .ruby-version`
 
       - name: Cache Gems
         uses: actions/cache@v2
