@@ -41,11 +41,17 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
+      - name: Update Brew
+        run: brew update
+
       - name: Install XcodeGen
         run: brew install xcodegen
 
       - name: Generate Xcode Project
         run: xcodegen
+
+      - name: Install rbenv
+        run: brew install rbenv
 
       - name: Cache RBENV_ROOT
         uses: actions/cache@v1
