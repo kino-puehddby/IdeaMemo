@@ -119,7 +119,7 @@ options:
   groupOrdering:
     - order: [IdeaMemo, Configurations]
     - pattern: "IdeaMemo"
-      order: [InterfaceBuilder, ViewController, View, ViewModel, Redux, Model, Services, Extensions, Resources, Supporting Files, Preview Content]
+      order: [InterfaceBuilder, ViewController, View, ViewModel, Redux, Model, Utils, Extensions, Resources, Supporting Files, Preview Content]
     - pattern: "Redux"
       order: [Store, State, Action, Reducer, Middleware]
 
