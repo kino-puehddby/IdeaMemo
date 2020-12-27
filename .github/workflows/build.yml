@@ -59,11 +59,29 @@ jobs:
           restore-keys: |
             {{ runner.os }}-rbenv-
 
+      - name: Set Environment for Ruby Cache
+        run: |
+          envman add --key RBENV_RUBY_VERSION_HOME --value "$(rbenv root)""/versions/""$(< .ruby-version)"
+
+      - name: Cache Ruby
+        uses: actions/cache@v2
+        with:
+          path: RBENV_RUBY_VERSION_HOME
+          key: ${{ runner.os }}-ruby-${{ hashFiles('**/.ruby-version') }}
+          restore-keys: |
+            ${{ runner.os }}-ruby-
+
       - name: Install Ruby
         run: |
-          eval "$(rbenv init -)"
-          rbenv install -s `cat .ruby-version`
-          rbenv global `cat .ruby-version`
+          rubyVersionBinaryPath="$(rbenv root)""/versions/""$(< .ruby-version)""/bin/ruby"
+          if [ -e "$rubyVersionBinaryPath" ]; then
+            :
+          else
+            brew update && brew upgrade ruby-build || true # すでにインストール済みだったとしても異常終了にしない
+            eval "$(rbenv init -)"
+            rbenv install -s `cat .ruby-version`
+            rbenv global `cat .ruby-version`
+          fi
 
       - name: Cache Gems
         uses: actions/cache@v2
