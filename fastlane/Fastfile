@@ -30,13 +30,14 @@ platform :ios do
 
   desc 'Runs all tests'
   lane :test do
+    install_lib
     case ENV['ENV']
     when 'production'
-      scan(scheme: 'IdeaMemo-release')
+      scan(scheme: 'IdeaMemo-release', device: 'iPhone 12')
     when 'staging'
-      scan(scheme: 'IdeaMemo-staging')
+      scan(scheme: 'IdeaMemo-staging', device: 'iPhone 12')
     when 'development'
-      scan(scheme: 'IdeaMemo')
+      scan(scheme: 'IdeaMemo', device: 'iPhone 12')
     end
   end
 
