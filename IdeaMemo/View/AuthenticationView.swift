@@ -81,9 +81,6 @@ struct AuthenticationView_Previews: PreviewProvider {
             AuthenticationView()
                 .previewDevice("iPhone 12")
                 .environment(\.colorScheme, .dark)
-            AuthenticationView()
-                .previewDevice("iPhone 12")
-                .environment(\.colorScheme, .dark)
         }
     }
 }
