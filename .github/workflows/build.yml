@@ -77,16 +77,14 @@ jobs:
           if [ -e "$rubyVersionBinaryPath" ]; then
             :
           else
-            eval "$(rbenv init -)"
+            echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
+            echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
             rbenv install -s `cat .ruby-version`
             rbenv global `cat .ruby-version`
-            export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+            echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
             rbenv rehash
             echo "-------- rbenv versions -------"
             rbenv versions
-            echo "-------- cat ~/.bashrc -------"
-            cat ~/.bashrc
-            source ~/.bashrc
             echo "-------- cat ~/.bash_profile -------"
             cat ~/.bash_profile
             source ~/.bash_profile
