@@ -119,12 +119,6 @@ jobs:
           rbenv rehash
           echo "-------- rbenv versions -------"
           rbenv versions
-          echo "-------- cat ~/.bash_profile -------"
-          echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
-          echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-          echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
-          cat ~/.bash_profile
-          source ~/.bash_profile
           echo "-------- which ruby -------"
           which ruby
           echo "-------- ruby -v -------"
@@ -152,12 +146,6 @@ jobs:
           rbenv rehash
           echo "-------- rbenv versions -------"
           rbenv versions
-          echo "-------- cat ~/.bash_profile -------"
-          echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
-          echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-          echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
-          cat ~/.bash_profile
-          source ~/.bash_profile
           echo "-------- which ruby -------"
           which ruby
           echo "-------- ruby -v -------"
@@ -179,7 +167,7 @@ jobs:
 
       - name: Install Carthage frameworks
         run: |
-          mint run carthage carthage bootstrap --platform iOS --cache-builds
+          bash run-carthage.sh bootstrap --platform iOS --no-use-binaries --cache-builds
           echo '*** Resolved dependencies:'
           cat 'Cartfile.resolved'
         env:
