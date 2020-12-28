@@ -84,7 +84,6 @@ jobs:
             echo "-------- rbenv versions -------"
             rbenv versions
             echo "-------- cat ~/.bash_profile -------"
-            echo '### rbenv ###' >> ~/.bash_profile
             echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
             echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
             echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
