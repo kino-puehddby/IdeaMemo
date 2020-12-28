@@ -107,11 +107,11 @@ jobs:
 #           build
 #           | bundle exec xcpretty
 
-      - name: Run Danger
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
-        run: |
-          bundle exec danger
+#       - name: Run Danger
+#         env:
+#           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
+#         run: |
+#           bundle exec danger
 
   danger:
     name: Run Danger
