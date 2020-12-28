@@ -107,17 +107,35 @@ jobs:
 
       - name: Install Bundler
         run: |
-          gem install bundler
+          rbenv exec gem install bundler
+          rbenv rehash
+          echo "-------- rbenv versions -------"
+          rbenv versions
 
       - name: Install Bundled Gems
         run: |
+          eval "$(rbenv init -)"
+          rbenv global `cat .ruby-version`
+          rbenv rehash
+          echo "-------- rbenv versions -------"
+          rbenv versions
+          echo "-------- cat ~/.bash_profile -------"
+          echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
+          echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+          echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
+          cat ~/.bash_profile
+          source ~/.bash_profile
           echo "-------- which ruby -------"
           which ruby
           echo "-------- ruby -v -------"
           ruby -v
+          echo "-------- bundle env -------"
+          bundle env
+          echo "-------- rbenv exec bundle env -------"
+          rbenv exec bundle env
           echo "-------- bundle install -------"
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          rbenv exec bundle config path vendor/bundle
+          rbenv exec bundle install --jobs 4 --retry 3
 
       - name: Cache Pods
         uses: actions/cache@v2
