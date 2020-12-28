@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftUI
+import Firebase
+import GoogleSignIn
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,14 +19,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+        let signInWithGoogleDelegate = (UIApplication.shared.delegate as! AppDelegate).signInWithGoogleDelegate
 
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
+            .environmentObject(signInWithGoogleDelegate) // Add googleDelegate as an environment object
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
+            
+            // Set presentingViewControll to rootViewController
+            GIDSignIn.sharedInstance().presentingViewController = window.rootViewController
+            
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -57,5 +66,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
 }

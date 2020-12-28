@@ -1,0 +1,90 @@
+//
+//  AuthenticationView.swift
+//  IdeaMemo
+//
+//  Created by Hisaya Sugita on 2020/12/19.
+//
+
+import SwiftUI
+import AuthenticationServices
+import GoogleSignIn
+
+struct AuthenticationView: View {
+    @ObservedObject var viewModel = AuthenticationViewModel()
+    @EnvironmentObject var signInWithGoogleDelegate: SignInWithGoogleDelegate
+
+    var body: some View {
+        if viewModel.isSignInCompleted {
+            HomeView()
+        } else {
+            GeometryReader { geometry in
+                Color(Asset.Colors.primaryBackgroundColor.color)
+                    .edgesIgnoringSafeArea(.all)
+                VStack(alignment: .center, spacing: 0) {
+                    Spacer()
+                        .frame(minHeight: 0, maxHeight: .infinity)
+
+                    VStack {
+                        Image(uiImage: Asset.Images.icon.image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 230, height: 230)
+                        Text("アイデアメモ")
+                            .padding(.top, -15)
+                            .font(.headline)
+                    }
+                    .padding(.bottom, 82)
+
+                    VStack(spacing: 20) {
+                        let buttonWidth: CGFloat = geometry.size.width - 60
+                        let buttonHeight: CGFloat = 45
+                        let buttonCornerRadius: CGFloat = 6.5
+                        
+                        Text("ログイン / 新規登録")
+                            .font(.headline)
+                            .fontWeight(.regular)
+
+                        SignInWithAppleToFirebase()
+                            .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
+                            .cornerRadius(buttonCornerRadius)
+
+                        Button(action: {
+                            ApplicationStore.shared.dispatch(AuthenticationState.Action.startAuthenticate)
+                            GIDSignIn.sharedInstance().signIn()
+                        }) {
+                            HStack {
+                                Image(uiImage: Asset.Images.googleLogo.image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 15, height: 15, alignment: .center)
+                                Text("Googleでサインイン")
+                                    .foregroundColor(Color(Asset.Colors.primaryBackgroundColor.color))
+                                    .fontWeight(.medium)
+                                    .underline(false)
+                            }
+                            .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
+                            .background(Color(Asset.Colors.primaryContentColor.color))
+                            .cornerRadius(buttonCornerRadius)
+                        }
+                    }
+                    .frame(width: geometry.size.width)
+                    
+                    Spacer()
+                        .frame(minHeight: 0, maxHeight: .infinity)
+                }
+
+                LoadingIndicatorView(isLoading: viewModel.isLoading, opacity: 0.3, duration: 0.2)
+            }
+        }
+    }
+}
+
+struct AuthenticationView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            AuthenticationView()
+                .previewDevice("iPhone 12")
+                .environment(\.colorScheme, .dark)
+        }
+    }
+}

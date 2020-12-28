@@ -6,18 +6,18 @@
 //  Copyright © 2020 mycity. All rights reserved.
 //
 
+import Combine
 import ReSwift
-import RxCocoa
-import RxSwift
 
 public struct ApplicationState: ReSwift.StateType {
-    public internal(set) var favoriteState = FavoriteState()
+    public internal(set) var authenticationState = AuthenticationState()
 }
 
-extension RxStore where AnyStateType == ApplicationState {
-    var favoriteState: Driver<FavoriteState> {
-        return stateDriver
-            .map { $0.favoriteState }
-            .skip(1)
+extension CombineStore where AnyStateType == ApplicationState {
+    var authenticationState: AnyPublisher<AuthenticationState, Never> {
+        return statePublisher
+            .map { $0.authenticationState }
+            .dropFirst()
+            .eraseToAnyPublisher()
     }
 }

@@ -9,13 +9,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = SplashViewModel()
+    
     var body: some View {
-        Text("Hello, World!")
+        if viewModel.isSignIn {
+            HomeView()
+        } else {
+            AuthenticationView()
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewDevice("iPhone 12")
+            .environment(\.colorScheme, .dark)
     }
 }

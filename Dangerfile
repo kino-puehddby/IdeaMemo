@@ -1,7 +1,12 @@
 # Warnings
-warn 'Big PR' if git.lines_of_code > 300
-warn 'Large PR' if git.lines_of_code > 500
-warn 'Huge PR' if git.lines_of_code > 700
+if git.lines_of_code > 700
+  warn 'Huge PR'
+elsif git.lines_of_code > 500
+  warn 'Large PR'
+elsif git.lines_of_code > 300
+  warn 'Big PR'
+end
+
 warn 'PR is classed as Work in Progress' if github.pr_title.include? '[WIP]'
 warn 'Please add labels to this PR' if github.pr_labels.empty?
 

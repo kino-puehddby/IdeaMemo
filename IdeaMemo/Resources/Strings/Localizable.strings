@@ -1,1 +1,13 @@
 "Common.Ok"="OK";
+"Error.Generate_Nonce"="Unable to generate nonce. SecRandomCopyBytes failed with OSStatus %d";
+"Error.No_Login_Request"="Invalid state: A login callback was received, but no login request was sent.";
+"Error.Identity_Token"="Unable to fetch identity token";
+"Error.Encoding"="Unable to serialize token string from data: %@";
+"Error.GoogleSignIn.HasNoAuthInKeychain"="The user has not signed in before or they have since signed out.";
+"Error.GoogleSignIn.Canceled"="Sign in canceled by user operation";
+"AppError.authorization"="Unauthorized Error";
+"AppError.network"="Network Error";
+"AppError.server"="Internal Server Error( %@ )";
+"AppError.system"="System Error";
+"AppError.business"="Business Error";
+"AppError.unknown"="Unknown Error";

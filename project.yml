@@ -113,13 +113,13 @@ options:
   bundleIdPrefix: com.kino-puehddby
   developmentLanguage: ja
   deploymentTarget:
-    iOS: 13.0
-  xcodeVersion: 12.2
+    iOS: 14.0
+  xcodeVersion: 12.3
   generateEmptyDirectories: true
   groupOrdering:
     - order: [IdeaMemo, Configurations]
     - pattern: "IdeaMemo"
-      order: [Storyboard, ViewController, View, Redux, Model, Resources, Supporting Files, Preview Content]
+      order: [InterfaceBuilder, ViewController, View, ViewModel, Redux, Model, Utils, Extensions, Resources, Supporting Files, Preview Content]
     - pattern: "Redux"
       order: [Store, State, Action, Reducer, Middleware]
 
@@ -129,7 +129,7 @@ options:
 
 settings:
   base:
-    IPHONEOS_DEPLOYMENT_TARGET: 13.0
+    IPHONEOS_DEPLOYMENT_TARGET: 14.0
     TARGETED_DEVICE_FAMILY: 1
     SWIFT_VERSION: 5.0
     CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
@@ -143,7 +143,7 @@ targets:
   IdeaMemo:
     type: application
     platform: iOS
-    deploymentTarget: 13.0
+    deploymentTarget: 14.0
     attributes:
       ProvisioningStyle: Manual
     sources:
@@ -152,7 +152,7 @@ targets:
       ############
       # SwiftGen
       ############
-      - path: "IdeaMemo/Storyboard"
+      - path: "IdeaMemo/InterfaceBuilder"
         createIntermediateGroups: true
         type: group
       - path: "IdeaMemo/View"
@@ -188,7 +188,10 @@ targets:
       - path: "IdeaMemo/Resources/Generated/LocalizableStrings.swift"
         optional: true
         createIntermediateGroups: true
-      - path: "IdeaMemo/Resources/Assets.xcassets"
+      - path: "IdeaMemo/Resources/Images.xcassets"
+        optional: true
+        createIntermediateGroups: true
+      - path: "IdeaMemo/Resources/Colors.xcassets"
         optional: true
         createIntermediateGroups: true
       - path: "IdeaMemo/Resources/Strings/Localizable.strings"
@@ -206,7 +209,8 @@ targets:
           - $(SRCROOT)/IdeaMemo/Resources/Generated/LocalizableStrings.swift
           - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardScenes.swift
           - $(SRCROOT)/IdeaMemo/Resources/Generated/StoryboardSegues.swift
-          - $(SRCROOT)/IdeaMemo/Resources/Generated/Assets.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/Images.swift
+          - $(SRCROOT)/IdeaMemo/Resources/Generated/Colors.swift
     postCompileScripts:
       - script: |
           if which swiftlint >/dev/null; then
@@ -218,11 +222,9 @@ targets:
     settings:
       base:
         INFOPLIST_FILE: IdeaMemo/Supporting Files/Info.plist
+        CODE_SIGN_ENTITLEMENTS: IdeaMemo/Supporting Files/IdeaMemo.entitlements
     dependencies:
-      - carthage: RxSwift
       - carthage: ReSwift
-      - carthage: RxCocoa
-      - carthage: RxRelay
   IdeaMemoTests:
     type: bundle.unit-test
     platform: iOS
