@@ -146,7 +146,28 @@ jobs:
             ${{ runner.os }}-pods-
 
       - name: Install Pods
-        run: bundle exec pod install
+        run: |
+          eval "$(rbenv init -)"
+          rbenv global `cat .ruby-version`
+          rbenv rehash
+          echo "-------- rbenv versions -------"
+          rbenv versions
+          echo "-------- cat ~/.bash_profile -------"
+          echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
+          echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+          echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
+          cat ~/.bash_profile
+          source ~/.bash_profile
+          echo "-------- which ruby -------"
+          which ruby
+          echo "-------- ruby -v -------"
+          ruby -v
+          echo "-------- bundle env -------"
+          bundle env
+          echo "-------- rbenv exec bundle env -------"
+          rbenv exec bundle env
+          echo "-------- pod install -------"
+          rbenv exec bundle exec pod install
 
       - name: Cache Carthage packages
         uses: actions/cache@v2
