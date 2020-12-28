@@ -20,7 +20,10 @@ struct AuthenticationView: View {
             GeometryReader { geometry in
                 Color(Asset.Colors.primaryBackgroundColor.color)
                     .edgesIgnoringSafeArea(.all)
-                VStack {
+                VStack(alignment: .center, spacing: 0) {
+                    Spacer()
+                        .frame(minHeight: 0, maxHeight: .infinity)
+
                     VStack {
                         Image(uiImage: Asset.Images.icon.image)
                             .resizable()
@@ -30,7 +33,7 @@ struct AuthenticationView: View {
                             .padding(.top, -15)
                             .font(.headline)
                     }
-                    .padding(.vertical, 82)
+                    .padding(.bottom, 82)
 
                     VStack(spacing: 20) {
                         let buttonWidth: CGFloat = geometry.size.width - 60
@@ -65,11 +68,14 @@ struct AuthenticationView: View {
                         }
                     }
                     .frame(width: geometry.size.width)
+                    
+                    Spacer()
+                        .frame(minHeight: 0, maxHeight: .infinity)
                 }
-                .padding(.top, geometry.size.height / 4)
+
+                LoadingIndicatorView(isLoading: viewModel.isLoading)
             }
         }
-        LoadingIndicatorView(isLoading: viewModel.isLoading)
     }
 }
 

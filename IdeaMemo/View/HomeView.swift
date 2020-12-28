@@ -13,34 +13,26 @@ struct HomeView: View {
 
     var body: some View {
         if viewModel.isSignIn {
-            Color(Asset.Colors.primaryBackgroundColor.color)
-                .edgesIgnoringSafeArea(.all)
-            NavigationView {
-                VStack {
-                    List {
+            GeometryReader { geometry in
+                Color(Asset.Colors.primaryBackgroundColor.color)
+                    .edgesIgnoringSafeArea(.all)
+                NavigationView {
+                    VStack {
+                        List {
+                        }
                     }
-    //                HStack {
-    //                    Text($viewModel.status.wrappedValue.content)
-    //                        .foregroundColor($viewModel.status.wrappedValue.color)
-    //                    Spacer()
-    //                }
-    //                TextField("Placeholder", text: $viewModel.username, onEditingChanged: { changed in
-    //                    print("onEditingChanged: \(changed)")
-    //                }, onCommit: {
-    //                    print("onCommit")
-    //                })
+                    .padding(.horizontal)
+                    .onAppear(perform: viewModel.onAppear)
+                    .navigationBarTitle("ホーム", displayMode: .inline)
+                    .navigationBarItems(trailing: Button(action: {
+                        debugPrint("ナビゲーションボタンがタップされた")
+                        viewModel.signOut()
+                    }) {
+                        Image(uiImage: Asset.Images.setting.image)
+                            .frame(width: 30, height: 30, alignment: .center)
+                    })
+                    .navigationBarTitleDisplayMode(.automatic)
                 }
-                .padding(.horizontal)
-                .onAppear(perform: viewModel.onAppear)
-                .navigationBarTitle("ホーム", displayMode: .inline)
-                .navigationBarItems(trailing: Button(action: {
-                    debugPrint("ナビゲーションボタンがタップされた")
-                    viewModel.signOut()
-                }) {
-                    Image(uiImage: Asset.Images.setting.image)
-                        .frame(width: 30, height: 30, alignment: .center)
-                })
-                .navigationBarTitleDisplayMode(.automatic)
             }
         } else {
             AuthenticationView()
