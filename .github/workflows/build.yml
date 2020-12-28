@@ -77,19 +77,23 @@ jobs:
           if [ -e "$rubyVersionBinaryPath" ]; then
             :
           else
-            echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
-            echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+            eval "$(rbenv init -)"
             rbenv install -s `cat .ruby-version`
             rbenv global `cat .ruby-version`
-            echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
             rbenv rehash
             echo "-------- rbenv versions -------"
             rbenv versions
             echo "-------- cat ~/.bash_profile -------"
+            $ echo '### rbenv ###' >> ~/.bash_profile
+            echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
+            echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+            echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
             cat ~/.bash_profile
             source ~/.bash_profile
             echo "-------- which ruby -------"
             which ruby
+            echo "-------- ruby -v -------"
+            ruby -v
             echo "-------- echo PATH -------"
             echo $PATH
           fi
@@ -108,6 +112,11 @@ jobs:
 
       - name: Install Bundled Gems
         run: |
+          echo "-------- which ruby -------"
+          which ruby
+          echo "-------- ruby -v -------"
+          ruby -v
+          echo "-------- bundle install -------"
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
