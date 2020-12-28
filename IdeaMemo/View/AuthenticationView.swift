@@ -73,7 +73,7 @@ struct AuthenticationView: View {
                         .frame(minHeight: 0, maxHeight: .infinity)
                 }
 
-                LoadingIndicatorView(isLoading: viewModel.isLoading)
+                LoadingIndicatorView(isLoading: viewModel.isLoading, opacity: 0.3, duration: 0.2)
             }
         }
     }
