@@ -3,22 +3,22 @@
 name: build
 
 # Controls when the action will run. 
-on:
+on: [push, pull_request]
   # Triggers the workflow on push or pull request events but only for the develop branch
-  push:
-    branches:
-      - master
-      - develop
-    paths-ignore:
-      - README.md
-  pull_request:
-    branches:
-      - develop
-    paths-ignore:
-      - README.md
+#   push:
+#     branches:
+#       - master
+#       - develop
+#     paths-ignore:
+#       - README.md
+#   pull_request:
+#     branches:
+#       - develop
+#     paths-ignore:
+#       - README.md
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -106,6 +106,12 @@ jobs:
 #           -scheme IdeaMemo
 #           build
 #           | bundle exec xcpretty
+
+      - name: Run Danger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bundle exec danger
 
   success_notify:
     if: success()
