@@ -125,8 +125,8 @@ jobs:
           ruby -v
           echo "-------- bundle env -------"
           bundle env
-          echo "-------- rbenv exec bundle env -------"
-          rbenv exec bundle env
+          echo "-------- cat ~/.bash_profile -------"
+          cat ~/.bash_profile
           echo "-------- bundle install -------"
           rbenv exec bundle config path vendor/bundle
           rbenv exec bundle install --jobs 4 --retry 3
@@ -152,8 +152,8 @@ jobs:
           ruby -v
           echo "-------- bundle env -------"
           bundle env
-          echo "-------- rbenv exec bundle env -------"
-          rbenv exec bundle env
+          echo "-------- cat ~/.bash_profile -------"
+          cat ~/.bash_profile
           echo "-------- pod install -------"
           rbenv exec bundle exec pod install
 
@@ -173,12 +173,12 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Xcode build
-        run: set -o pipefail &&
-          xcodebuild
-          -sdk iphonesimulator
-          -configuration Debug
-          -workspace IdeaMemo.xcworkspace
-          -scheme IdeaMemo
-          build
-          | bundle exec xcpretty
+#       - name: Xcode build
+#         run: set -o pipefail &&
+#           xcodebuild
+#           -sdk iphonesimulator
+#           -configuration Debug
+#           -workspace IdeaMemo.xcworkspace
+#           -scheme IdeaMemo
+#           build
+#           | bundle exec xcpretty
