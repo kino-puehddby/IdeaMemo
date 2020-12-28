@@ -47,67 +47,10 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen
 
-#       - name: Install rbenv
-#         run: brew install rbenv ruby-build
-
-#       - name: Cache RBENV_ROOT
-#         uses: actions/cache@v1
-#         id: cache_rbenv
-#         with:
-#           path: /home/runner/.rbenv
-#           key: ${{ runner.os }}-rbenv-${{ hashFiles('**/.ruby-version') }}
-#           restore-keys: |
-#             {{ runner.os }}-rbenv-
-
-#       - name: Set Environment for Ruby Cache
-#         run: |
-#           export RBENV_RUBY_VERSION_HOME="$(rbenv root)/versions/`cat .ruby-version`"
-
-#       - name: Cache Ruby
-#         uses: actions/cache@v2
-#         with:
-#           path: $RBENV_RUBY_VERSION_HOME
-#           key: ${{ runner.os }}-ruby-${{ hashFiles('**/.ruby-version') }}
-#           restore-keys: |
-#             ${{ runner.os }}-ruby-
-
       - name: Set up Ruby 2.6
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.6
-
-#       - name: Install Ruby
-#         run: |
-#           rubyVersionBinaryPath="$(rbenv root)""/versions/""$(< .ruby-version)""/bin/ruby"
-#           if [ -e "$rubyVersionBinaryPath" ]; then
-#             :
-#           else
-#             eval "$(rbenv init -)"
-#             rbenv install -s `cat .ruby-version`
-#             rbenv global `cat .ruby-version`
-#             rbenv rehash
-#             echo "-------- rbenv versions -------"
-#             rbenv versions
-#             echo "-------- cat ~/.bash_profile -------"
-#             echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
-#             echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-#             echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
-#             cat ~/.bash_profile
-#             source ~/.bash_profile
-#             echo "-------- which ruby -------"
-#             which ruby
-#             echo "-------- ruby -v -------"
-#             ruby -v
-#             echo "-------- echo PATH -------"
-#             echo $PATH
-#           fi
-
-      - name: Ruby Information
-        run: |
-          echo "-------- which ruby -------"
-          which ruby
-          echo "-------- ruby -v -------"
-          ruby -v
 
       - name: Cache Gems
         uses: actions/cache@v2
@@ -168,13 +111,12 @@ jobs:
     if: success()
     runs-on: ubuntu-latest
     needs: [build]
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
     steps:
     - name: slack notify ( success )
       uses: rtCamp/action-slack-notify@master
       env:
-        SLACK_WEBHOOK: $SLACK_WEBHOOK_URL
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_TITLE: Build Succeeded!
         SLACK_MESSAGE: "Success :rocket:\n\n**Workflow**\n$GITHUB_WORKFLOW"
         SLACK_COLOR: good
@@ -183,13 +125,11 @@ jobs:
     if: failure()
     runs-on: ubuntu-latest
     needs: [build]
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
     - name: slack notify ( error )
       uses: rtCamp/action-slack-notify@master
       env:
-        SLACK_WEBHOOK: $SLACK_WEBHOOK_URL
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_TITLE: Build Failed!
         SLACK_MESSAGE: "Failure :scream:\n\n**Workflow**\n$GITHUB_WORKFLOW"
         SLACK_COLOR: danger
