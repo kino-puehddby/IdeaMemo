@@ -47,55 +47,67 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen
 
-      - name: Install rbenv
-        run: brew install rbenv ruby-build
+#       - name: Install rbenv
+#         run: brew install rbenv ruby-build
 
-      - name: Cache RBENV_ROOT
-        uses: actions/cache@v1
-        id: cache_rbenv
+#       - name: Cache RBENV_ROOT
+#         uses: actions/cache@v1
+#         id: cache_rbenv
+#         with:
+#           path: /home/runner/.rbenv
+#           key: ${{ runner.os }}-rbenv-${{ hashFiles('**/.ruby-version') }}
+#           restore-keys: |
+#             {{ runner.os }}-rbenv-
+
+#       - name: Set Environment for Ruby Cache
+#         run: |
+#           export RBENV_RUBY_VERSION_HOME="$(rbenv root)/versions/`cat .ruby-version`"
+
+#       - name: Cache Ruby
+#         uses: actions/cache@v2
+#         with:
+#           path: $RBENV_RUBY_VERSION_HOME
+#           key: ${{ runner.os }}-ruby-${{ hashFiles('**/.ruby-version') }}
+#           restore-keys: |
+#             ${{ runner.os }}-ruby-
+
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
         with:
-          path: /home/runner/.rbenv
-          key: ${{ runner.os }}-rbenv-${{ hashFiles('**/.ruby-version') }}
-          restore-keys: |
-            {{ runner.os }}-rbenv-
+            ruby-version: '2.6.3'
 
-      - name: Set Environment for Ruby Cache
+#       - name: Install Ruby
+#         run: |
+#           rubyVersionBinaryPath="$(rbenv root)""/versions/""$(< .ruby-version)""/bin/ruby"
+#           if [ -e "$rubyVersionBinaryPath" ]; then
+#             :
+#           else
+#             eval "$(rbenv init -)"
+#             rbenv install -s `cat .ruby-version`
+#             rbenv global `cat .ruby-version`
+#             rbenv rehash
+#             echo "-------- rbenv versions -------"
+#             rbenv versions
+#             echo "-------- cat ~/.bash_profile -------"
+#             echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
+#             echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+#             echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
+#             cat ~/.bash_profile
+#             source ~/.bash_profile
+#             echo "-------- which ruby -------"
+#             which ruby
+#             echo "-------- ruby -v -------"
+#             ruby -v
+#             echo "-------- echo PATH -------"
+#             echo $PATH
+#           fi
+
+      - name: Ruby Information
         run: |
-          export RBENV_RUBY_VERSION_HOME="$(rbenv root)/versions/`cat .ruby-version`"
-
-      - name: Cache Ruby
-        uses: actions/cache@v2
-        with:
-          path: $RBENV_RUBY_VERSION_HOME
-          key: ${{ runner.os }}-ruby-${{ hashFiles("$RBENV_RUBY_VERSION_HOME") }}
-          restore-keys: |
-            ${{ runner.os }}-ruby-
-
-      - name: Install Ruby
-        run: |
-          rubyVersionBinaryPath="$(rbenv root)""/versions/""$(< .ruby-version)""/bin/ruby"
-          if [ -e "$rubyVersionBinaryPath" ]; then
-            :
-          else
-            eval "$(rbenv init -)"
-            rbenv install -s `cat .ruby-version`
-            rbenv global `cat .ruby-version`
-            rbenv rehash
-            echo "-------- rbenv versions -------"
-            rbenv versions
-            echo "-------- cat ~/.bash_profile -------"
-            echo 'export PATH=~/.rbenv/bin:$PATH' >> ~/.bash_profile
-            echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-            echo 'export PATH=~/.rbenv/shims:/usr/local/bin:$PATH' >> ~/.bash_profile
-            cat ~/.bash_profile
-            source ~/.bash_profile
-            echo "-------- which ruby -------"
-            which ruby
-            echo "-------- ruby -v -------"
-            ruby -v
-            echo "-------- echo PATH -------"
-            echo $PATH
-          fi
+          echo "-------- which ruby -------"
+          which ruby
+          echo "-------- ruby -v -------"
+          ruby -v
 
       - name: Cache Gems
         uses: actions/cache@v2
@@ -107,29 +119,12 @@ jobs:
 
       - name: Install Bundler
         run: |
-          rbenv exec gem install bundler
-          rbenv rehash
-          echo "-------- rbenv versions -------"
-          rbenv versions
+          gem install bundler
 
       - name: Install Bundled Gems
         run: |
-          eval "$(rbenv init -)"
-          rbenv global `cat .ruby-version`
-          rbenv rehash
-          echo "-------- rbenv versions -------"
-          rbenv versions
-          echo "-------- which ruby -------"
-          which ruby
-          echo "-------- ruby -v -------"
-          ruby -v
-          echo "-------- bundle env -------"
-          bundle env
-          echo "-------- cat ~/.bash_profile -------"
-          cat ~/.bash_profile
-          echo "-------- bundle install -------"
-          rbenv exec bundle config path vendor/bundle
-          rbenv exec bundle install --jobs 4 --retry 3
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
 
       - name: Cache Pods
         uses: actions/cache@v2
@@ -141,21 +136,7 @@ jobs:
 
       - name: Install Pods
         run: |
-          eval "$(rbenv init -)"
-          rbenv global `cat .ruby-version`
-          rbenv rehash
-          echo "-------- rbenv versions -------"
-          rbenv versions
-          echo "-------- which ruby -------"
-          which ruby
-          echo "-------- ruby -v -------"
-          ruby -v
-          echo "-------- bundle env -------"
-          bundle env
-          echo "-------- cat ~/.bash_profile -------"
-          cat ~/.bash_profile
-          echo "-------- pod install -------"
-          rbenv exec bundle exec pod install
+          bundle exec pod install
 
       - name: Cache Carthage packages
         uses: actions/cache@v2
