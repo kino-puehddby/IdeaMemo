@@ -80,10 +80,10 @@ jobs:
             eval "$(rbenv init -)"
             rbenv install -s `cat .ruby-version`
             rbenv global `cat .ruby-version`
+            export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
             rbenv rehash
             echo "-------- rbenv versions -------"
             rbenv versions
-            export POWERSHELL_DISTRIBUTION_CHANNEL="$(rbenv root)""/versions/""$(< .ruby-version)""/bin/ruby"
             echo "-------- cat ~/.bashrc -------"
             cat ~/.bashrc
             source ~/.bashrc
@@ -92,8 +92,6 @@ jobs:
             source ~/.bash_profile
             echo "-------- which ruby -------"
             which ruby
-            echo "-------- printenv -------"
-            printenv
             echo "-------- echo PATH -------"
             echo $PATH
           fi
