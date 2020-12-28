@@ -22,9 +22,6 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIdCredential as ASAuthorizationAppleIDCredential:
-            if appleIdCredential.email != nil, appleIdCredential.fullName != nil {
-                saveToKeychain(credential: appleIdCredential)
-            }
             firebaseSignIn(appleIDCredential: appleIdCredential)
         default:
             break

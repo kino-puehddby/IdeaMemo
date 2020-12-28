@@ -15,6 +15,8 @@ class SignInWithGoogleDelegate: NSObject, ObservableObject {
 extension SignInWithGoogleDelegate: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
+
             switch (error as NSError).code {
             case GIDSignInErrorCode.hasNoAuthInKeychain.rawValue:
                 print(L10n.Error.GoogleSignIn.hasNoAuthInKeychain)
@@ -26,7 +28,10 @@ extension SignInWithGoogleDelegate: GIDSignInDelegate {
             return
         }
         
-        guard let authentication = user.authentication else { return }
+        guard let authentication = user.authentication else {
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
+            return
+        }
         let credential = GoogleAuthProvider.credential(
             withIDToken: authentication.idToken,
             accessToken: authentication.accessToken
@@ -36,6 +41,7 @@ extension SignInWithGoogleDelegate: GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
+        ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
     }
     
     private func firebaseSigiIn(credential: AuthCredential) {

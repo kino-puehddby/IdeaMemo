@@ -14,15 +14,19 @@ extension AuthenticationState {
         guard let action = action as? AuthenticationState.Action else { return state }
 
         switch action {
-        case .startSignIn:
+        case .startAuthenticate:
+            state.isLoading = true
             state.error = nil
         case .completeSignIn:
+            state.isLoading = false
             state.error = nil
             state.isSignIn = true
         case .completeSignOut:
+            state.isLoading = false
             state.error = nil
             state.isSignIn = false
         case .error(let error):
+            state.isLoading = false
             state.error = error
         }
 

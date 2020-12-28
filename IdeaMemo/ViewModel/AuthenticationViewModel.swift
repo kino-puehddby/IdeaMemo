@@ -33,5 +33,13 @@ final class AuthenticationViewModel: ObservableObject, Identifiable {
                 self.error = error
             }
             .store(in: &self.cancellables)
+        
+        ApplicationStore.shared.authenticationState.map { $0.isLoading }
+            .removeDuplicates()
+            .sink { [weak self] isLoading in
+                guard let self = self else { return }
+                self.isLoading = isLoading
+            }
+            .store(in: &self.cancellables)
     }
 }

@@ -46,6 +46,7 @@ struct AuthenticationView: View {
                             .cornerRadius(buttonCornerRadius)
 
                         Button(action: {
+                            ApplicationStore.shared.dispatch(AuthenticationState.Action.startAuthenticate)
                             GIDSignIn.sharedInstance().signIn()
                         }) {
                             HStack {

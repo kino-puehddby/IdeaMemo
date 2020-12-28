@@ -23,7 +23,7 @@ final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
     private var currentNonce: String?
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let vc = UIHostingController(rootView: SignInWithApple().onTapGesture(perform: showAppleLogin))
+        let vc = UIHostingController(rootView: SignInWithApple().onTapGesture(perform: performAppleSignIn))
         return vc as UIViewController
     }
   
@@ -31,24 +31,23 @@ final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
         
     }
     
-    private func showAppleLogin() {
+    private func performAppleSignIn() {
+        ApplicationStore.shared.dispatch(AuthenticationState.Action.startAuthenticate)
+
         let nonce = randomNonceString()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
         request.nonce = sha256(nonce)
-        
-        performSignIn(using: [request])
-    }
 
-    private func performSignIn(using requests: [ASAuthorizationRequest]) {
         guard let currentNonce = self.currentNonce else {
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.system))
             return
         }
         appleSignInDelegates = SignInWithAppleDelegates(window: nil, currentNonce: currentNonce)
 
-        let authorizationController = ASAuthorizationController(authorizationRequests: requests)
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = appleSignInDelegates
         authorizationController.presentationContextProvider = appleSignInDelegates
         authorizationController.performRequests()
