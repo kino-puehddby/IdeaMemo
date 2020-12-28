@@ -20,35 +20,35 @@ struct AuthenticationView: View {
             GeometryReader { geometry in
                 Color(Asset.Colors.primaryBackgroundColor.color)
                     .edgesIgnoringSafeArea(.all)
-                VStack(alignment: .center) {
+                VStack {
                     VStack {
-                        VStack {
-                            Image(uiImage: Asset.Images.icon.image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 230, height: 230)
-                            Text("アイデアメモ")
-                                .padding(.top, -15)
-                                .font(.headline)
-                        }
-                        .padding(.vertical, 82)
+                        Image(uiImage: Asset.Images.icon.image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 230, height: 230)
+                        Text("アイデアメモ")
+                            .padding(.top, -15)
+                            .font(.headline)
+                    }
+                    .padding(.vertical, 82)
 
-                        VStack(spacing: 20) {
-                            let buttonWidth: CGFloat = geometry.size.width - 60
-                            let buttonHeight: CGFloat = 45
-                            let buttonCornerRadius: CGFloat = 6.5
-                            
-                            Text("ログイン / 新規登録")
-                                .font(.headline)
-                                .fontWeight(.regular)
+                    VStack(spacing: 20) {
+                        let buttonWidth: CGFloat = geometry.size.width - 60
+                        let buttonHeight: CGFloat = 45
+                        let buttonCornerRadius: CGFloat = 6.5
+                        
+                        Text("ログイン / 新規登録")
+                            .font(.headline)
+                            .fontWeight(.regular)
 
-                            SignInWithAppleToFirebase()
-                                .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
-                                .cornerRadius(buttonCornerRadius)
+                        SignInWithAppleToFirebase()
+                            .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
+                            .cornerRadius(buttonCornerRadius)
 
-                            Button(action: {
-                                GIDSignIn.sharedInstance().signIn()
-                            }) {
+                        Button(action: {
+                            GIDSignIn.sharedInstance().signIn()
+                        }) {
+                            HStack {
                                 Image(uiImage: Asset.Images.googleLogo.image)
                                     .resizable()
                                     .scaledToFill()
@@ -56,19 +56,16 @@ struct AuthenticationView: View {
                                 Text("Googleでサインイン")
                                     .foregroundColor(Color(Asset.Colors.primaryBackgroundColor.color))
                                     .fontWeight(.medium)
+                                    .underline(false)
                             }
                             .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
                             .background(Color(Asset.Colors.primaryContentColor.color))
                             .cornerRadius(buttonCornerRadius)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: buttonCornerRadius)
-                                    .stroke(Color(Asset.Colors.primaryBackgroundColor.color), lineWidth: 0.8)
-                            )
                         }
-                        .frame(width: geometry.size.width)
                     }
+                    .frame(width: geometry.size.width)
                 }
-                .frame(width: geometry.size.width, height: geometry.size.height)
+                .padding(.top, geometry.size.height / 4)
             }
         }
         LoadingIndicatorView(isLoading: viewModel.isLoading)
