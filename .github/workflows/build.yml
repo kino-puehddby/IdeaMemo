@@ -124,7 +124,7 @@ jobs:
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_TITLE: Build Succeeded!
-        SLACK_MESSAGE: "Success :rocket:\n\n**Workflow**\n$GITHUB_WORKFLOW"
+        SLACK_MESSAGE: "Success :rocket:\n\n*Workflow*\n${GITHUB_WORKFLOW}"
         SLACK_COLOR: good
 
   failure_notify:
@@ -137,5 +137,5 @@ jobs:
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_TITLE: Build Failed!
-        SLACK_MESSAGE: "Failure :scream:\n\n**Workflow**\n$GITHUB_WORKFLOW"
+        SLACK_MESSAGE: "Failure :scream:\n\n*Workflow*\n${GITHUB_WORKFLOW}"
         SLACK_COLOR: danger
