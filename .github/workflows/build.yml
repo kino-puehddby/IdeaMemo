@@ -182,3 +182,25 @@ jobs:
 #           -scheme IdeaMemo
 #           build
 #           | bundle exec xcpretty
+
+  success_notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: slack notify ( success )
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TITLE: Build Succeeded!
+        SLACK_MESSAGE: "Success :rocket:\n\n**Repository**\n$GITHUB_REPOSITORY\n\n**Branch**\n$GITHUB_REF\n\n**Workflow**\n$GITHUB_WORKFLOW"
+
+  failure_notify:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+    - name: slack notify ( error )
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_MESSAGE: "Failure :scream:\n\n**Repository**\n$GITHUB_REPOSITORY\n\n**Branch**\n$GITHUB_REF\n\n**Workflow**\n$GITHUB_WORKFLOW"
+        SLACK_TITLE: Build Failed!
+        SLACK_COLOR: '#FF0000'
