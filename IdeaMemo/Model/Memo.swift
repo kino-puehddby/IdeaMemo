@@ -8,7 +8,7 @@
 import Foundation
 
 struct Memo: Codable, Equatable {
-    let id: String
+    let id: Int
     let title: String
     let sentence: String
 
