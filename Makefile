@@ -86,7 +86,7 @@ build-debug: # Xcode build for debug
 && xcodebuild \
 -sdk ${TEST_SDK} \
 -configuration ${TEST_CONFIGURATION} \
--project ${PROJECT_NAME} \
+-workspace ${WORKSPACE_NAME} \
 -scheme ${SCHEME_NAME} \
 -destination ${TEST_DESTINATION} \
 build \
