@@ -15,11 +15,11 @@ struct MemoRow: View {
             Text(memo.title)
                 .font(.headline)
                 .foregroundColor(Color(Asset.Colors.primaryContentColor.color))
-            Text(memo.sentence)
+            Text(memo.content)
                 .font(.subheadline)
                 .foregroundColor(Color(Asset.Colors.secondaryContentColor.color))
         }
-        .background(Color(Asset.Colors.primaryBackgroundColor.color))
+        .background(Color(.clear))
         .frame(width: .none, height: 50, alignment: .leading)
     }
 }

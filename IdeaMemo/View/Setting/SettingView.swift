@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SettingView: View {
+    @ObservedObject var viewModel = SettingViewModel()
+
     var body: some View {
-        Text("Hello")
+        Text("設定画面")
     }
 }
 

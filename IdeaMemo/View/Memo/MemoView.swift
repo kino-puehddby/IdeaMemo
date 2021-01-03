@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct MemoView: View {
+    @ObservedObject var viewModel = SettingViewModel()
+    let memo: Memo
+
     var body: some View {
-        Text("")
+        Text("メモ画面")
+        Text(memo.title)
+        Text(memo.content)
     }
 }
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoView()
+        MemoView(memo: memos[0])
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 struct Memo: Codable, Equatable {
     let id: Int
     let title: String
-    let sentence: String
+    let content: String
 
     static func == (lhs: Memo, rhs: Memo) -> Bool {
         return lhs.id == rhs.id
