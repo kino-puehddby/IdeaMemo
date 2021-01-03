@@ -16,6 +16,8 @@ build
 *.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata
 !*.xcworkspace/contents.xcworkspacedata
+xcodebuild_build.log
+xcodebuild_test.log
 
 # Carthage
 Carthage/*
