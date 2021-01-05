@@ -11,3 +11,5 @@
 "AppError.system"="System Error";
 "AppError.business"="Business Error";
 "AppError.unknown"="Unknown Error";
+"Screen.Home.title"="ホーム";
+"Screen.Setting.title"="設定";
