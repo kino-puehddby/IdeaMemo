@@ -6,20 +6,39 @@
 //
 
 import SwiftUI
+import CloudKit
 
 struct MemoView: View {
-    @ObservedObject var viewModel = SettingViewModel()
-    let memo: Memo
+    @ObservedObject var viewModel: MemoViewModel
+    
+    init(memo: Memo? = nil) {
+        self.viewModel = MemoViewModel(memo: memo)
+    }
 
     var body: some View {
-        Text("メモ画面")
-        Text(memo.title)
-        Text(memo.content)
+        GeometryReader { geometry in
+            TextField("タイトル", text: $viewModel.title, onCommit: {
+                viewModel.commitEvent.send(())
+            })
+            .frame(width: geometry.size.width, height: 50, alignment: .center)
+            .padding(.vertical, 30)
+
+            TextField("説明", text: $viewModel.content, onCommit: {
+                viewModel.commitEvent.send(())
+            })
+            .frame(width: geometry.size.width - 40, height: geometry.size.height - 50, alignment: .leading)
+            .textFieldStyle(PlainTextFieldStyle())
+        }
+        .padding(.horizontal, 20)
+        .onAppear(perform: viewModel.onAppear)
+        .onDisappear {
+            viewModel.disappearEvent.send(())
+        }
     }
 }
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoView(memo: memos[0])
+        MemoView()
     }
 }
