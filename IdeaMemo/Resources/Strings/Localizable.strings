@@ -1,4 +1,5 @@
 "Common.Ok"="OK";
+"iCloud.PrivateDatabase.id"="iCloud.com.kino-puehddby.IdeaMemo";
 "Error.Generate_Nonce"="Unable to generate nonce. SecRandomCopyBytes failed with OSStatus %d";
 "Error.No_Login_Request"="Invalid state: A login callback was received, but no login request was sent.";
 "Error.Identity_Token"="Unable to fetch identity token";
@@ -10,6 +11,7 @@
 "AppError.server"="Internal Server Error( %@ )";
 "AppError.system"="System Error";
 "AppError.business"="Business Error";
+"AppError.icloud"="「設定」アプリから AppleID にサインインをして iCloud を有効にしてください";
 "AppError.unknown"="Unknown Error";
 "Screen.Home.title"="ホーム";
 "Screen.Setting.title"="設定";
