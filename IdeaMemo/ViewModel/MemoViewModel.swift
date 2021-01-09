@@ -43,10 +43,12 @@ final class MemoViewModel: ObservableObject {
             .store(in: &self.cancellables)
 
         commitEvent
-            .combineLatest(cached)
-            .map { $1 }
+            .map { [unowned self] in self.cached.value }
             .filterNil()
-            .removeDuplicates()
+            .removeDuplicates(by: { old, new -> Bool in
+                let isDuplicate = old.title == new.title && old.content == new.content
+                return isDuplicate
+            })
             .flatMap { memo -> AnyPublisher<Memo, Error> in
                 return CloudMemoRecord.update(memo: memo)
             }
