@@ -26,7 +26,7 @@ struct HomeView: View {
                             }
                             .navigationBarTitle(L10n.Screen.Home.title, displayMode: .inline)
                             .navigationBarItems(trailing: Button(action: {
-                                self.pushToSettingActive = true
+                                pushToSettingActive = true
                             }) {
                                 Image(uiImage: Asset.Images.setting.image)
                                     .frame(width: 30, height: 30, alignment: .center)
@@ -49,7 +49,7 @@ struct HomeView: View {
                         }
 
                         Button(action: {
-                            self.pushToMemoActive = true
+                            pushToMemoActive = true
                         }) {
                             Image(uiImage: Asset.Images.addMemo.image)
                                 .resizable()
@@ -60,7 +60,6 @@ struct HomeView: View {
                         }
                         .frame(width: 50, height: 50, alignment: .center)
                         .position(x: geometry.size.width - 50, y: geometry.size.height - 80)
-//                        .sheet(isPresented: $pushToMemoActive, content: { MemoView(memo: memo) })
                     }
                 }
             }

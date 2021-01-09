@@ -23,10 +23,3 @@ struct MemoRow: View {
         .frame(width: .none, height: 50, alignment: .leading)
     }
 }
-
-struct MemoRow_Previews: PreviewProvider {
-    static var previews: some View {
-        MemoRow(memo: memos[0])
-            .colorScheme(.light)
-    }
-}

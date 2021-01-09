@@ -11,7 +11,6 @@ struct AppUser: Codable, Equatable {
     let email: String
     let name: PersonNameComponents
     let id: String
-    let memoList: [Memo]
     
     static func == (lhs: AppUser, rhs: AppUser) -> Bool {
         return lhs.id == rhs.id

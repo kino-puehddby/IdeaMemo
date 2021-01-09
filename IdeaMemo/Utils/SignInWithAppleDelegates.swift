@@ -37,8 +37,7 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
         let userModel = AppUser(
             email: email,
             name: name,
-            id: credential.user,
-            memoList: []
+            id: credential.user
         )
 
         let keychain = UserDataKeychain(account: credential.user, service: "apple")

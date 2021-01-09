@@ -21,22 +21,6 @@ final class HomeViewModel: ObservableObject, Identifiable {
         let color: Color
     }
 
-    private var validatedUsername: AnyPublisher<String?, Never> {
-        return $username
-            .debounce(for: 0.1, scheduler: RunLoop.main)
-            .removeDuplicates()
-            .flatMap { username -> AnyPublisher<String?, Never> in
-                Future<String?, Never> { promise in
-                    if 1...10 ~= username.count {
-                        promise(.success(username))
-                    } else {
-                        promise(.success(nil))
-                    }
-                }
-                .eraseToAnyPublisher()
-            }
-            .eraseToAnyPublisher()
-    }
     
     private(set) lazy var onAppear: () -> Void = { [weak self] in
         guard let self = self else { return }
