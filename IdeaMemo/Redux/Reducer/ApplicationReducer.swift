@@ -13,6 +13,7 @@ public func appReducer(action: ReSwift.Action, state: ApplicationState?) -> Appl
     var state = state ?? ApplicationState()
     
     state.authenticationState = AuthenticationState.reducer(action: action, state: state.authenticationState)
+    state.memoState = MemoState.reducer(action: action, state: state.memoState)
     
     return state
 }

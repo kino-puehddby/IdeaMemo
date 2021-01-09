@@ -11,12 +11,20 @@ import ReSwift
 
 public struct ApplicationState: ReSwift.StateType {
     public internal(set) var authenticationState = AuthenticationState()
+    public internal(set) var memoState = MemoState()
 }
 
 extension CombineStore where AnyStateType == ApplicationState {
     var authenticationState: AnyPublisher<AuthenticationState, Never> {
         return statePublisher
             .map { $0.authenticationState }
+            .dropFirst()
+            .eraseToAnyPublisher()
+    }
+    
+    var memoState: AnyPublisher<MemoState, Never> {
+        return statePublisher
+            .map { $0.memoState }
             .dropFirst()
             .eraseToAnyPublisher()
     }
