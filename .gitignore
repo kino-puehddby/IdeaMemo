@@ -16,6 +16,11 @@ build
 *.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata
 !*.xcworkspace/contents.xcworkspacedata
+*.xcworkspace/xcuserdata
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
 
 # Carthage
 Carthage/*
