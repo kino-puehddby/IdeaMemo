@@ -25,6 +25,18 @@ final class HomeViewModel: ObservableObject {
                 self.memoList = memoList
             }
             .store(in: &self.cancellables)
+        
+        ApplicationStore.shared.memoState.map { $0.error }
+            .dropFirst()
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else {
+                    self.error = nil
+                    return
+                }
+                self.error = error
+            }
+            .store(in: &self.cancellables)
     }
 
     func loadList() {
@@ -36,7 +48,7 @@ final class HomeViewModel: ObservableObject {
                 }
                 ApplicationStore.shared.dispatch(MemoState.Action.set(list: memoList))
             case .failure(let error):
-                self.error = error
+                ApplicationStore.shared.dispatch(MemoState.Action.error(error))
             }
         }
     }
