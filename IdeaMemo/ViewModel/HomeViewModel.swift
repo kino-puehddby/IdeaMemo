@@ -8,11 +8,16 @@
 import SwiftUI
 import Combine
 import FirebaseAuth
+import CloudKit
 
 final class HomeViewModel: ObservableObject, Identifiable {
-    @Published var isSignIn: Bool = true
     @Published var username: String = ""
     @Published var status: StatusText = StatusText(content: "NG", color: .red)
+    
+    // Output
+    @Published var isSignIn: Bool = true
+    @Published var error: Error?
+    @Published var memoList: [Memo] = []
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -21,32 +26,27 @@ final class HomeViewModel: ObservableObject, Identifiable {
         let color: Color
     }
 
-    
-    private(set) lazy var onAppear: () -> Void = { [weak self] in
-        guard let self = self else { return }
-        self.validatedUsername
-            .sink { [weak self] value in
-                if let value = value {
-                    self?.username = value
-                } else {
-                    print("validatedUsername.receiveValue: Invalid username")
-                }
+    init() {
+        ApplicationStore.shared.memoState.map { $0.memoList }
+            .sink { [weak self] memoList in
+                guard let self = self else { return }
+                self.memoList = memoList
             }
             .store(in: &self.cancellables)
+    }
 
-        // Update StatusText
-        self.validatedUsername
-            .map { value -> StatusText in
-                if value != nil {
-                    return StatusText(content: "OK", color: .green)
-                } else {
-                    return StatusText(content: "NG", color: .red)
+    func loadList() {
+        CloudMemoRecord.get { result in
+            switch result {
+            case .success(let memoList):
+                DispatchQueue.main.async {
+                    self.memoList = memoList
                 }
+                ApplicationStore.shared.dispatch(MemoState.Action.set(list: memoList))
+            case .failure(let error):
+                self.error = error
             }
-            .sink { [weak self] value in
-                self?.status = value
-            }
-            .store(in: &self.cancellables)
+        }
     }
     
     func signOut() {

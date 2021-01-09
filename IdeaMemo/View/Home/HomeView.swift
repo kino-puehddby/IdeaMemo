@@ -33,7 +33,7 @@ struct HomeView: View {
                             })
                             .navigationBarTitleDisplayMode(.inline)
                             
-                            List(memos, id: \.id) { memo in
+                            List(viewModel.memoList, id: \.id) { memo in
                                 NavigationLink(destination: MemoView(memo: memo)) {
                                     MemoRow(memo: memo)
                                 }
@@ -41,10 +41,10 @@ struct HomeView: View {
                             .listStyle(InsetListStyle())
                             .frame(width: geometry.size.width, height: geometry.size.height)
                             .padding(.horizontal)
+//                            .onDelete(perform: self.deleteRow)
                         }
-                        
-                        let memo = Memo(id: memos.count, title: "", content: "")
-                        NavigationLink(destination: MemoView(memo: memo), isActive: $pushToMemoActive) {
+
+                        NavigationLink(destination: MemoView(), isActive: $pushToMemoActive) {
                             EmptyView()
                         }
 
@@ -61,12 +61,23 @@ struct HomeView: View {
                         .frame(width: 50, height: 50, alignment: .center)
                         .position(x: geometry.size.width - 50, y: geometry.size.height - 80)
                     }
+                    .onAppear {
+                        viewModel.loadList()
+                    }
                 }
             }
         } else {
             AuthenticationView()
         }
     }
+    
+//    private func deleteRow(at indexSet: IndexSet) {
+//        indexSet
+//            .map { viewModel.memoList[$0] }
+//            .forEach { memo in
+//                ApplicationStore.shared.dispatch(MemoState.Action.remove(memo))
+//            }
+//    }
 }
 
 struct HomeView_Previews: PreviewProvider {
