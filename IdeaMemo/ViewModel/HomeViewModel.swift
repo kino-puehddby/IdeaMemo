@@ -56,8 +56,8 @@ final class HomeViewModel: ObservableObject {
     func signOut() {
         do {
             try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: \(signOutError)")
+        } catch {
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
         }
         
         ApplicationStore.shared.dispatch(AuthenticationState.Action.completeSignOut)
