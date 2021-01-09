@@ -10,21 +10,13 @@ import Combine
 import FirebaseAuth
 import CloudKit
 
-final class HomeViewModel: ObservableObject, Identifiable {
-    @Published var username: String = ""
-    @Published var status: StatusText = StatusText(content: "NG", color: .red)
-    
+final class HomeViewModel: ObservableObject {
     // Output
     @Published var isSignIn: Bool = true
     @Published var error: Error?
     @Published var memoList: [Memo] = []
     
     private var cancellables: Set<AnyCancellable> = []
-    
-    struct StatusText {
-        let content: String
-        let color: Color
-    }
 
     init() {
         ApplicationStore.shared.memoState.map { $0.memoList }

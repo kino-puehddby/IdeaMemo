@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import CloudKit
 
-final class MemoViewModel: ObservableObject, Identifiable {
+final class MemoViewModel: ObservableObject {
     // Input
     @Published var title: String = ""
     @Published var content: String = ""

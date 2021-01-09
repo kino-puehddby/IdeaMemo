@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MemoRowViewModel: ObservableObject, Identifiable {
+final class MemoRowViewModel: ObservableObject {
     @Published var memo: Memo
     
     init(memo: Memo) {
