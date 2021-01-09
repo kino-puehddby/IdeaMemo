@@ -13,6 +13,7 @@ public enum AppError: LocalizedError, Equatable {
     case server(Int)
     case system
     case business
+    case icloud
     case unknown
     
     var localizedDescription: String {
@@ -22,6 +23,7 @@ public enum AppError: LocalizedError, Equatable {
         case .server(let statusCode): return L10n.AppError.server(statusCode)
         case .system: return L10n.AppError.system
         case .business: return L10n.AppError.business
+        case .icloud: return L10n.AppError.icloud
         case .unknown: return L10n.AppError.unknown
         }
     }
