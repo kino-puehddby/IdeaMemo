@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CreateMemoButton: View {
+    @State var memoView: MemoView = MemoView(memo: nil)
     @State var pushToMemoActive: Bool = false
     
     var body: some View {
@@ -15,6 +16,7 @@ struct CreateMemoButton: View {
             .edgesIgnoringSafeArea(.all)
         Button(action: {
             pushToMemoActive = true
+            memoView = MemoView(memo: nil)
         }) {
             Image(uiImage: Asset.Images.addMemo.image)
                 .resizable()
@@ -22,7 +24,7 @@ struct CreateMemoButton: View {
                 .frame(width: 50, height: 50, alignment: .center)
                 .background(Color(Asset.Colors.primaryBackgroundColor.color))
                 .cornerRadius(25)
-            NavigationLink(destination: MemoView(), isActive: $pushToMemoActive) {
+            NavigationLink(destination: memoView, isActive: $pushToMemoActive) {
                 EmptyView()
             }
         }
