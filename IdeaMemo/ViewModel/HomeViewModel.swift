@@ -20,6 +20,8 @@ final class HomeViewModel: ObservableObject {
 
     init() {
         ApplicationStore.shared.memoState.map { $0.memoList }
+            .dropFirst()
+            .receive(on: RunLoop.main)
             .sink { [weak self] memoList in
                 guard let self = self else { return }
                 self.memoList = memoList
@@ -28,6 +30,7 @@ final class HomeViewModel: ObservableObject {
         
         ApplicationStore.shared.memoState.map { $0.error }
             .dropFirst()
+            .receive(on: RunLoop.main)
             .sink { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {

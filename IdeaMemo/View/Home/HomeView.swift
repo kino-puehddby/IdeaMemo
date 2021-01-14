@@ -33,7 +33,12 @@ struct HomeView: View {
                             })
                             .navigationBarTitleDisplayMode(.inline)
                             
-                            MemoList(memoList: viewModel.memoList)
+                            List(viewModel.memoList, id: \.id) { memo in
+                                NavigationLink(destination: MemoView(memo: memo)) {
+                                    MemoRow(memo: memo)
+                                }
+                            }
+                            .listStyle(InsetListStyle())
                                 .frame(width: geometry.size.width, height: geometry.size.height)
 //                                .onDelete(perform: self.deleteRow)
                         }
