@@ -33,14 +33,16 @@ struct HomeView: View {
                             })
                             .navigationBarTitleDisplayMode(.inline)
                             
-                            List(viewModel.memoList, id: \.id) { memo in
-                                NavigationLink(destination: MemoView(memo: memo)) {
-                                    MemoRow(memo: memo)
+                            List {
+                                ForEach(viewModel.memoList, id: \.id) { memo in
+                                    NavigationLink(destination: MemoView(memo: memo)) {
+                                        MemoRow(memo: memo)
+                                    }
                                 }
+                                .onDelete(perform: viewModel.deleteRow)
                             }
                             .listStyle(InsetListStyle())
-                                .frame(width: geometry.size.width, height: geometry.size.height)
-//                                .onDelete(perform: self.deleteRow)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                         }
 
                         CreateMemoButton()
@@ -55,14 +57,6 @@ struct HomeView: View {
             AuthenticationView()
         }
     }
-    
-//    private func deleteRow(at indexSet: IndexSet) {
-//        indexSet
-//            .map { viewModel.memoList[$0] }
-//            .forEach { memo in
-//                ApplicationStore.shared.dispatch(MemoState.Action.remove(memo))
-//            }
-//    }
 }
 
 struct HomeView_Previews: PreviewProvider {

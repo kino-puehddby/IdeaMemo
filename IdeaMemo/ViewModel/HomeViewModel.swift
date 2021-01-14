@@ -46,14 +46,26 @@ final class HomeViewModel: ObservableObject {
         CloudMemoRecord.get { result in
             switch result {
             case .success(let memoList):
-                DispatchQueue.main.async {
-                    self.memoList = memoList
-                }
                 ApplicationStore.shared.dispatch(MemoState.Action.set(list: memoList))
             case .failure(let error):
                 ApplicationStore.shared.dispatch(MemoState.Action.error(error))
             }
         }
+    }
+    
+    func deleteRow(at indexSet: IndexSet) {
+        indexSet
+            .map { memoList[$0] }
+            .forEach { memo in
+                CloudMemoRecord.delete(recordName: memo.id) { result in
+                    switch result {
+                    case .success:
+                        ApplicationStore.shared.dispatch(MemoState.Action.remove(memo))
+                    case .failure(let error):
+                        ApplicationStore.shared.dispatch(MemoState.Action.error(error))
+                    }
+                }
+            }
     }
     
     func signOut() {
