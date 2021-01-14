@@ -33,33 +33,13 @@ struct HomeView: View {
                             })
                             .navigationBarTitleDisplayMode(.inline)
                             
-                            List(viewModel.memoList, id: \.id) { memo in
-                                NavigationLink(destination: MemoView(memo: memo)) {
-                                    MemoRow(memo: memo)
-                                }
-                            }
-                            .listStyle(InsetListStyle())
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .padding(.horizontal)
-//                            .onDelete(perform: self.deleteRow)
+                            MemoList(memoList: viewModel.memoList)
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+//                                .onDelete(perform: self.deleteRow)
                         }
 
-                        NavigationLink(destination: MemoView(), isActive: $pushToMemoActive) {
-                            EmptyView()
-                        }
-
-                        Button(action: {
-                            pushToMemoActive = true
-                        }) {
-                            Image(uiImage: Asset.Images.addMemo.image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 50, height: 50, alignment: .center)
-                                .background(Color(Asset.Colors.primaryBackgroundColor.color))
-                                .cornerRadius(25)
-                        }
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .position(x: geometry.size.width - 50, y: geometry.size.height - 80)
+                        CreateMemoButton()
+                            .position(x: geometry.size.width - 50, y: geometry.size.height - 80)
                     }
                     .onAppear {
                         viewModel.loadList()

@@ -31,9 +31,6 @@ struct MemoView: View {
         }
         .padding(.horizontal, 20)
         .onAppear(perform: viewModel.onAppear)
-        .onDisappear {
-            viewModel.disappearEvent.send(())
-        }
     }
 }
 
