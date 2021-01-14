@@ -30,7 +30,9 @@ struct MemoView: View {
             .textFieldStyle(PlainTextFieldStyle())
         }
         .padding(.horizontal, 20)
-        .onAppear(perform: viewModel.onAppear)
+        .onAppear {
+            viewModel.createMemoIfNeeded()
+        }
     }
 }
 

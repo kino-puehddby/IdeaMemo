@@ -17,14 +17,14 @@ final class MemoViewModel: ObservableObject {
     // Output
     @Published var error: Error?
 
-    var cached: CurrentValueSubject<Memo?, Never>
+    var cached = CurrentValueSubject<Memo?, Never>(nil)
     var commitEvent = PassthroughSubject<Void, Never>()
     var disappearEvent = PassthroughSubject<Void, Never>()
     
     private var cancellables: [AnyCancellable] = []
     
     init(memo: Memo?) {
-        cached = CurrentValueSubject<Memo?, Never>(memo)
+        cached.value = memo
         
         Publishers
             .CombineLatest(
@@ -75,24 +75,21 @@ final class MemoViewModel: ObservableObject {
             .store(in: &self.cancellables)
     }
     
-    private(set) lazy var onAppear: () -> Void = { [unowned self] in
-        Just(self.cached.value)
-            .sink { [unowned self] memo in
-                guard let memo = memo else {
-                    // 新規作成されたメモの場合は、一旦 iCloud 上にデータを保存する
-                    CloudMemoRecord.create(title: "", content: "") { result in
-                        switch result {
-                        case .success(let memo):
-                            self.cached.value = memo
-                        case .failure(let error):
-                            ApplicationStore.shared.dispatch(MemoState.Action.error(error))
-                        }
-                    }
-                    return
-                }
-                self.title = memo.title
-                self.content = memo.content
+    func createMemoIfNeeded() {
+        if let memo = self.cached.value {
+            self.title = memo.title
+            self.content = memo.content
+            return
+        }
+        
+        // 新規作成されたメモの場合は、一旦 iCloud 上にデータを保存する
+        CloudMemoRecord.create(title: "", content: "") { result in
+            switch result {
+            case .success(let memo):
+                self.cached.value = memo
+            case .failure(let error):
+                ApplicationStore.shared.dispatch(MemoState.Action.error(error))
             }
-            .store(in: &self.cancellables)
+        }
     }
 }
