@@ -16,14 +16,14 @@ public struct ApplicationState: ReSwift.StateType {
 
 extension CombineStore where AnyStateType == ApplicationState {
     var authenticationState: AnyPublisher<AuthenticationState, Never> {
-        return statePublisher
+        return stateSubject
             .map { $0.authenticationState }
             .dropFirst()
             .eraseToAnyPublisher()
     }
     
     var memoState: AnyPublisher<MemoState, Never> {
-        return statePublisher
+        return stateSubject
             .map { $0.memoState }
             .dropFirst()
             .eraseToAnyPublisher()
