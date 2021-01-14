@@ -17,6 +17,5 @@ struct MemoList: View {
             }
         }
         .listStyle(InsetListStyle())
-        .padding(.horizontal)
     }
 }
