@@ -44,7 +44,7 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
         do {
             try keychain.store(userModel)
         } catch {
-            debugPrint(AppError.system.localizedDescription)
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(AppError.system))
         }
     }
     
@@ -53,11 +53,11 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
             fatalError(L10n.Error.noLoginRequest)
         }
         guard let appleIDToken = appleIDCredential.identityToken else {
-            debugPrint(L10n.Error.identityToken)
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(AppError.authorization))
             return
         }
         guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-            debugPrint(L10n.Error.encoding(appleIDToken.debugDescription))
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(AppError.system))
             return
         }
 
@@ -73,7 +73,6 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
                 // Error. If error.code == .MissingOrInvalidNonce, make sure
                 // you're sending the SHA256-hashed nonce as a hex string with
                 // your request to Apple.
-                debugPrint(error!.localizedDescription)
                 ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
                 return
             }

@@ -47,7 +47,6 @@ extension SignInWithGoogleDelegate: GIDSignInDelegate {
     private func firebaseSigiIn(credential: AuthCredential) {
         Auth.auth().signIn(with: credential) { _, error in
             guard error == nil else {
-                debugPrint(error!.localizedDescription)
                 ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
                 return
             }
