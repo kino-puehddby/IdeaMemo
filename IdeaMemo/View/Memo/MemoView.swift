@@ -33,6 +33,9 @@ struct MemoView: View {
         .onAppear {
             viewModel.createMemoIfNeeded()
         }
+        .onWillDisappear {
+            viewModel.deleteUnnecessaryMemo()
+        }
     }
 }
 

@@ -58,7 +58,6 @@ final class MemoViewModel: ObservableObject {
                 ApplicationStore.shared.dispatch(MemoState.Action.error(error))
             }, receiveValue: { memo in
                 ApplicationStore.shared.dispatch(MemoState.Action.update(memo))
-                // TODO: キャッシュされたメモの中身が空白の場合はメモを削除するようにする
             })
             .store(in: &self.cancellables)
         
@@ -87,6 +86,21 @@ final class MemoViewModel: ObservableObject {
             switch result {
             case .success(let memo):
                 self.cached.value = memo
+            case .failure(let error):
+                ApplicationStore.shared.dispatch(MemoState.Action.error(error))
+            }
+        }
+    }
+    
+    func deleteUnnecessaryMemo() {
+        guard
+            let memo = cached.value,
+            memo.title == "" && memo.content == ""
+        else { return }
+        CloudMemoRecord.delete(recordName: memo.id) { result in
+            switch result {
+            case .success:
+                ApplicationStore.shared.dispatch(MemoState.Action.remove(memo))
             case .failure(let error):
                 ApplicationStore.shared.dispatch(MemoState.Action.error(error))
             }
