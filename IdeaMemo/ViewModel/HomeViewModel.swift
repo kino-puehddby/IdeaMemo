@@ -46,6 +46,9 @@ final class HomeViewModel: ObservableObject {
         CloudMemoRecord.get { result in
             switch result {
             case .success(let memoList):
+                DispatchQueue.main.async {
+                    self.memoList = memoList
+                }
                 ApplicationStore.shared.dispatch(MemoState.Action.set(list: memoList))
             case .failure(let error):
                 ApplicationStore.shared.dispatch(MemoState.Action.error(error))

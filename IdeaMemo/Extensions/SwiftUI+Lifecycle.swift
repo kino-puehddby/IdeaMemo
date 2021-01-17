@@ -18,8 +18,7 @@ struct ViewWillAppearHandler: UIViewControllerRepresentable {
         context.coordinator
     }
 
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<ViewWillAppearHandler>) {
-    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<ViewWillAppearHandler>) {}
 
     typealias UIViewControllerType = UIViewController
 
@@ -53,8 +52,7 @@ struct WillDisappearHandler: UIViewControllerRepresentable {
         context.coordinator
     }
 
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<WillDisappearHandler>) {
-    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<WillDisappearHandler>) {}
 
     typealias UIViewControllerType = UIViewController
 

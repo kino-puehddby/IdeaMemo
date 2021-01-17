@@ -95,7 +95,7 @@ final class MemoViewModel: ObservableObject {
     func deleteUnnecessaryMemo() {
         guard
             let memo = cached.value,
-            memo.title == "" && memo.content == ""
+            memo.title.isEmpty && memo.content.isEmpty
         else { return }
         CloudMemoRecord.delete(recordName: memo.id) { result in
             switch result {
