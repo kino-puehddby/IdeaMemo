@@ -17,19 +17,21 @@ struct MemoView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            TextField("タイトル", text: $viewModel.title, onCommit: {
-                viewModel.commitEvent.send(())
-            })
-            .frame(width: geometry.size.width, height: 50, alignment: .center)
-            .padding(.vertical, 30)
-
-            TextField("説明", text: $viewModel.content, onCommit: {
-                viewModel.commitEvent.send(())
-            })
-            .frame(width: geometry.size.width - 40, height: geometry.size.height - 50, alignment: .leading)
-            .textFieldStyle(PlainTextFieldStyle())
+            VStack(alignment: .leading, spacing: 20) {
+                TextField("タイトル", text: $viewModel.title, onCommit: {
+                    viewModel.commitEvent.send(())
+                })
+                .frame(height: 50)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color(Asset.Colors.primaryContentColor.color))
+                
+                MemoTextView(text: $viewModel.content)
+                    .frame(height: geometry.size.height)
+                    .foregroundColor(Color(Asset.Colors.primaryContentColor.color))
+            }
         }
-        .padding(.horizontal, 20)
+        .padding(.vertical, 20)
+        .background(Color(Asset.Colors.primaryBackgroundColor.color).edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.createMemoIfNeeded()
         }
@@ -42,5 +44,7 @@ struct MemoView: View {
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
         MemoView()
+            .previewDevice("iPhone 12")
+            .environment(\.colorScheme, .dark)
     }
 }
