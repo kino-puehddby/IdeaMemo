@@ -34,10 +34,7 @@ final class MemoViewModel: ObservableObject {
             .dropFirst()
             .receive(on: RunLoop.main)
             .sink { [weak self] title, content in
-                guard let self = self else { return }
-                self.title = title
-                self.content = content
-                guard let memo = self.cached.value else { return }
+                guard let self = self, let memo = self.cached.value else { return }
                 self.cached.value = Memo(id: memo.id, title: title, content: content)
             }
             .store(in: &self.cancellables)
