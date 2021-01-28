@@ -16,6 +16,7 @@ build
 *.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata
 !*.xcworkspace/contents.xcworkspacedata
+xcodebuild_*.log
 
 # Carthage
 Carthage/*
@@ -41,3 +42,4 @@ IdeaMemo/Resources/Generated/*.swift
 *.pem
 *.pkey
 *.p12
+*.p8

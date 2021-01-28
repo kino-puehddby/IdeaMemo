@@ -1,5 +1,18 @@
 PRODUCT_NAME := IdeaMemo
+PROJECT_NAME := ${PRODUCT_NAME}.xcodeproj
 WORKSPACE_NAME := ${PRODUCT_NAME}.xcworkspace
+SCHEME_NAME := ${PRODUCT_NAME}
+UI_TESTS_TARGET_NAME := ${PRODUCT_NAME}UITests
+
+TEST_SDK := iphonesimulator
+TEST_CONFIGURATION := Debug
+TEST_PLATFORM := iOS Simulator
+TEST_DEVICE ?= iPhone 12
+TEST_OS ?= 14.3
+TEST_DESTINATION := 'platform=${TEST_PLATFORM},name=${TEST_DEVICE},OS=${TEST_OS}'
+
+XCODEBUILD_BUILD_LOG_NAME := xcodebuild_build.log
+XCODEBUILD_TEST_LOG_NAME := xcodebuild_test.log
 
 .PHONY: open
 open:
@@ -62,3 +75,20 @@ match:
 	bundle exec fastlane match development
 	bundle exec fastlane match adhoc
 	bundle exec fastlane match appstore
+
+############
+# Xcode
+############
+
+.PHONY: build-debug
+build-debug: # Xcode build for debug
+	set -o pipefail \
+&& xcodebuild \
+-sdk ${TEST_SDK} \
+-configuration ${TEST_CONFIGURATION} \
+-workspace ${WORKSPACE_NAME} \
+-scheme ${SCHEME_NAME} \
+-destination ${TEST_DESTINATION} \
+build \
+| tee ./${XCODEBUILD_BUILD_LOG_NAME} \
+| bundle exec xcpretty --color
