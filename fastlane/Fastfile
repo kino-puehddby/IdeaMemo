@@ -138,7 +138,14 @@ platform :ios do
   lane :beta do
     build
     increment_build_and_version_number
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV['ASC_API_KEY_ID'],
+      issuer_id: ENV['ASC_API_ISSUER_ID'],
+      key_content: ENV['ASC_API_KEY_CONTENT'],
+    )
     pilot(
+      api_key: api_key,
       skip_submission: true,
       skip_waiting_for_build_processing: true
     )
