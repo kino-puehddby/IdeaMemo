@@ -219,17 +219,17 @@ platform :ios do
   end
 end
 
-error do |lane, exception, options|
-  error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.message}"
+# error do |lane, exception, options|
+#   error_message = "`#{lane}` hass failed.\nenvironment: `#{ENV['ENV']}`\nerror: #{exception.message}"
 
-  if options[:debug]
-    puts error_message
-  else
-    slack(
-      success: false,
-      message: error_message,
-      icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
-      slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
-    )
-  end
-end
+#   if options[:debug]
+#     puts error_message
+#   else
+#     slack(
+#       success: false,
+#       message: error_message,
+#       icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
+#       slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
+#     )
+#   end
+# end
