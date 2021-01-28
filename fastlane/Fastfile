@@ -72,15 +72,14 @@ platform :ios do
   desc 'setup cirtificates'
   lane :setup_cirtificates do
     if is_ci?
+      setup_ci(force: true)
+
       create_keychain(
         name: 'login.keychain',
         password: ENV['MATCH_PASSWORD'],
+        default_keychain: true,
+        unlock: true,
         timeout: 3600
-      )
-
-      unlock_keychain(
-        path: '~/Library/Keychains/login.keychain',
-        password: ENV['MATCH_PASSWORD']
       )
     end
 
