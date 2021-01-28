@@ -42,7 +42,8 @@ IdeaMemo/Resources/Generated/*.swift
 *.swp
 !.gitkeep
 
-# Push Notification
+# secrets
 *.pem
 *.pkey
+*.p8
 *.p12
