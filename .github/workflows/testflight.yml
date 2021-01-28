@@ -90,9 +90,9 @@ jobs:
 
       - name: Distribute to TestFlight
         run: |
-          ssh-agent bash -c 'ssh-add - <<< "***"; git clone *** /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/d20210128-1383-14wltp2'
           bundle exec fastlane beta
         env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           TEAM_ID: ${{ secrets.TEAM_ID }}
