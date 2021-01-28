@@ -1,4 +1,4 @@
-git_url(ENV['MATCH_GITHUB_REPO'])
+git_url ENV['MATCH_GITHUB_REPO']
 
 storage_mode('git')
 
@@ -6,8 +6,8 @@ storage_mode('git')
 
 app_identifier ENV['APP_IDENTIFIER'] # The bundle identifier of app
 team_id ENV['TEAM_ID'] # Apple Developer Team ID
-username ENV['MATCH_USER'] # Apple email address
-git_url ENV['MATCH_GITHUB_REPO']
+username ENV['FASTLANE_USER'] # Apple email address
+git_private_key ENV['MATCH_GIT_PRIVATE_KEY']
 keychain_password ENV['MATCH_PASSWORD']
 
 # For all available options run `fastlane match --help`
