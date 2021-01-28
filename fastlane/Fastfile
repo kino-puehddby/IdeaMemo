@@ -161,6 +161,7 @@ platform :ios do
     configuration = options[:configuration] || 'Develop Release'
     xcode_workspace_path = './IdeaMemo.xcworkspace'
     export_method = options[:export_method] || 'development'
+    export_options_icloud = ENV['ENV'] == 'development' ? 'Development' : 'Production'
     output_directory = "./build/ipa/#{ENV['ENV']}/"
     output_name = 'IdeaMemo.ipa'
     include_bitcode = ENV['ENV'] != 'development'
@@ -170,6 +171,7 @@ platform :ios do
       configuration: configuration,
       workspace: xcode_workspace_path,
       export_method: export_method,
+      export_options: { iCloudContainerEnvironment: export_options_icloud },
       export_xcargs: '-allowProvisioningUpdates',
       output_directory: output_directory,
       output_name: output_name,
