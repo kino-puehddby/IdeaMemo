@@ -102,7 +102,8 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GITHUB_REPO: ${{ secrets.MATCH_GITHUB_REPO }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          GIT_BASIC_AUTHORIZATION: ${{ secrets.GIT_BASIC_AUTHORIZATION }}
+          MATCH_GITHUB_USER_NAME: ${{ secrets.MATCH_GITHUB_USER_NAME }}
+          MATCH_GITHUB_TOKEN: ${{ secrets.MATCH_GITHUB_TOKEN }}
 
 #       - name: Xcode build
 #         run: set -o pipefail &&
