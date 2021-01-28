@@ -229,7 +229,7 @@ error do |lane, exception, options|
       success: false,
       message: error_message,
       icon_url: 'https://fastlane.tools/assets/img/fastlane_icon.png',
-      slack_url: ENV['SLACK_WEBHOOK_URL_FOR_FASTLANE']
+      slack_url: ENV['SLACK_WEBHOOK_URL']
     )
   end
 end
