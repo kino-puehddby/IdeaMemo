@@ -10,8 +10,3 @@ username ENV['FASTLANE_USER'] # Apple email address
 # git_private_key ENV['MATCH_GIT_PRIVATE_KEY']
 keychain_password ENV['MATCH_PASSWORD']
 git_basic_authorization ENV["GIT_BASIC_AUTHORIZATION"],
-
-# For all available options run `fastlane match --help`
-# Remove the # in the beginning of the line to enable the other options
-
-# The docs are available on https://docs.fastlane.tools/actions/match
