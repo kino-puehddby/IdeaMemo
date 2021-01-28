@@ -6,7 +6,7 @@ storage_mode('git')
 
 app_identifier ENV['APP_IDENTIFIER'] # The bundle identifier of app
 team_id ENV['TEAM_ID'] # Apple Developer Team ID
-username ENV['APPLE_ID'] # Apple email address
+username ENV['MATCH_USER'] # Apple email address
 git_url ENV['MATCH_GITHUB_REPO']
 keychain_password ENV['MATCH_PASSWORD']
 
