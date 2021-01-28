@@ -1,6 +1,6 @@
 name: testflight
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
@@ -88,9 +88,9 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Distribute to TestFlight
-        run: |
-          bundle exec fastlane beta
+      # - name: Distribute to TestFlight
+      #   run: |
+      #     bundle exec fastlane beta
 
 #       - name: Xcode build
 #         run: set -o pipefail &&
