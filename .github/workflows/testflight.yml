@@ -1,0 +1,135 @@
+name: testflight
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  push:
+    branches:
+      - develop
+#     paths-ignore:
+#       - README.md
+#   pull_request:
+#     branches:
+#       - develop
+#     paths-ignore:
+#       - README.md
+
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  testflight:
+    name: Build Libraries and Distribute to TestFlight
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
+
+      - name: Show Xcode list
+        run: ls /Applications | grep 'Xcode'
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen
+
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+
+      - name: Cache Gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Install Bundler
+        run: |
+          gem install bundler -v "2.2.3"
+      - name: Install Bundled Gems
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3 --without=documentation
+      - name: Cache Pods
+        uses: actions/cache@v2
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Install Pods
+        run: |
+          bundle exec pod install
+      - name: Cache Carthage packages
+        uses: actions/cache@v2
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-carthage-
+      - name: Install Carthage frameworks
+        run: |
+          bash run-carthage.sh bootstrap --platform iOS --no-use-binaries --cache-builds
+          echo '*** Resolved dependencies:'
+          cat 'Cartfile.resolved'
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Distribute to TestFlight
+        run: |
+          bundle exec fastlane beta
+
+#       - name: Xcode build
+#         run: set -o pipefail &&
+#           xcodebuild
+#           -sdk iphonesimulator
+#           -configuration Debug
+#           -workspace IdeaMemo.xcworkspace
+#           -scheme IdeaMemo
+#           build
+#           | bundle exec xcpretty
+
+  success_notify:
+    name: Slack Notification ( success )
+    if: success()
+    runs-on: ubuntu-latest
+    needs: [testflight]
+
+    steps:
+    - name: slack notify ( success )
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TITLE: Build Succeeded!
+        SLACK_MESSAGE: "Success :rocket:\n\n*Workflow*\n${GITHUB_WORKFLOW}"
+        SLACK_COLOR: good
+
+  failure_notify:
+    name: Slack Notification ( failed )
+    if: failure()
+    runs-on: ubuntu-latest
+    needs: [testflight]
+    steps:
+    - name: slack notify ( failed )
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TITLE: Build Failed!
+        SLACK_MESSAGE: "Failure :scream:\n\n*Workflow*\n${GITHUB_WORKFLOW}"
+        SLACK_COLOR: danger
