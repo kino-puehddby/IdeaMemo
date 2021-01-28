@@ -8,68 +8,74 @@
 import SwiftUI
 import Combine
 import FirebaseAuth
+import CloudKit
 
-final class HomeViewModel: ObservableObject, Identifiable {
+final class HomeViewModel: ObservableObject {
+    // Output
     @Published var isSignIn: Bool = true
-    @Published var username: String = ""
-    @Published var status: StatusText = StatusText(content: "NG", color: .red)
+    @Published var error: Error?
+    @Published var memoList: [Memo] = []
     
     private var cancellables: Set<AnyCancellable> = []
-    
-    struct StatusText {
-        let content: String
-        let color: Color
+
+    init() {
+        ApplicationStore.shared.memoState.map { $0.memoList }
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] memoList in
+                guard let self = self else { return }
+                self.memoList = memoList
+            }
+            .store(in: &self.cancellables)
+        
+        ApplicationStore.shared.memoState.map { $0.error }
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else {
+                    self.error = nil
+                    return
+                }
+                self.error = error
+            }
+            .store(in: &self.cancellables)
     }
 
-    private var validatedUsername: AnyPublisher<String?, Never> {
-        return $username
-            .debounce(for: 0.1, scheduler: RunLoop.main)
-            .removeDuplicates()
-            .flatMap { username -> AnyPublisher<String?, Never> in
-                Future<String?, Never> { promise in
-                    if 1...10 ~= username.count {
-                        promise(.success(username))
-                    } else {
-                        promise(.success(nil))
+    func loadList() {
+        CloudMemoRecord.get { result in
+            switch result {
+            case .success(let memoList):
+                DispatchQueue.main.async {
+                    self.memoList = memoList
+                }
+                ApplicationStore.shared.dispatch(MemoState.Action.set(list: memoList))
+            case .failure(let error):
+                ApplicationStore.shared.dispatch(MemoState.Action.error(error))
+            }
+        }
+    }
+    
+    func deleteRow(at indexSet: IndexSet) {
+        indexSet
+            .map { memoList[$0] }
+            .forEach { memo in
+                CloudMemoRecord.delete(recordName: memo.id) { result in
+                    switch result {
+                    case .success:
+                        ApplicationStore.shared.dispatch(MemoState.Action.remove(memo))
+                    case .failure(let error):
+                        ApplicationStore.shared.dispatch(MemoState.Action.error(error))
                     }
                 }
-                .eraseToAnyPublisher()
             }
-            .eraseToAnyPublisher()
-    }
-    
-    private(set) lazy var onAppear: () -> Void = { [weak self] in
-        guard let self = self else { return }
-        self.validatedUsername
-            .sink { [weak self] value in
-                if let value = value {
-                    self?.username = value
-                } else {
-                    print("validatedUsername.receiveValue: Invalid username")
-                }
-            }
-            .store(in: &self.cancellables)
-
-        // Update StatusText
-        self.validatedUsername
-            .map { value -> StatusText in
-                if value != nil {
-                    return StatusText(content: "OK", color: .green)
-                } else {
-                    return StatusText(content: "NG", color: .red)
-                }
-            }
-            .sink { [weak self] value in
-                self?.status = value
-            }
-            .store(in: &self.cancellables)
     }
     
     func signOut() {
         do {
             try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: \(signOutError)")
+        } catch {
+            ApplicationStore.shared.dispatch(AuthenticationState.Action.error(.authorization))
         }
         
         ApplicationStore.shared.dispatch(AuthenticationState.Action.completeSignOut)

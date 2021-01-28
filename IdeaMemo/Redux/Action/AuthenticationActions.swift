@@ -17,19 +17,3 @@ extension AuthenticationState {
         case error(AppError)
     }
 }
-
-// Action Dispatcher
-public struct AuthenticationActionDispatcher {
-    public static func xxxRequest() {
-//        ApplicationStore.shared.dispatch(AuthenticationState.Action.requestStart)
-//        API.get()
-//            .subscribe(
-//                onSuccess: { xxx in
-//                    ApplicationStore.shared.dispatch(AuthenticationState.Action.get(parameter: xxx))
-//                },
-//                onError: { error in
-//                    ApplicationStore.shared.dispatch(AuthenticationState.Action.requestError(error))
-//                }
-//            )
-    }
-}

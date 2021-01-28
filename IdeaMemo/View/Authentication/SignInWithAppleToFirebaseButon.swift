@@ -27,9 +27,7 @@ final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
         return vc as UIViewController
     }
   
-    func updateUIViewController(_ uiView: UIViewController, context: Context) {
-        
-    }
+    func updateUIViewController(_ uiView: UIViewController, context: Context) {}
     
     private func performAppleSignIn() {
         ApplicationStore.shared.dispatch(AuthenticationState.Action.startAuthenticate)

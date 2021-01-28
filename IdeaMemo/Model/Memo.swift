@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Memo: Codable, Equatable {
-    let id: Int
+public struct Memo: Equatable {
+    let id: String
     let title: String
     let content: String
 
-    static func == (lhs: Memo, rhs: Memo) -> Bool {
+    public static func == (lhs: Memo, rhs: Memo) -> Bool {
         return lhs.id == rhs.id
     }
 }

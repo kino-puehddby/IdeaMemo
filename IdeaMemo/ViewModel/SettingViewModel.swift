@@ -8,6 +8,6 @@
 import Foundation
 import Combine
 
-final class SettingViewModel: ObservableObject, Identifiable {
+final class SettingViewModel: ObservableObject {
     
 }

@@ -8,6 +8,6 @@
 import Combine
 import FirebaseAuth
 
-final class SplashViewModel: ObservableObject, Identifiable {
+final class SplashViewModel: ObservableObject {
     @Published var isSignIn: Bool = Auth.auth().currentUser != nil
 }

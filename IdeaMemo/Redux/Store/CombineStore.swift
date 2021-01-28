@@ -12,13 +12,9 @@ import ReSwift
 
 public class CombineStore<AnyStateType>: ReSwift.StoreSubscriber where AnyStateType: ReSwift.StateType {
 
-    public lazy var statePublisher: AnyPublisher<AnyStateType, Never> = {
-        stateSubject.eraseToAnyPublisher()
-    }()
-    
     public var state: AnyStateType { return stateSubject.value }
 
-    private let stateSubject: CurrentValueSubject<AnyStateType, Never>
+    let stateSubject: CurrentValueSubject<AnyStateType, Never>
     private let store: ReSwift.Store<AnyStateType>
     
     public init(store: ReSwift.Store<AnyStateType>) {

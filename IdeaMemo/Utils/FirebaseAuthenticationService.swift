@@ -16,7 +16,7 @@ extension FirebaseAuthenticationService {
     func linkMultipleAuthProviders(user: User, credential: AuthCredential) {
         user.link(with: credential) { authResult, error in
             guard error == nil, let authResult = authResult else {
-                debugPrint(error!.localizedDescription)
+                ApplicationStore.shared.dispatch(AuthenticationState.Action.error(AppError.authorization))
                 return
             }
 

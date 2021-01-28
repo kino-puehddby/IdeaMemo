@@ -16,6 +16,11 @@ build
 *.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata
 !*.xcworkspace/contents.xcworkspacedata
+*.xcworkspace/xcuserdata
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
 
 # Carthage
 Carthage/*
@@ -37,7 +42,8 @@ IdeaMemo/Resources/Generated/*.swift
 *.swp
 !.gitkeep
 
-# Push Notification
+# secrets
 *.pem
 *.pkey
+*.p8
 *.p12

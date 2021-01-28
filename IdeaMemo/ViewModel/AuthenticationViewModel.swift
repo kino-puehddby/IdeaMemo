@@ -9,7 +9,7 @@ import Combine
 import AuthenticationServices
 import FirebaseAuth
 
-final class AuthenticationViewModel: ObservableObject, Identifiable {
+final class AuthenticationViewModel: ObservableObject {
     @Published var isSignInCompleted = false
     @Published var isLoading = false
     @Published var error: AppError?
