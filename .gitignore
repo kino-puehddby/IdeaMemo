@@ -42,3 +42,4 @@ IdeaMemo/Resources/Generated/*.swift
 *.pem
 *.pkey
 *.p12
+*.p8
