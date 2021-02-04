@@ -88,7 +88,6 @@ platform :ios do
     personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
     authorization_token_str = "#{username}:#{personal_github_access_token}"
     basic_authorization_token = Base64.strict_encode64(authorization_token_str)
-
     sigh_env_path =
       case ENV['ENV']
       when 'production'
@@ -98,47 +97,41 @@ platform :ios do
       when 'development'
         "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
       end
+    delivery_type =
+      case ENV['ENV']
+      when 'production'
+        'appstore'
+      when 'staging'
+        'adhoc'
+      else
+        'development'
+      end
+    build_configuration =
+      case ENV['ENV']
+      when 'production'
+        'Production Release'
+      when 'staging'
+        'Staging Release'
+      else
+        'Develop Release'
+      end
 
-    case ENV['ENV']
-    when 'production'
-      match(
-        type: 'appstore',
-        readonly: is_ci,
-        git_basic_authorization: basic_authorization_token
-      )
-      update_project_provisioning(
-        xcodeproj: './IdeaMemo.xcodeproj',
-        profile: ENV["#{sigh_env_path}"],
-        build_configuration: 'Production Release'
-      )
-    when 'staging'
-      match(
-        type: 'adhoc',
-        readonly: is_ci,
-        git_basic_authorization: basic_authorization_token
-      )
-      update_project_provisioning(
-        xcodeproj: './IdeaMemo.xcodeproj',
-        profile: ENV["#{sigh_env_path}"],
-        build_configuration: 'Staging Release'
-      )
-    else
-      match(
-        type: 'development',
-        readonly: is_ci,
-        git_basic_authorization: basic_authorization_token
-      )
-      update_project_provisioning(
-        xcodeproj: './IdeaMemo.xcodeproj',
-        profile: ENV["#{sigh_env_path}"],
-        build_configuration: 'Develop Release'
-      )
-    end
+    match(
+      type: delivery_type,
+      readonly: is_ci,
+      git_basic_authorization: basic_authorization_token
+    )
 
     update_project_team(
       path: './IdeaMemo.xcodeproj',
       targets: 'IdeaMemo',
       teamid: ENV['TEAM_ID']
+    )
+
+    update_project_provisioning(
+      xcodeproj: './IdeaMemo.xcodeproj',
+      profile: ENV["#{sigh_env_path}"],
+      build_configuration: build_configuration
     )
   end
 
