@@ -78,14 +78,10 @@ platform :ios do
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
       password: ENV['MATCH_PASSWORD'],
-      path: "~/Library/Keychains/#{ENV['MATCH_KEYCHAIN_NAME']}",
+      default_keychain: true,
+      unlock: true,
       timeout: 1800,
       lock_when_sleeps: false
-    )
-
-    unlock_keychain(
-      path: "~/Library/Keychains/#{ENV['MATCH_KEYCHAIN_NAME']}",
-      password: ENV['MATCH_PASSWORD']
     )
 
     username = ENV['MATCH_GITHUB_USER_NAME']
