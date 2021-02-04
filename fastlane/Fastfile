@@ -134,7 +134,7 @@ platform :ios do
 
     disable_automatic_code_signing(
       use_automatic_signing: false,
-      targets: ['PROJECT_NAME'],
+      targets: ['IdeaMemo'],
       code_sign_identity: code_sign_identity,
       team_id: ENV['TEAM_ID'],
       profile_name: profile_name
