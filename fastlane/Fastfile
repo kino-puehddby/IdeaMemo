@@ -78,14 +78,13 @@ platform :ios do
       provider: 'travis' # travis で代用するとうまく動く
     )
 
-    # create_keychain(
-    #   name: ENV['MATCH_KEYCHAIN_NAME'],
-    #   password: ENV['MATCH_PASSWORD'],
-    #   default_keychain: true,
-    #   unlock: true,
-    #   timeout: 1800,
-    #   lock_when_sleeps: false
-    # )
+    create_keychain(
+      name: ENV['MATCH_KEYCHAIN_NAME'],
+      password: ENV['MATCH_PASSWORD'],
+      default_keychain: true,
+      unlock: true,
+      timeout: 1800
+    )
 
     # sigh_env_path =
     #   case ENV['ENV']
@@ -127,9 +126,27 @@ platform :ios do
     authorization_token_str = "#{username}:#{personal_github_access_token}"
     basic_authorization_token = Base64.strict_encode64(authorization_token_str)
 
-    match(type: 'appstore', readonly: is_ci, git_basic_authorization: basic_authorization_token)
-    match(type: 'adhoc', readonly: is_ci, git_basic_authorization: basic_authorization_token)
-    match(type: 'development', readonly: is_ci, git_basic_authorization: basic_authorization_token)
+    match(
+      type: 'appstore',
+      readonly: is_ci,
+      git_basic_authorization: basic_authorization_token,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV['MATCH_PASSWORD']
+    )
+    match(
+      type: 'adhoc',
+      readonly: is_ci,
+      git_basic_authorization: basic_authorization_token,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV['MATCH_PASSWORD']
+    )
+    match(
+      type: 'development',
+      readonly: is_ci,
+      git_basic_authorization: basic_authorization_token,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV['MATCH_PASSWORD']
+    )
 
     # update_project_team(
     #   path: './IdeaMemo.xcodeproj',
