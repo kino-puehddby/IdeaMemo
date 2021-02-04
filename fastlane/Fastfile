@@ -97,15 +97,15 @@ platform :ios do
       when 'development'
         "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
       end
-    delivery_type =
-      case ENV['ENV']
-      when 'production'
-        'appstore'
-      when 'staging'
-        'adhoc'
-      else
-        'development'
-      end
+    # delivery_type =
+    #   case ENV['ENV']
+    #   when 'production'
+    #     'appstore'
+    #   when 'staging'
+    #     'adhoc'
+    #   else
+    #     'development'
+    #   end
     build_configuration =
       case ENV['ENV']
       when 'production'
@@ -116,11 +116,10 @@ platform :ios do
         'Develop Release'
       end
 
-    match(
-      type: delivery_type,
-      readonly: is_ci,
-      git_basic_authorization: basic_authorization_token
-    )
+    xcversion(version: '12.4')
+    match(type: 'appstore', readonly: is_ci, git_basic_authorization: basic_authorization_token)
+    match(type: 'adhoc', readonly: is_ci, git_basic_authorization: basic_authorization_token)
+    match(type: 'development', readonly: is_ci, git_basic_authorization: basic_authorization_token)
 
     update_project_team(
       path: './IdeaMemo.xcodeproj',
