@@ -44,7 +44,7 @@ platform :ios do
   desc 'Build for Scheme'
   lane :build do
     # install_lib
-    setup_cirtificates
+    # setup_cirtificates if is_ci?
     sync_xcode_signing
 
     case ENV['ENV']
