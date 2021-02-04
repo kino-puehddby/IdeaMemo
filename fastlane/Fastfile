@@ -1,3 +1,5 @@
+# vim: syntax=ruby
+
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -44,8 +46,8 @@ platform :ios do
   desc 'Build for Scheme'
   lane :build do
     # install_lib
-    setup_cirtificates if is_ci?
-    sync_xcode_signing
+    setup_cirtificates_for_CI if is_ci?
+    sync_xcode_signing unless is_ci?
 
     case ENV['ENV']
     when 'production'
@@ -70,17 +72,17 @@ platform :ios do
   end
 
   desc 'setup cirtificates'
-  lane :setup_cirtificates do
+  lane :setup_cirtificates_for_CI do
     # setup_ci(force: true)
 
-    create_keychain(
-      name: ENV['MATCH_KEYCHAIN_NAME'],
-      password: ENV['MATCH_PASSWORD'],
-      default_keychain: true,
-      unlock: true,
-      timeout: 1800,
-      lock_when_sleeps: false
-    )
+    # create_keychain(
+    #   name: ENV['MATCH_KEYCHAIN_NAME'],
+    #   password: ENV['MATCH_PASSWORD'],
+    #   default_keychain: true,
+    #   unlock: true,
+    #   timeout: 1800,
+    #   lock_when_sleeps: false
+    # )
 
     username = ENV['MATCH_GITHUB_USER_NAME']
     personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
@@ -113,39 +115,6 @@ platform :ios do
         keychain_password: ENV['MATCH_PASSWORD']
       )
     end
-
-    # update_code_signing_settings(
-    #   use_automatic_signing: false,
-    #   path: './IdeaMemo.xcodeproj'
-    # )
-
-    # profile_name =
-    #   case ENV['ENV']
-    #   when 'production'
-    #     "match AppStore #{ENV['APP_IDENTIFIER']}"
-    #   when 'staging'
-    #     "match AdHoc #{ENV['APP_IDENTIFIER']}"
-    #   when 'development'
-    #     "match Development #{ENV['APP_IDENTIFIER']}"
-    #   end
-
-    # code_sign_identity =
-    #   case ENV['ENV']
-    #   when 'production', 'staging'
-    #     'iPhone Distribution'
-    #   when 'development'
-    #     'iPhone Developer'
-    #   end
-
-    # disable_automatic_code_signing(
-    #   path: './IdeaMemo.xcodeproj',
-    #   use_automatic_signing: false,
-    #   targets: ['IdeaMemo'],
-    #   team_id: ENV['TEAM_ID'],
-    #   profile_name: profile_name,
-    #   code_sign_identity: code_sign_identity,
-    #   bundle_identifier: ENV['APP_IDENTIFIER']
-    # )
   end
 
   desc 'sync xcode signing'

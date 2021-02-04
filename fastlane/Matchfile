@@ -1,3 +1,5 @@
+# vim: syntax=ruby
+
 git_url ENV['MATCH_GITHUB_REPO']
 
 storage_mode('git')
