@@ -73,7 +73,10 @@ platform :ios do
 
   desc 'setup cirtificates'
   lane :setup_cirtificates_for_CI do
-    # setup_ci(force: true)
+    setup_ci(
+      force: true,
+      provider: 'travis' # travis で代用するとうまく動く
+    )
 
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
