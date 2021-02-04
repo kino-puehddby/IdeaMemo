@@ -13,3 +13,4 @@ gem 'danger-lgtm'
 gem 'fastlane'
 gem 'pem'
 gem 'dotenv'
+gem "xcode-install"
