@@ -114,7 +114,7 @@ options:
   developmentLanguage: ja
   deploymentTarget:
     iOS: 14.0
-  xcodeVersion: 12.3
+  xcodeVersion: 12.4
   generateEmptyDirectories: true
   groupOrdering:
     - order: [IdeaMemo, Configurations]
