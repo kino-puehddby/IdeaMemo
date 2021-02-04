@@ -76,8 +76,10 @@ platform :ios do
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
       password: ENV['MATCH_PASSWORD'],
+      default_keychain: true,
       unlock: true,
-      timeout: 1800
+      timeout: 1800,
+      lock_when_sleeps: false
     )
 
     username = ENV['MATCH_GITHUB_USER_NAME']
@@ -87,12 +89,56 @@ platform :ios do
 
     case ENV['ENV']
     when 'production'
-      match(type: 'appstore', readonly: is_ci, git_basic_authorization: basic_authorization_token)
+      match(
+        type: 'appstore',
+        readonly: is_ci,
+        git_basic_authorization: basic_authorization_token,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_PASSWORD']
+      )
     when 'staging'
-      match(type: 'adhoc', readonly: is_ci, git_basic_authorization: basic_authorization_token)
+      match(
+        type: 'adhoc',
+        readonly: is_ci,
+        git_basic_authorization: basic_authorization_token,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_PASSWORD']
+      )
     else
-      match(type: 'development', readonly: is_ci, git_basic_authorization: basic_authorization_token)
+      match(
+        type: 'development',
+        readonly: is_ci,
+        git_basic_authorization: basic_authorization_token,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_PASSWORD']
+      )
     end
+
+    profile_name =
+        case ENV['ENV']
+        when 'production'
+          "match AppStore #{ENV['APP_IDENTIFIER']}"
+        when 'staging'
+          "match AdHoc #{ENV['APP_IDENTIFIER']}"
+        when 'development'
+          "match Development #{ENV['APP_IDENTIFIER']}"
+        end
+
+    code_sign_identity =
+      case ENV['ENV']
+      when 'production', 'staging'
+        'Distribution'
+      when 'development'
+        'Development'
+      end
+
+    disable_automatic_code_signing(
+      use_automatic_signing: false,
+      targets: ['PROJECT_NAME'],
+      code_sign_identity: code_sign_identity,
+      team_id: ENV['TEAM_ID'],
+      profile_name: profile_name
+    )
   end
 
   desc 'sync xcode signing'
