@@ -96,17 +96,29 @@ platform :ios do
         readonly: is_ci,
         git_basic_authorization: basic_authorization_token
       )
+      update_project_provisioning(
+        xcodeproj: './IdeaMemo.xcodeproj',
+        build_configuration: 'Production Release'
+      )
     when 'staging'
       match(
         type: 'adhoc',
         readonly: is_ci,
         git_basic_authorization: basic_authorization_token
       )
+      update_project_provisioning(
+        xcodeproj: './IdeaMemo.xcodeproj',
+        build_configuration: 'Staging Release'
+      )
     else
       match(
         type: 'development',
         readonly: is_ci,
         git_basic_authorization: basic_authorization_token
+      )
+      update_project_provisioning(
+        xcodeproj: './IdeaMemo.xcodeproj',
+        build_configuration: 'Develop Release'
       )
     end
   end
