@@ -71,17 +71,20 @@ platform :ios do
 
   desc 'setup cirtificates'
   lane :setup_cirtificates do
-    if is_ci?
-      setup_ci(force: true)
+    setup_ci(force: true)
 
-      create_keychain(
-        name: 'login.keychain',
-        password: ENV['MATCH_PASSWORD'],
-        default_keychain: true,
-        unlock: true,
-        timeout: 3600
-      )
-    end
+    create_keychain(
+      name: 'login.keychain',
+      password: ENV['MATCH_PASSWORD'],
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600
+    )
+    import_certificate(
+      certificate_path: './certs/distribution.p12',
+      keychain_name: 'login.keychain',
+      keychain_password: ENV['MATCH_PASSWORD']
+    )
 
     username = ENV['MATCH_GITHUB_USER_NAME']
     personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
