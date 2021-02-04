@@ -106,16 +106,6 @@ jobs:
           MATCH_GITHUB_USER_NAME: ${{ secrets.MATCH_GITHUB_USER_NAME }}
           MATCH_GITHUB_TOKEN: ${{ secrets.MATCH_GITHUB_TOKEN }}
 
-#       - name: Xcode build
-#         run: set -o pipefail &&
-#           xcodebuild
-#           -sdk iphonesimulator
-#           -configuration Debug
-#           -workspace IdeaMemo.xcworkspace
-#           -scheme IdeaMemo
-#           build
-#           | bundle exec xcpretty
-
   success_notify:
     name: Slack Notification ( success )
     if: success()
