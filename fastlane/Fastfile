@@ -94,25 +94,19 @@ platform :ios do
       match(
         type: 'appstore',
         readonly: is_ci,
-        git_basic_authorization: basic_authorization_token,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_PASSWORD']
+        git_basic_authorization: basic_authorization_token
       )
     when 'staging'
       match(
         type: 'adhoc',
         readonly: is_ci,
-        git_basic_authorization: basic_authorization_token,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_PASSWORD']
+        git_basic_authorization: basic_authorization_token
       )
     else
       match(
         type: 'development',
         readonly: is_ci,
-        git_basic_authorization: basic_authorization_token,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_PASSWORD']
+        git_basic_authorization: basic_authorization_token
       )
     end
   end
