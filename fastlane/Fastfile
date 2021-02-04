@@ -8,7 +8,7 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-fastlane_version '2.172.0'
+fastlane_version '2.171.0'
 
 default_platform :ios
 
