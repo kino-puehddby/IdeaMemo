@@ -78,28 +78,24 @@ platform :ios do
       provider: 'travis' # travis で代用するとうまく動く
     )
 
-    create_keychain(
-      name: ENV['MATCH_KEYCHAIN_NAME'],
-      password: ENV['MATCH_PASSWORD'],
-      default_keychain: true,
-      unlock: true,
-      timeout: 1800,
-      lock_when_sleeps: false
-    )
+    # create_keychain(
+    #   name: ENV['MATCH_KEYCHAIN_NAME'],
+    #   password: ENV['MATCH_PASSWORD'],
+    #   default_keychain: true,
+    #   unlock: true,
+    #   timeout: 1800,
+    #   lock_when_sleeps: false
+    # )
 
-    username = ENV['MATCH_GITHUB_USER_NAME']
-    personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
-    authorization_token_str = "#{username}:#{personal_github_access_token}"
-    basic_authorization_token = Base64.strict_encode64(authorization_token_str)
-    sigh_env_path =
-      case ENV['ENV']
-      when 'production'
-        "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
-      when 'staging'
-        "sigh_#{ENV['APP_IDENTIFIER']}_adhoc_profile-path"
-      when 'development'
-        "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
-      end
+    # sigh_env_path =
+    #   case ENV['ENV']
+    #   when 'production'
+    #     "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
+    #   when 'staging'
+    #     "sigh_#{ENV['APP_IDENTIFIER']}_adhoc_profile-path"
+    #   when 'development'
+    #     "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
+    #   end
     # delivery_type =
     #   case ENV['ENV']
     #   when 'production'
@@ -109,40 +105,44 @@ platform :ios do
     #   else
     #     'development'
     #   end
-    build_configuration =
-      case ENV['ENV']
-      when 'production'
-        'Production Release'
-      when 'staging'
-        'Staging Release'
-      else
-        'Develop Release'
-      end
-    code_signing_identity =
-      case ENV['ENV']
-      when 'production', 'staging'
-        'Apple Distribution'
-      else
-        'Apple Development'
-      end
+    # build_configuration =
+    #   case ENV['ENV']
+    #   when 'production'
+    #     'Production Release'
+    #   when 'staging'
+    #     'Staging Release'
+    #   else
+    #     'Develop Release'
+    #   end
+    # code_signing_identity =
+    #   case ENV['ENV']
+    #   when 'production', 'staging'
+    #     'Apple Distribution'
+    #   else
+    #     'Apple Development'
+    #   end
 
-    xcversion(version: '12.4')
+    username = ENV['MATCH_GITHUB_USER_NAME']
+    personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
+    authorization_token_str = "#{username}:#{personal_github_access_token}"
+    basic_authorization_token = Base64.strict_encode64(authorization_token_str)
+
     match(type: 'appstore', readonly: is_ci, git_basic_authorization: basic_authorization_token)
     match(type: 'adhoc', readonly: is_ci, git_basic_authorization: basic_authorization_token)
     match(type: 'development', readonly: is_ci, git_basic_authorization: basic_authorization_token)
 
-    update_project_team(
-      path: './IdeaMemo.xcodeproj',
-      targets: 'IdeaMemo',
-      teamid: ENV['TEAM_ID']
-    )
+    # update_project_team(
+    #   path: './IdeaMemo.xcodeproj',
+    #   targets: 'IdeaMemo',
+    #   teamid: ENV['TEAM_ID']
+    # )
 
-    update_project_provisioning(
-      xcodeproj: './IdeaMemo.xcodeproj',
-      profile: ENV["#{sigh_env_path}"],
-      build_configuration: build_configuration,
-      code_signing_identity: code_signing_identity
-    )
+    # update_project_provisioning(
+    #   xcodeproj: './IdeaMemo.xcodeproj',
+    #   profile: ENV["#{sigh_env_path}"],
+    #   build_configuration: build_configuration,
+    #   code_signing_identity: code_signing_identity
+    # )
   end
 
   desc 'sync xcode signing'
@@ -226,7 +226,7 @@ platform :ios do
     configuration = options[:configuration] || 'Develop Release'
     xcode_workspace_path = './IdeaMemo.xcworkspace'
     export_method = options[:export_method] || 'development'
-    export_options = ENV['ENV'] == 'development' ? 'Development' : 'Production'
+    icloud_container_environment = ENV['ENV'] == 'development' ? 'Development' : 'Production'
     output_directory = "./build/ipa/#{ENV['ENV']}/"
     output_name = 'IdeaMemo.ipa'
     include_bitcode = ENV['ENV'] != 'development'
@@ -247,7 +247,7 @@ platform :ios do
       workspace: xcode_workspace_path,
       export_method: export_method,
       export_options: {
-        iCloudContainerEnvironment: export_options,
+        iCloudContainerEnvironment: icloud_container_environment,
         provisioningProfiles: {
           ENV['APP_IDENTIFIER'] => profile_name
         }
