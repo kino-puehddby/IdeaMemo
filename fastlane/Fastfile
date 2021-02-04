@@ -124,20 +124,12 @@ platform :ios do
           "match Development #{ENV['APP_IDENTIFIER']}"
         end
 
-    code_sign_identity =
-      case ENV['ENV']
-      when 'production', 'staging'
-        'Distribution'
-      when 'development'
-        'Development'
-      end
-
     disable_automatic_code_signing(
       use_automatic_signing: false,
       targets: ['IdeaMemo'],
-      code_sign_identity: code_sign_identity,
       team_id: ENV['TEAM_ID'],
-      profile_name: profile_name
+      profile_name: profile_name,
+      bundle_identifier: ENV['APP_IDENTIFIER']
     )
   end
 
