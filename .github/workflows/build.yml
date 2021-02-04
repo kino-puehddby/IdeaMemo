@@ -26,7 +26,7 @@ jobs:
     runs-on: macos-latest
 
     env:
-      DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
