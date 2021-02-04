@@ -99,7 +99,8 @@ jobs:
           ENV: ${{ secrets.ENV }}
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
           FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_GITHUB_REPO: ${{ secrets.MATCH_GITHUB_REPO }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           MATCH_GITHUB_USER_NAME: ${{ secrets.MATCH_GITHUB_USER_NAME }}

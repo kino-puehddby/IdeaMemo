@@ -74,16 +74,10 @@ platform :ios do
     setup_ci(force: true)
 
     create_keychain(
-      name: 'login.keychain',
-      password: ENV['MATCH_PASSWORD'],
-      default_keychain: true,
+      name: ENV['MATCH_KEYCHAIN_NAME'],
+      password: ENV['MATCH_KEYCHAIN_PASSWORD'],
       unlock: true,
-      timeout: 3600
-    )
-    import_certificate(
-      certificate_path: './certs/distribution.p12',
-      keychain_name: 'login.keychain',
-      keychain_password: ENV['MATCH_PASSWORD']
+      timeout: 1800
     )
 
     username = ENV['MATCH_GITHUB_USER_NAME']
