@@ -86,15 +86,6 @@ platform :ios do
       timeout: 1800
     )
 
-    # sigh_env_path =
-    #   case ENV['ENV']
-    #   when 'production'
-    #     "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
-    #   when 'staging'
-    #     "sigh_#{ENV['APP_IDENTIFIER']}_adhoc_profile-path"
-    #   when 'development'
-    #     "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
-    #   end
     # delivery_type =
     #   case ENV['ENV']
     #   when 'production'
@@ -104,49 +95,43 @@ platform :ios do
     #   else
     #     'development'
     #   end
-    # build_configuration =
-    #   case ENV['ENV']
-    #   when 'production'
-    #     'Production Release'
-    #   when 'staging'
-    #     'Staging Release'
-    #   else
-    #     'Develop Release'
-    #   end
-    # code_signing_identity =
-    #   case ENV['ENV']
-    #   when 'production', 'staging'
-    #     'Apple Distribution'
-    #   else
-    #     'Apple Development'
-    #   end
+
+    disable_automatic_code_signing(
+      path: './IdeaMemo.xcodeproj',
+      team_id: ENV['TEAM_ID']
+    )
 
     username = ENV['MATCH_GITHUB_USER_NAME']
     personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
     authorization_token_str = "#{username}:#{personal_github_access_token}"
     basic_authorization_token = Base64.strict_encode64(authorization_token_str)
 
-    match(
-      type: 'appstore',
-      readonly: is_ci,
-      git_basic_authorization: basic_authorization_token,
-      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-      keychain_password: ENV['MATCH_PASSWORD']
-    )
-    match(
-      type: 'adhoc',
-      readonly: is_ci,
-      git_basic_authorization: basic_authorization_token,
-      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-      keychain_password: ENV['MATCH_PASSWORD']
-    )
-    match(
-      type: 'development',
-      readonly: is_ci,
-      git_basic_authorization: basic_authorization_token,
-      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-      keychain_password: ENV['MATCH_PASSWORD']
-    )
+    case ENV['ENV']
+    when 'production'
+      match(
+        type: 'appstore',
+        readonly: is_ci,
+        git_basic_authorization: basic_authorization_token,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_PASSWORD']
+      )
+    when 'staging'
+      match(
+        type: 'adhoc',
+        readonly: is_ci,
+        git_basic_authorization: basic_authorization_token,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_PASSWORD']
+      )
+    else
+      match(
+        type: 'development',
+        readonly: is_ci,
+        git_basic_authorization: basic_authorization_token,
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_PASSWORD']
+      )
+    end
 
     # update_project_team(
     #   path: './IdeaMemo.xcodeproj',
@@ -154,12 +139,39 @@ platform :ios do
     #   teamid: ENV['TEAM_ID']
     # )
 
-    # update_project_provisioning(
-    #   xcodeproj: './IdeaMemo.xcodeproj',
-    #   profile: ENV["#{sigh_env_path}"],
-    #   build_configuration: build_configuration,
-    #   code_signing_identity: code_signing_identity
-    # )
+    sigh_env_path =
+      case ENV['ENV']
+      when 'production'
+        "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
+      when 'staging'
+        "sigh_#{ENV['APP_IDENTIFIER']}_adhoc_profile-path"
+      when 'development'
+        "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
+      end
+    build_configuration =
+      case ENV['ENV']
+      when 'production'
+        'Production Release'
+      when 'staging'
+        'Staging Release'
+      else
+        'Develop Release'
+      end
+    code_signing_identity =
+      case ENV['ENV']
+      when 'production', 'staging'
+        'Apple Distribution'
+      else
+        'Apple Development'
+      end
+
+    update_project_provisioning(
+      xcodeproj: './IdeaMemo.xcodeproj',
+      target_filter: 'IdeaMemo',
+      profile: ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-path'],
+      build_configuration: build_configuration,
+      code_signing_identity: code_signing_identity
+    )
   end
 
   desc 'sync xcode signing'
@@ -247,32 +259,34 @@ platform :ios do
     output_directory = "./build/ipa/#{ENV['ENV']}/"
     output_name = 'IdeaMemo.ipa'
     include_bitcode = ENV['ENV'] != 'development'
-
-    profile_name =
-      case ENV['ENV']
-      when 'production'
-        "match AppStore #{ENV['APP_IDENTIFIER']}"
-      when 'staging'
-        "match AdHoc #{ENV['APP_IDENTIFIER']}"
-      when 'development'
-        "match Development #{ENV['APP_IDENTIFIER']}"
-      end
+    # profile_name =
+    #   case ENV['ENV']
+    #   when 'production'
+    #     "match AppStore #{ENV['APP_IDENTIFIER']}"
+    #   when 'staging'
+    #     "match AdHoc #{ENV['APP_IDENTIFIER']}"
+    #   when 'development'
+    #     "match Development #{ENV['APP_IDENTIFIER']}"
+    #   end
 
     build_ios_app(
       scheme: scheme,
       configuration: configuration,
       workspace: xcode_workspace_path,
+      clean: true,
       export_method: export_method,
       export_options: {
+        method: export_method,
         iCloudContainerEnvironment: icloud_container_environment,
         provisioningProfiles: {
-          ENV['APP_IDENTIFIER'] => profile_name
+          ENV['APP_IDENTIFIER'] => ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-name']
         }
       },
       export_xcargs: '-allowProvisioningUpdates',
       output_directory: output_directory,
       output_name: output_name,
-      include_bitcode: include_bitcode
+      include_bitcode: include_bitcode,
+      codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
     )
   end
 
