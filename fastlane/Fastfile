@@ -75,14 +75,14 @@ platform :ios do
   lane :setup_cirtificates_for_CI do
     # setup_ci(force: true)
 
-    # create_keychain(
-    #   name: ENV['MATCH_KEYCHAIN_NAME'],
-    #   password: ENV['MATCH_PASSWORD'],
-    #   default_keychain: true,
-    #   unlock: true,
-    #   timeout: 1800,
-    #   lock_when_sleeps: false
-    # )
+    create_keychain(
+      name: ENV['MATCH_KEYCHAIN_NAME'],
+      password: ENV['MATCH_PASSWORD'],
+      default_keychain: true,
+      unlock: true,
+      timeout: 1800,
+      lock_when_sleeps: false
+    )
 
     username = ENV['MATCH_GITHUB_USER_NAME']
     personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
