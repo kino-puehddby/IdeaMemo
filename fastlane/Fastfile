@@ -230,9 +230,7 @@ platform :ios do
       increment_version_number(bump_type: 'patch')
     end
 
-    commit_version_bump(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
-    push_to_git_remote
-    # commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
+    commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
   end
 end
 
