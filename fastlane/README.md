@@ -26,9 +26,9 @@ Runs all tests
 fastlane ios build
 ```
 Build for Scheme
-### ios setup_cirtificates
+### ios setup_cirtificates_for_CI
 ```
-fastlane ios setup_cirtificates
+fastlane ios setup_cirtificates_for_CI
 ```
 setup cirtificates
 ### ios sync_xcode_signing

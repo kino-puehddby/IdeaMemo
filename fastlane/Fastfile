@@ -134,6 +134,12 @@ platform :ios do
         build_configuration: 'Develop Release'
       )
     end
+
+    update_project_team(
+      path: './IdeaMemo.xcodeproj',
+      targets: 'IdeaMemo',
+      teamid: ENV['TEAM_ID']
+    )
   end
 
   desc 'sync xcode signing'
