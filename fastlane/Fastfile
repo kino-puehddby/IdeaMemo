@@ -71,7 +71,7 @@ platform :ios do
 
   desc 'setup cirtificates'
   lane :setup_cirtificates do
-    setup_ci(force: true)
+    # setup_ci(force: true)
 
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
@@ -114,10 +114,10 @@ platform :ios do
       )
     end
 
-    update_code_signing_settings(
-      use_automatic_signing: false,
-      path: './IdeaMemo.xcodeproj'
-    )
+    # update_code_signing_settings(
+    #   use_automatic_signing: false,
+    #   path: './IdeaMemo.xcodeproj'
+    # )
 
     # profile_name =
     #   case ENV['ENV']
