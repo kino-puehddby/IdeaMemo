@@ -46,6 +46,8 @@ platform :ios do
   desc 'Build for Scheme'
   lane :build do
     # install_lib
+    xcversion(version: '12.4')
+    xcode_select('/Applications/Xcode_12.4.app') if is_ci?
     setup_cirtificates_for_CI if is_ci?
     sync_xcode_signing unless is_ci?
 
