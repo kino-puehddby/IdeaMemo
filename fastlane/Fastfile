@@ -45,7 +45,7 @@ platform :ios do
   lane :build do
     # install_lib
     setup_cirtificates if is_ci?
-    sync_xcode_signing unless is_ci?
+    sync_xcode_signing
 
     case ENV['ENV']
     when 'production'
