@@ -89,16 +89,6 @@ platform :ios do
     authorization_token_str = "#{username}:#{personal_github_access_token}"
     basic_authorization_token = Base64.strict_encode64(authorization_token_str)
 
-    profile_name =
-      case configurations
-      when ['Production Debug', 'Production Release']
-        "match AppStore #{ENV['APP_IDENTIFIER']}"
-      when ['Staging Debug', 'Staging Release']
-        "match AdHoc #{ENV['APP_IDENTIFIER']}"
-      when ['Develop Debug', 'Develop Release']
-        "match Development #{ENV['APP_IDENTIFIER']}"
-      end
-
     case ENV['ENV']
     when 'production'
       match(
@@ -108,7 +98,7 @@ platform :ios do
       )
       update_project_provisioning(
         xcodeproj: './IdeaMemo.xcodeproj',
-        profile: "~/Library/MobileDevice/Provisioning\ Profiles/#{profile_name}",
+        profile: "~/Library/MobileDevice/Provisioning\ Profiles/match\ AppStore\ #{ENV['APP_IDENTIFIER']}",
         build_configuration: 'Production Release'
       )
     when 'staging'
@@ -119,7 +109,7 @@ platform :ios do
       )
       update_project_provisioning(
         xcodeproj: './IdeaMemo.xcodeproj',
-        profile: "~/Library/MobileDevice/Provisioning\ Profiles/#{profile_name}",
+        profile: "~/Library/MobileDevice/Provisioning\ Profiles/match\ AdHoc\ #{ENV['APP_IDENTIFIER']}",
         build_configuration: 'Staging Release'
       )
     else
@@ -130,7 +120,7 @@ platform :ios do
       )
       update_project_provisioning(
         xcodeproj: './IdeaMemo.xcodeproj',
-        profile: "~/Library/MobileDevice/Provisioning\ Profiles/#{profile_name}",
+        profile: "~/Library/MobileDevice/Provisioning\ Profiles/match\ Development\ #{ENV['APP_IDENTIFIER']}",
         build_configuration: 'Develop Release'
       )
     end
