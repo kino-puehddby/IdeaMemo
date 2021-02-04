@@ -228,12 +228,27 @@ platform :ios do
     output_name = 'IdeaMemo.ipa'
     include_bitcode = ENV['ENV'] != 'development'
 
+    profile_name =
+      case ENV['ENV']
+      when 'production'
+        "match AppStore #{ENV['APP_IDENTIFIER']}"
+      when 'staging'
+        "match AdHoc #{ENV['APP_IDENTIFIER']}"
+      when 'development'
+        "match Development #{ENV['APP_IDENTIFIER']}"
+      end
+
     build_ios_app(
       scheme: scheme,
       configuration: configuration,
       workspace: xcode_workspace_path,
       export_method: export_method,
-      export_options: {iCloudContainerEnvironment: export_options},
+      export_options: {
+        iCloudContainerEnvironment: export_options,
+        provisioningProfiles: {
+          ENV['APP_IDENTIFIER'] => profile_name
+        }
+      },
       export_xcargs: '-allowProvisioningUpdates',
       output_directory: output_directory,
       output_name: output_name,
