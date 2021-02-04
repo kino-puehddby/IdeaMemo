@@ -125,6 +125,7 @@ platform :ios do
         end
 
     disable_automatic_code_signing(
+      path: './IdeaMemo.xcodeproj',
       use_automatic_signing: false,
       targets: ['IdeaMemo'],
       team_id: ENV['TEAM_ID'],
