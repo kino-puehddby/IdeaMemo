@@ -8,4 +8,4 @@ app_identifier ENV['APP_IDENTIFIER'] # The bundle identifier of app
 team_id ENV['TEAM_ID'] # Apple Developer Team ID
 username ENV['FASTLANE_USER'] # Apple email address
 # git_private_key ENV['MATCH_GIT_PRIVATE_KEY']
-keychain_password ENV['MATCH_KEYCHAIN_PASSWORD']
+keychain_password ENV['MATCH_PASSWORD']
