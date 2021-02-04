@@ -36,6 +36,9 @@ jobs:
         with:
           fetch-depth: 100
 
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_12.4.app/Contents/Developer
+
       - name: Show Xcode list
         run: ls /Applications | grep 'Xcode'
 
