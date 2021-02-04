@@ -286,7 +286,8 @@ platform :ios do
       output_directory: output_directory,
       output_name: output_name,
       include_bitcode: include_bitcode,
-      codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
+      # codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
+      codesigning_identity: 'Apple Distribution'
     )
   end
 
