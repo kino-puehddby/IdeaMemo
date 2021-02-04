@@ -83,13 +83,18 @@ platform :ios do
       )
     end
 
+    username = ENV['MATCH_GITHUB_USER_NAME']
+    personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
+    authorization_token_str = "#{username}:#{personal_github_access_token}"
+    basic_authorization_token = Base64.strict_encode64(authorization_token_str)
+
     case ENV['ENV']
     when 'production'
-      match(type: 'appstore', readonly: is_ci)
+      match(type: 'appstore', readonly: is_ci, git_basic_authorization: basic_authorization_token)
     when 'staging'
-      match(type: 'adhoc', readonly: is_ci)
+      match(type: 'adhoc', readonly: is_ci, git_basic_authorization: basic_authorization_token)
     else
-      match(type: 'development', readonly: is_ci)
+      match(type: 'development', readonly: is_ci, git_basic_authorization: basic_authorization_token)
     end
   end
 

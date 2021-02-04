@@ -9,4 +9,3 @@ team_id ENV['TEAM_ID'] # Apple Developer Team ID
 username ENV['FASTLANE_USER'] # Apple email address
 # git_private_key ENV['MATCH_GIT_PRIVATE_KEY']
 keychain_password ENV['MATCH_PASSWORD']
-git_basic_authorization Base64.encode64("#{ENV['MATCH_GITHUB_USER_NAME']}:#{ENV['MATCH_GITHUB_TOKEN']}")
