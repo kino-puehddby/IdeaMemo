@@ -179,7 +179,7 @@ platform :ios do
     configuration = options[:configuration] || 'Develop Release'
     xcode_workspace_path = './IdeaMemo.xcworkspace'
     export_method = options[:export_method] || 'development'
-    export_options = ENV['ENV'] != 'development' ? 'Production' : 'Development'
+    export_options = ENV['ENV'] == 'production' ? 'Production' : 'Development'
     output_directory = "./build/ipa/#{ENV['ENV']}/"
     output_name = 'IdeaMemo.ipa'
     include_bitcode = ENV['ENV'] != 'development'
