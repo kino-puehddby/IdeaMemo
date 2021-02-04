@@ -226,9 +226,13 @@ platform :ios do
       add_git_tag(prefix: 'v', tag: get_version_number)
     when 'staging'
       increment_build_number(build_number: latest_testflight_build_number + 1)
+      # bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
+      increment_version_number(bump_type: 'patch')
     end
 
-    commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
+    commit_version_bump(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
+    push_to_git_remote
+    # commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
   end
 end
 
