@@ -139,15 +139,15 @@ platform :ios do
     #   teamid: ENV['TEAM_ID']
     # )
 
-    sigh_env_path =
-      case ENV['ENV']
-      when 'production'
-        "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
-      when 'staging'
-        "sigh_#{ENV['APP_IDENTIFIER']}_adhoc_profile-path"
-      when 'development'
-        "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
-      end
+    # sigh_env_path =
+    #   case ENV['ENV']
+    #   when 'production'
+    #     "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
+    #   when 'staging'
+    #     "sigh_#{ENV['APP_IDENTIFIER']}_adhoc_profile-path"
+    #   when 'development'
+    #     "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
+    #   end
     build_configuration =
       case ENV['ENV']
       when 'production'
@@ -157,20 +157,20 @@ platform :ios do
       else
         'Develop Release'
       end
-    code_signing_identity =
-      case ENV['ENV']
-      when 'production', 'staging'
-        'Apple Distribution'
-      else
-        'Apple Development'
-      end
+    # code_signing_identity =
+    #   case ENV['ENV']
+    #   when 'production', 'staging'
+    #     'Apple Distribution'
+    #   else
+    #     'Apple Development'
+    #   end
 
     update_project_provisioning(
       xcodeproj: './IdeaMemo.xcodeproj',
       target_filter: 'IdeaMemo',
       profile: ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-path'],
       build_configuration: build_configuration,
-      code_signing_identity: code_signing_identity
+      codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
     )
   end
 
@@ -287,7 +287,7 @@ platform :ios do
       output_name: output_name,
       include_bitcode: include_bitcode,
       # codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
-      codesigning_identity: 'Apple Distribution'
+      codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
     )
   end
 
