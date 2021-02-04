@@ -170,7 +170,7 @@ platform :ios do
       target_filter: 'IdeaMemo',
       profile: ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-path'],
       build_configuration: build_configuration,
-      codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
+      code_signing_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
     )
   end
 
