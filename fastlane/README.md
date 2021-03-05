@@ -16,36 +16,26 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios test
-```
-fastlane ios test
-```
-Runs all tests
 ### ios build
 ```
 fastlane ios build
 ```
 Build for Scheme
-### ios setup_cirtificates_for_CI
-```
-fastlane ios setup_cirtificates_for_CI
-```
-setup cirtificates
 ### ios sync_xcode_signing
 ```
 fastlane ios sync_xcode_signing
 ```
 sync xcode signing
-### ios beta
+### ios deploy_to_testflight
 ```
-fastlane ios beta
+fastlane ios deploy_to_testflight
 ```
 deploy to TestFlight
-### ios release
+### ios refresh_dsyms
 ```
-fastlane ios release
+fastlane ios refresh_dsyms
 ```
-deploy to app store connect
+Download & Upload dSYMs to Firebase Clashlytics
 
 ----
 
