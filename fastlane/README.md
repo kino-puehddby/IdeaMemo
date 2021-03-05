@@ -21,6 +21,11 @@ or alternatively using `brew install fastlane`
 fastlane ios build
 ```
 Build for Scheme
+### ios sync_xcode_signing_for_CI
+```
+fastlane ios sync_xcode_signing_for_CI
+```
+sync xcode signing for CI
 ### ios sync_xcode_signing
 ```
 fastlane ios sync_xcode_signing
