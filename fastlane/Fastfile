@@ -290,13 +290,13 @@ platform :ios do
     #     "match Development #{ENV['APP_IDENTIFIER']}"
     #   end
 
-    # codesigning_type =
-    #   case configuration
-    #   when Production Release', Staging Release'
-    #     'Apple Distribution'
-    #   when 'Develop Release'
-    #     'Apple Development'
-    #   end
+    codesigning_type =
+      case configuration
+      when 'Production Release', 'Staging Release'
+        'Apple Distribution'
+      when 'Develop Release'
+        'Apple Development'
+      end
 
     export_method = options[:export_method] || 'development'
 
@@ -315,8 +315,8 @@ platform :ios do
       },
       export_xcargs: '-allowProvisioningUpdates',
       include_bitcode: ENV['ENV'] != 'development',
-      include_symbols: ENV['ENV'] != 'development'
-      # codesigning_identity: "#{codesigning_type}: Hisaya Sugita (#{ENV['TEAM_ID']})"
+      include_symbols: ENV['ENV'] != 'development',
+      codesigning_identity: "#{codesigning_type}: Hisaya Sugita (#{ENV['TEAM_ID']})"
     )
   end
 
