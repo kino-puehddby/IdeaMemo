@@ -162,12 +162,23 @@ platform :ios do
     #     'Apple Development'
     #   end
 
-    update_project_provisioning(
-      xcodeproj: './IdeaMemo.xcodeproj',
-      target_filter: 'IdeaMemo',
-      profile: ENV['sigh_com.kino-puehddby.IdeaMemo_appstore_profile-path'],
-      build_configuration: 'Production Release',
-      code_signing_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
+    # update_project_provisioning(
+    #   xcodeproj: './IdeaMemo.xcodeproj',
+    #   target_filter: 'IdeaMemo',
+    #   profile: ENV['sigh_com.kino-puehddby.IdeaMemo_appstore_profile-path'],
+    #   build_configuration: 'Production Release',
+    #   code_sign_identity: code_sign_identity
+    # )
+
+    update_code_signing_settings(
+      path: './IdeaMemo.xcodeproj',
+      use_automatic_signing: false,
+      team_id: ENV['TEAM_ID'],
+      targets: ['IdeaMemo'],
+      build_configurations: 'Production Release',
+      code_sign_identity: 'Apple Distribution',
+      profile_name: "match AppStore #{ENV['APP_IDENTIFIER']}",
+      bundle_identifier: ENV['APP_IDENTIFIER']
     )
   end
 
