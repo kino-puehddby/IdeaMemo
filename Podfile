@@ -7,8 +7,13 @@ end
 
 def install_pods
   # Firebase
+  pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Performance'
+
+  # Google
   pod 'GoogleSignIn'
 
   # Code Check
