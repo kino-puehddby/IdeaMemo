@@ -10,6 +10,7 @@ on:
       - IdeaMemo/Supporting Files/Info.plist
       - IdeaMemoTests/Supporting Files/Info.plist
       - IdeaMemoUITests/Supporting Files/Info.plist
+      - README.md
 #   pull_request:
 #     branches:
 #       - develop
