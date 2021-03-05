@@ -111,11 +111,6 @@ platform :ios do
     #   readonly: is_ci
     # )
 
-    sigh(
-      app_identifier: ENV['APP_IDENTIFIER'],
-      force: true
-    )
-
     # case ENV['ENV']
     # when 'production'
     #   match(
@@ -182,7 +177,8 @@ platform :ios do
       targets: ['IdeaMemo'],
       build_configurations: 'Production Release',
       code_sign_identity: 'Apple Distribution',
-      profile_name: "match AppStore #{ENV['APP_IDENTIFIER']}",
+      # profile_name: "match AppStore #{ENV['APP_IDENTIFIER']}",
+      profile_name: 'match AppStore com.kino-puehddby.IdeaMemo',
       bundle_identifier: ENV['APP_IDENTIFIER']
     )
   end
@@ -234,15 +230,15 @@ platform :ios do
         force: true,
         provider: 'travis' # travis で代用するとうまく動くらしい
       )
+
+      sigh(
+        app_identifier: ENV['APP_IDENTIFIER'],
+        force: true
+      )
+      # sync_xcode_signing_for_CI
+    else
+      sync_xcode_signing
     end
-
-    # if is_ci
-    #   sync_xcode_signing_for_CI
-    # else
-    #   sync_xcode_signing
-    # end
-
-    sync_xcode_signing
 
     build
 
