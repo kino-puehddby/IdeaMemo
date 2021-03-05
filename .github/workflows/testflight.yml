@@ -6,8 +6,10 @@ on:
   push:
     branches:
       - develop
-#     paths-ignore:
-#       - README.md
+    paths-ignore:
+      - IdeaMemo/Supporting Files/Info.plist
+      - IdeaMemoTests/Supporting Files/Info.plist
+      - IdeaMemoUITests/Supporting Files/Info.plist
 #   pull_request:
 #     branches:
 #       - develop
