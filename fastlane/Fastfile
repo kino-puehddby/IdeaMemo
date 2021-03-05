@@ -69,8 +69,8 @@ platform :ios do
     end
   end
 
-  # desc 'setup cirtificates'
-  # lane :setup_cirtificates_for_CI do
+  desc 'sync xcode signing for CI'
+  lane :sync_xcode_signing_for_CI do
     # setup_ci(
     #   force: true,
     #   provider: 'travis' # travis で代用するとうまく動く
@@ -99,10 +99,17 @@ platform :ios do
     #   team_id: ENV['TEAM_ID']
     # )
 
-    # username = ENV['MATCH_GITHUB_USER_NAME']
-    # personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
-    # authorization_token_str = "#{username}:#{personal_github_access_token}"
-    # basic_authorization_token = Base64.strict_encode64(authorization_token_str)
+    username = ENV['MATCH_GITHUB_USER_NAME']
+    personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
+    authorization_token_str = "#{username}:#{personal_github_access_token}"
+    basic_authorization_token = Base64.strict_encode64(authorization_token_str)
+
+    match(
+      type: "appstore",
+      app_identifier: ENV['APP_IDENTIFIER'],
+      git_basic_authorization: basic_authorization_token,
+      readonly: is_ci
+    )
 
     # case ENV['ENV']
     # when 'production'
@@ -137,15 +144,7 @@ platform :ios do
     #   teamid: ENV['TEAM_ID']
     # )
 
-    # sigh_env_path =
-    #   case ENV['ENV']
-    #   when 'production'
-    #     "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
-    #   when 'staging'
-    #     "sigh_#{ENV['APP_IDENTIFIER']}_adhoc_profile-path"
-    #   when 'development'
-    #     "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
-    #   end
+    # sigh_env_path = "sigh_#{ENV['APP_IDENTIFIER']}_appstore_profile-path"
     # build_configuration =
     #   case ENV['ENV']
     #   when 'production'
@@ -163,14 +162,14 @@ platform :ios do
     #     'Apple Development'
     #   end
 
-    # update_project_provisioning(
-    #   xcodeproj: './IdeaMemo.xcodeproj',
-    #   target_filter: 'IdeaMemo',
-    #   profile: ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-path'],
-    #   build_configuration: build_configuration,
-    #   code_signing_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
-    # )
-  # end
+    update_project_provisioning(
+      xcodeproj: './IdeaMemo.xcodeproj',
+      target_filter: 'IdeaMemo',
+      profile: ENV['sigh_com.kino-puehddby.IdeaMemo_appstore_profile-path'],
+      build_configuration: 'Production Release',
+      code_signing_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
+    )
+  end
 
   desc 'sync xcode signing'
   lane :sync_xcode_signing do
@@ -222,17 +221,7 @@ platform :ios do
     end
 
     if is_ci
-      username = ENV['MATCH_GITHUB_USER_NAME']
-      personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
-      authorization_token_str = "#{username}:#{personal_github_access_token}"
-      basic_authorization_token = Base64.strict_encode64(authorization_token_str)
-
-      match(
-        type: "appstore",
-        app_identifier: ENV['APP_IDENTIFIER'],
-        git_basic_authorization: basic_authorization_token,
-        readonly: is_ci
-      )
+      sync_xcode_signing_for_CI
     else
       sync_xcode_signing
     end
