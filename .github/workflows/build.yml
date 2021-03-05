@@ -99,18 +99,18 @@ jobs:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ビルド
-      - name: Xcode build
-        run: make build-debug
+      # - name: Xcode build
+        # run: make build-debug
 
       # ビルドログのアップロード
-      - name: Upload build log Artifact
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: xcodebuild-logs
-          path: xcodebuild_build.log
-          if-no-files-found: ignore
-          retention-days: 14
+      # - name: Upload build log Artifact
+      #   uses: actions/upload-artifact@v2
+      #   if: failure()
+      #   with:
+      #     name: xcodebuild-logs
+      #     path: xcodebuild_build.log
+      #     if-no-files-found: ignore
+      #     retention-days: 14
 
       # 単体テストの実行
 #       - name: Xcode test
