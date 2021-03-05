@@ -291,7 +291,7 @@ platform :ios do
     #   end
 
     codesigning_type =
-      case configuration
+      case options[:configuration]
       when 'Production Release', 'Staging Release'
         'Apple Distribution'
       when 'Develop Release'
