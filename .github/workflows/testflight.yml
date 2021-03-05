@@ -91,25 +91,25 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: deploy to TestFlight
-      #   run: |
-      #     bundle exec fastlane deploy_to_testflight
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
-      #     APPLE_ID: ${{ secrets.APPLE_ID }}
-      #     TEAM_ID: ${{ secrets.TEAM_ID }}
-      #     ENV: ${{ secrets.ENV }}
-      #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-      #     FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-      #     # MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-      #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      #     MATCH_GITHUB_REPO: ${{ secrets.MATCH_GITHUB_REPO }}
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #     MATCH_GITHUB_USER_NAME: ${{ secrets.MATCH_GITHUB_USER_NAME }}
-      #     MATCH_GITHUB_TOKEN: ${{ secrets.MATCH_GITHUB_TOKEN }}
-      #     FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
-      #     FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+      - name: deploy to TestFlight
+        run: |
+          bundle exec fastlane deploy_to_testflight
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          ENV: ${{ secrets.ENV }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          # MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GITHUB_REPO: ${{ secrets.MATCH_GITHUB_REPO }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MATCH_GITHUB_USER_NAME: ${{ secrets.MATCH_GITHUB_USER_NAME }}
+          MATCH_GITHUB_TOKEN: ${{ secrets.MATCH_GITHUB_TOKEN }}
+          FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
 
   success_notify:
     name: Slack Notification ( success )
