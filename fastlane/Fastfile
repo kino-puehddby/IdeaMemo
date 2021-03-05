@@ -46,13 +46,6 @@ platform :ios do
   desc 'Build for Scheme'
   lane :build do
     # install_lib
-    # setup_cirtificates_for_CI if is_ci
-
-    if is_ci
-      sigh(app_identifier: ENV['APP_IDENTIFIER'])
-    else
-      sync_xcode_signing
-    end
 
     case ENV['ENV']
     when 'production'
@@ -221,6 +214,30 @@ platform :ios do
 
   desc 'deploy to TestFlight'
   lane :deploy_to_testflight do
+    if is_ci
+      setup_ci(
+        force: true,
+        provider: 'travis' # travis で代用するとうまく動くらしい
+      )
+    end
+
+    if is_ci
+      api_key = app_store_connect_api_key(
+        key_id: ENV['ASC_API_KEY_ID'],
+        issuer_id: ENV['ASC_API_ISSUER_ID'],
+        key_content: ENV['ASC_API_KEY_CONTENT'],
+      )
+
+      match(
+        type: "appstore",
+        api_key: api_key,
+        app_identifier: ENV['APP_IDENTIFIER'],
+        readonly: is_ci
+      )
+    else
+      sync_xcode_signing
+    end
+
     build
 
     # NOTE: バージョンのアップデートは手動でやる
@@ -230,9 +247,7 @@ platform :ios do
 
     if is_ci
       commit_push(message: "build number updated: #{get_build_number}")
-    end
 
-    if is_ci
       api_key = app_store_connect_api_key(
         key_id: ENV['ASC_API_KEY_ID'],
         issuer_id: ENV['ASC_API_ISSUER_ID'],
