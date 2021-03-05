@@ -10,13 +10,13 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-fastlane_version '2.172.0'
+fastlane_version '2.176.0'
 
 default_platform :ios
 
 before_all do |lane|
   case lane
-  when :release
+  when :release, :deploy_to_testflight
     ENV['ENV'] = 'production'
   when :beta
     ENV['ENV'] = 'staging'
@@ -30,24 +30,29 @@ platform :ios do
   # Public Lane
   #################
 
-  desc 'Runs all tests'
-  lane :test do
-    install_lib
-    case ENV['ENV']
-    when 'production'
-      scan(scheme: 'IdeaMemo-release', device: 'iPhone 12')
-    when 'staging'
-      scan(scheme: 'IdeaMemo-staging', device: 'iPhone 12')
-    when 'development'
-      scan(scheme: 'IdeaMemo', device: 'iPhone 12')
-    end
-  end
+  # desc 'Runs all tests'
+  # lane :test do
+  #   install_lib
+  #   case ENV['ENV']
+  #   when 'production'
+  #     scan(scheme: 'IdeaMemo-release', device: 'iPhone 12')
+  #   when 'staging'
+  #     scan(scheme: 'IdeaMemo-staging', device: 'iPhone 12')
+  #   when 'development'
+  #     scan(scheme: 'IdeaMemo', device: 'iPhone 12')
+  #   end
+  # end
 
   desc 'Build for Scheme'
   lane :build do
     # install_lib
-    setup_cirtificates_for_CI if is_ci?
-    sync_xcode_signing unless is_ci?
+    # setup_cirtificates_for_CI if is_ci
+
+    if is_ci
+      sigh(app_identifier: ENV['APP_IDENTIFIER'])
+    else
+      sync_xcode_signing
+    end
 
     case ENV['ENV']
     when 'production'
@@ -71,20 +76,20 @@ platform :ios do
     end
   end
 
-  desc 'setup cirtificates'
-  lane :setup_cirtificates_for_CI do
-    setup_ci(
-      force: true,
-      provider: 'travis' # travis で代用するとうまく動く
-    )
+  # desc 'setup cirtificates'
+  # lane :setup_cirtificates_for_CI do
+    # setup_ci(
+    #   force: true,
+    #   provider: 'travis' # travis で代用するとうまく動く
+    # )
 
-    create_keychain(
-      name: ENV['MATCH_KEYCHAIN_NAME'],
-      password: ENV['MATCH_PASSWORD'],
-      default_keychain: true,
-      unlock: true,
-      timeout: 1800
-    )
+    # create_keychain(
+    #   name: ENV['MATCH_KEYCHAIN_NAME'],
+    #   password: ENV['MATCH_PASSWORD'],
+    #   default_keychain: true,
+    #   unlock: true,
+    #   timeout: 1800
+    # )
 
     # delivery_type =
     #   case ENV['ENV']
@@ -96,42 +101,42 @@ platform :ios do
     #     'development'
     #   end
 
-    disable_automatic_code_signing(
-      path: './IdeaMemo.xcodeproj',
-      team_id: ENV['TEAM_ID']
-    )
+    # disable_automatic_code_signing(
+    #   path: './IdeaMemo.xcodeproj',
+    #   team_id: ENV['TEAM_ID']
+    # )
 
-    username = ENV['MATCH_GITHUB_USER_NAME']
-    personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
-    authorization_token_str = "#{username}:#{personal_github_access_token}"
-    basic_authorization_token = Base64.strict_encode64(authorization_token_str)
+    # username = ENV['MATCH_GITHUB_USER_NAME']
+    # personal_github_access_token = ENV['MATCH_GITHUB_TOKEN']
+    # authorization_token_str = "#{username}:#{personal_github_access_token}"
+    # basic_authorization_token = Base64.strict_encode64(authorization_token_str)
 
-    case ENV['ENV']
-    when 'production'
-      match(
-        type: 'appstore',
-        readonly: is_ci,
-        git_basic_authorization: basic_authorization_token,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_PASSWORD']
-      )
-    when 'staging'
-      match(
-        type: 'adhoc',
-        readonly: is_ci,
-        git_basic_authorization: basic_authorization_token,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_PASSWORD']
-      )
-    else
-      match(
-        type: 'development',
-        readonly: is_ci,
-        git_basic_authorization: basic_authorization_token,
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_PASSWORD']
-      )
-    end
+    # case ENV['ENV']
+    # when 'production'
+    #   match(
+    #     type: 'appstore',
+    #     readonly: is_ci,
+    #     git_basic_authorization: basic_authorization_token,
+    #     keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+    #     keychain_password: ENV['MATCH_PASSWORD']
+    #   )
+    # when 'staging'
+    #   match(
+    #     type: 'adhoc',
+    #     readonly: is_ci,
+    #     git_basic_authorization: basic_authorization_token,
+    #     keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+    #     keychain_password: ENV['MATCH_PASSWORD']
+    #   )
+    # else
+    #   match(
+    #     type: 'development',
+    #     readonly: is_ci,
+    #     git_basic_authorization: basic_authorization_token,
+    #     keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+    #     keychain_password: ENV['MATCH_PASSWORD']
+    #   )
+    # end
 
     # update_project_team(
     #   path: './IdeaMemo.xcodeproj',
@@ -148,15 +153,15 @@ platform :ios do
     #   when 'development'
     #     "sigh_#{ENV['APP_IDENTIFIER']}_development_profile-path"
     #   end
-    build_configuration =
-      case ENV['ENV']
-      when 'production'
-        'Production Release'
-      when 'staging'
-        'Staging Release'
-      else
-        'Develop Release'
-      end
+    # build_configuration =
+    #   case ENV['ENV']
+    #   when 'production'
+    #     'Production Release'
+    #   when 'staging'
+    #     'Staging Release'
+    #   else
+    #     'Develop Release'
+    #   end
     # code_signing_identity =
     #   case ENV['ENV']
     #   when 'production', 'staging'
@@ -165,14 +170,14 @@ platform :ios do
     #     'Apple Development'
     #   end
 
-    update_project_provisioning(
-      xcodeproj: './IdeaMemo.xcodeproj',
-      target_filter: 'IdeaMemo',
-      profile: ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-path'],
-      build_configuration: build_configuration,
-      code_signing_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
-    )
-  end
+    # update_project_provisioning(
+    #   xcodeproj: './IdeaMemo.xcodeproj',
+    #   target_filter: 'IdeaMemo',
+    #   profile: ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-path'],
+    #   build_configuration: build_configuration,
+    #   code_signing_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
+    # )
+  # end
 
   desc 'sync xcode signing'
   lane :sync_xcode_signing do
@@ -215,11 +220,19 @@ platform :ios do
   end
 
   desc 'deploy to TestFlight'
-  lane :beta do
+  lane :deploy_to_testflight do
     build
-    increment_build_and_version_number
 
-    if is_ci?
+    # NOTE: バージョンのアップデートは手動でやる
+    # increment_build_and_version_number
+
+    increment_build_number
+
+    if is_ci
+      commit_push(message: "build number updated: #{get_build_number}")
+    end
+
+    if is_ci
       api_key = app_store_connect_api_key(
         key_id: ENV['ASC_API_KEY_ID'],
         issuer_id: ENV['ASC_API_ISSUER_ID'],
@@ -227,22 +240,34 @@ platform :ios do
       )
       pilot(
         api_key: api_key,
-        skip_submission: true,
-        skip_waiting_for_build_processing: true
+        username: ENV['FASTLANE_USER']
       )
     else
-      pilot(
-        skip_submission: true,
-        skip_waiting_for_build_processing: true
-      )
+      pilot(username: ENV['FASTLANE_USER'])
     end
+
+    refresh_dsyms
   end
 
-  desc 'deploy to app store connect'
-  lane :release do
-    build
-    increment_build_and_version_number
-    deliver
+  # desc 'deploy to app store connect'
+  # lane :release do
+  #   build
+  #   increment_build_and_version_number
+  #   deliver
+  # end
+
+  desc 'Download & Upload dSYMs to Firebase Clashlytics'
+  lane :refresh_dsyms do |options|
+    version = options[:version] || 'latest'
+
+    download_dsyms(
+      app_identifier: ENV['APP_IDENTIFIER'],
+      username: ENV['FASTLANE_USER'],
+      version: version
+    )
+
+    upload_symbols_to_crashlytics
+    clean_build_artifacts
   end
 
   #################
@@ -251,14 +276,6 @@ platform :ios do
 
   desc 'gym for scheme'
   private_lane :gym_for_scheme do |options|
-    scheme = options[:scheme] || 'IdeaMemo'
-    configuration = options[:configuration] || 'Develop Release'
-    xcode_workspace_path = './IdeaMemo.xcworkspace'
-    export_method = options[:export_method] || 'development'
-    icloud_container_environment = ENV['ENV'] == 'development' ? 'Development' : 'Production'
-    output_directory = "./build/ipa/#{ENV['ENV']}/"
-    output_name = 'IdeaMemo.ipa'
-    include_bitcode = ENV['ENV'] != 'development'
     # profile_name =
     #   case ENV['ENV']
     #   when 'production'
@@ -269,38 +286,46 @@ platform :ios do
     #     "match Development #{ENV['APP_IDENTIFIER']}"
     #   end
 
+    # codesigning_type =
+    #   case configuration
+    #   when Production Release', Staging Release'
+    #     'Apple Distribution'
+    #   when 'Develop Release'
+    #     'Apple Development'
+    #   end
+
+    export_method = options[:export_method] || 'development'
+
     build_ios_app(
-      scheme: scheme,
-      configuration: configuration,
-      workspace: xcode_workspace_path,
+      scheme: options[:scheme] || 'IdeaMemo',
+      configuration: options[:configuration] || 'Develop Release',
+      workspace: './IdeaMemo.xcworkspace',
       clean: true,
       export_method: export_method,
       export_options: {
         method: export_method,
-        iCloudContainerEnvironment: icloud_container_environment,
+        iCloudContainerEnvironment: ENV['ENV'] == 'development' ? 'Development' : 'Production',
         provisioningProfiles: {
           ENV['APP_IDENTIFIER'] => ENV['sigh_com.kino-puehddby.IdeaMemo_adhoc_profile-name']
         }
       },
       export_xcargs: '-allowProvisioningUpdates',
-      output_directory: output_directory,
-      output_name: output_name,
-      include_bitcode: include_bitcode,
-      # codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
-      codesigning_identity: "Apple Distribution: Hisaya Sugita (#{ENV['TEAM_ID']})"
+      include_bitcode: ENV['ENV'] != 'development',
+      include_symbols: ENV['ENV'] != 'development'
+      # codesigning_identity: "#{codesigning_type}: Hisaya Sugita (#{ENV['TEAM_ID']})"
     )
   end
 
-  desc 'install libraries'
-  private_lane :install_lib do
-    cocoapods(try_repo_update_on_error: true)
-    carthage(
-      command: 'bootstrap',
-      use_binaries: false,
-      platform: 'iOS',
-      cache_builds: true
-    )
-  end
+  # desc 'install libraries'
+  # private_lane :install_lib do
+  #   cocoapods(try_repo_update_on_error: true)
+  #   carthage(
+  #     command: 'bootstrap',
+  #     use_binaries: false,
+  #     platform: 'iOS',
+  #     cache_builds: true
+  #   )
+  # end
 
   desc 'git commit & push'
   private_lane :commit_push do |options|
@@ -308,24 +333,17 @@ platform :ios do
     push_to_git_remote
   end
 
-  desc 'increment build & version number'
-  private_lane :increment_build_and_version_number do
-    ensure_git_status_clean
+#   desc 'increment build & version number'
+#   lane :increment_build_and_version_number do
+#     ensure_git_status_clean
 
-    case ENV['ENV']
-    when 'production'
-      increment_build_number(build_number: app_store_build_number + 1)
-      bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
-      increment_version_number(bump_type: bump_type)
-      add_git_tag(prefix: 'v', tag: get_version_number)
-    when 'staging'
-      increment_build_number(build_number: latest_testflight_build_number + 1)
-      # bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
-      increment_version_number(bump_type: 'patch')
-    end
+#     increment_build_number(build_number: app_store_build_number + 1)
+#     bump_type = UI.select('3: ', ['major', 'minor', 'patch'])
+#     increment_version_number(bump_type: bump_type)
+#     add_git_tag(prefix: 'v', tag: get_version_number)
 
-    commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
-  end
+#     commit_push(message: "build number updated: #{get_build_number} & version number updated: #{get_version_number}")
+#   end
 end
 
 error do |lane, exception, options|
