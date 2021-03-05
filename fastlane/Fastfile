@@ -222,15 +222,8 @@ platform :ios do
     end
 
     if is_ci
-      api_key = app_store_connect_api_key(
-        key_id: ENV['ASC_API_KEY_ID'],
-        issuer_id: ENV['ASC_API_ISSUER_ID'],
-        key_content: ENV['ASC_API_KEY_CONTENT'],
-      )
-
       match(
         type: "appstore",
-        api_key: api_key,
         app_identifier: ENV['APP_IDENTIFIER'],
         readonly: is_ci
       )
@@ -247,19 +240,9 @@ platform :ios do
 
     if is_ci
       commit_push(message: "build number updated: #{get_build_number}")
-
-      api_key = app_store_connect_api_key(
-        key_id: ENV['ASC_API_KEY_ID'],
-        issuer_id: ENV['ASC_API_ISSUER_ID'],
-        key_content: ENV['ASC_API_KEY_CONTENT'],
-      )
-      pilot(
-        api_key: api_key,
-        username: ENV['FASTLANE_USER']
-      )
-    else
-      pilot(username: ENV['FASTLANE_USER'])
     end
+
+    pilot(username: ENV['FASTLANE_USER'])
 
     refresh_dsyms
   end
